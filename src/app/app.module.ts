@@ -16,6 +16,9 @@ import { WebService } from './shared/services/web.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CreatePodcastComponent } from './private/create-podcast/create-podcast.component';
 import { CreatePodcastConformationComponent } from './private/create-podcast-conformation/create-podcast-conformation.component';
+import { EditProfileComponent } from './public/edit-profile/edit-profile.component';
+import { AboutPodcastComponent } from './private/about-podcast/about-podcast.component';
+import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { CreatePodcastConformationComponent } from './private/create-podcast-con
     ResetPasswordComponent,
     RegisterThanksComponent,
     CreatePodcastComponent,
-    CreatePodcastConformationComponent
+    CreatePodcastConformationComponent,
+    EditProfileComponent,
+    AboutPodcastComponent,
+    EditPodcastComponent
   ],
   imports: [
     BrowserModule,

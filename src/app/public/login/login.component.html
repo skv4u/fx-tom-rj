@@ -32,7 +32,7 @@
                 <img src="assets/images/login-img.jpg" alt="Sign In" />
             </div>
             <div class="signin_form">
-                <form [formGroup]="loginForm" (submit)="signin()">
+                <form [formGroup]="loginForm">
                     <div class="row">
                         <!-- [FormGroup]="loginForm" -->
                         <div class="col-md-10 col-12">
@@ -49,7 +49,7 @@
                                 </span>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Password" formControlName="password">
+                                <input type="password" class="form-control" id="floatingInput" placeholder="Password" formControlName="password">
                                 <label for="floatingInput">Password</label>
                             </div>
                             <div class="required-error">
@@ -62,7 +62,7 @@
                             <p class="forget"><a routerLink="/forgot-password">Forgot password</a></p>
                         </div>
                         <div>
-                            <a routerLink="/dashboard"><button class="custome-button">Sign In</button></a>
+                            <a><button class="custome-button" (click)="signin()">Sign In</button></a>
                         </div>
                     </div>
                 </form>

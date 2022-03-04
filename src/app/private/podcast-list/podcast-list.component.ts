@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WebService } from 'src/app/shared/services/web.service';
+import { PorcastService } from '../porcast.service';
 
 @Component({
   selector: 'app-podcast-list',
@@ -7,33 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PodcastListComponent implements OnInit {
 
-RJDasboardList: any[] = [{
-  "Image": 'assets/images/login-img.jpg',
-  "Title": 'Podcast 1',
-  "Category": 'Comedy,Politics',
-  "UpdateDate": '02-03-2022',
-  "Status": 'Live',
-  "BroadcastDate": '25th Jan 2021',
-  "UserComments": 'None',
-  "LatestNotes": 'Poor Quility',
-  "BroadcastTime": '2:30',
-  "UpdateTime": '2:30',
-},{
-  "Image": 'assets/images/login-img.jpg',
-  "Title": 'Podcast 2',
-  "Category": 'Comedy,Politics',
-  "UpdateDate": '02-03-2022',
-  "Status": 'Live',
-  "BroadcastDate": '25th Jan 2021',
-  "UserComments": 'None',
-  "LatestNotes": 'Poor Quility',
-  "BroadcastTime": '2:30',
-  "UpdateTime": '2:30',
-}];
+  RJDasboardList: any[] = [];
 
-  constructor() { }
+  constructor(public _webService: WebService, public _podService: PorcastService) { }
 
   ngOnInit() {
+    this.getPodcastList();
   }
-
+  getPodcastList() {
+    let req = {
+      "user_id": 1,
+      "podcast_id": ""
+    }
+    console.log(req,"req");
+    this._webService.commonMethod('podcast/list', req, "POST").subscribe(
+      data => {
+        if (data.Status == "Success" && data.Response && data.Response.length) {
+          this.RJDasboardList = data.Response;
+        }
+      }
+    )
+  }
 }

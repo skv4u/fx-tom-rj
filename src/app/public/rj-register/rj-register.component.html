@@ -33,7 +33,7 @@
     <div class="body-content">
         <h3>Register</h3>
         <h4 class="mb-3">Personal Information</h4>
-        <form [formGroup]="registerForm" (submit)="register()">
+        <form [formGroup]="registerForm">
             <div class="row">
                 <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
@@ -114,23 +114,29 @@
                     </div>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <select class="form-control" formControlName="country">
-                        <option>Country</option>
-                    </select>
+                    <div class="form-floating">
+                        <select class="form-control" placeholder="Country" formControlName="country" (select)="getStateList()">
+                            <option>Country</option>
+                        </select>
+                        <label for="floatingInput">Country</label>
+                    </div>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <select class="form-control" formControlName="state">
-                        <option>State</option>
-                    </select>
+                    <div class="form-floating">
+                        <select class="form-control" placeholder="State" formControlName="state">
+                            <option>State</option>
+                        </select>
+                        <label for="floatingInput">State</label>
+                    </div>
                 </div>
 
                 <div class="col-md-12 col-12 mb-4 d-flex align-items-center flex-wrap radio-width">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" formControlName="usertype">
+                        <input class="form-check-input" type="radio" name="usertype" id="inlineRadio1" value="Individual" formControlName="usertype">
                         <label class="form-check-label" for="inlineRadio1">Individual Podcaster</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" formControlName="usertype">
+                        <input class="form-check-input" type="radio" name="usertype" id="inlineRadio2" value="Organisation" formControlName="usertype">
                         <label class="form-check-label" for="inlineRadio2">Organisation</label>
                     </div>
                     <div class="w-50">
@@ -175,7 +181,8 @@
 
             <div class="row">
                 <div class="co1-12 mb-4">
-                    <button class="custome-button"><a routerLink="/register-thank-you.html">Register as Podcaster</a></button>
+                    <button class="custome-button" (click)="register()"><a>Register as
+                            Podcaster</a></button>
                 </div>
 
             </div>

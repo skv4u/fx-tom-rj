@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
         "LoginID": this.loginForm.value.username,
         "Password": this.loginForm.value.password
       }
-      this._webService.commonMethod('', req, "Post").subscribe(
+      this._webService.commonMethod('user/login', req, "POST").subscribe(
         data => {
-
+          console.log(data, "datadatadatadata");
         }
       )
     }

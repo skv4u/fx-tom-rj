@@ -141,10 +141,10 @@
                 <div class="s-box">
                     <a href="#" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5">
-                        <li><a class="dropdown-item" href="edit-rj-profile.html">Edit Profile</a></li>
+                        <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
                         <!-- <li><a class="dropdown-item" href="edit-category.html">Edit Category</a></li> -->
                         <!-- <li><a class="dropdown-item" href="#">Manage Ads</a></li> -->
-                        <li><a class="dropdown-item" href="signin.html">Log out</a></li>
+                        <li><a class="dropdown-item" routerLink="/login">Log out</a></li>
                     </ul>
                 </div>
                 <!-- <div class="s-box online"><a href="#"> Chat with RJs <i class="fas fa-user-cog"></i></a></div> -->
@@ -176,11 +176,11 @@
                                 <th class="pic">Picture</th>
                                 <th>Title</th>
                                 <th>
-                                    <a href="" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
-                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5">
-                                        <li><a class="dropdown-item" href="#">Comedy</a></li>
-                                        <li><a class="dropdown-item" href="#">Politics</a></li>
-                                        <li><a class="dropdown-item" href="#">News</a></li>
+                                    <a href="#" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" *ngFor="let a of _podService.categoryList">
+                                        <li><a class="dropdown-item" href="#">{{a.name}}</a></li>
+                                        <!-- <li><a class="dropdown-item" href="#">Politics</a></li>
+                                        <li><a class="dropdown-item" href="#">News</a></li> -->
                                     </ul>
                                 </th>
                                 <th class="text-center">Upload Date</th>
@@ -203,15 +203,15 @@
                         <tbody>
                             <tr *ngFor="let list of RJDasboardList">
                                 <td class="pic">
-                                    <img [src]="list.image" alt="img" />
+                                    <img [src]="list.imagepath" alt="img" />
                                 </td>
                                 <td class="rjsname">
-                                    <h5 class="mb-0">{{list.Title}}</h5>
-                                    <p><a href="about-podcast.html">About the Podcasters</a></p>
+                                    <h5 class="mb-0">{{list.name}}</h5>
+                                    <p (click)="_podService.podcastListData = list"><a routerLink="/about-podcast">About the Podcasters</a></p>
                                 </td>
-                                <td>{{list.Category}}</td>
+                                <td>{{list.category}}</td>
                                 <td class="text-center">
-                                    <p class="mb-0">{{list.UpdateDate}}</p>
+                                    <p class="mb-0">{{list.upload_date}}</p>
                                     <span class="small">{{list.UpdateTime}}</span>
 
                                 </td>
@@ -232,14 +232,14 @@
                                 </div> -->
 
                                 <td>
-                                    <li class="pending">{{list.Status}}</li>
+                                    <li class="pending">{{list.approvals}}</li>
                                 </td>
                                 <td class="text-center">
-                                    <p class="mb-0">{{list.BroadcastDate}}</p>
+                                    <p class="mb-0">{{list.broadcast_date}}</p>
                                     <span class="small">{{list.BroadcastTime}}</span>
                                 </td>
                                 <td class="text-center">{{list.UserComments}}</td>
-                                <td class="text-center"><a href="edit-podcast.html"><i class="fas fa-pen"></i></a></td>
+                                <td class="text-center"><a routerLink="/edit-podcast"><i class="fas fa-pen" (click)="_podService.podcastListData = list"></i></a></td>
                                 <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
                                 <td class="text-center">{{list.LatestNotes}}</td>
                             </tr>

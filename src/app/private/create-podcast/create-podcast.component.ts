@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { WebService } from 'src/app/shared/services/web.service';
+import { PorcastService } from '../porcast.service';
 
 @Component({
   selector: 'app-create-podcast',
@@ -11,11 +12,11 @@ export class CreatePodcastComponent implements OnInit {
 
   podcastForm: FormGroup;
   ispodcastFormValid: boolean = true;
-  categoryList: any[] = [];
   constructor(
-    public fb: FormBuilder, public _webService: WebService) { }
+    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService) { }
 
   ngOnInit() {
+    console.log(this._podService.podcastListData,"_podService");
     this.podcastForm = this.fb.group({
       name: ['', [Validators.required]],
       author_name: ['', [Validators.required]],
@@ -27,19 +28,19 @@ export class CreatePodcastComponent implements OnInit {
       approvals: '',
       broadcast_date: '',
       upload_date: '',
-      age_restriction: '',
+      age_restriction: false,
     })
-    this.getCategoryList();
+   // this.getCategoryList();
   }
-  getCategoryList() {
-    this._webService.commonMethod('category', '', "GET").subscribe(
-      data => {
-        if(data.Status == 'Success' && data.Response && data.Response.length){
-          this.categoryList = data.Response;
-        }
-      }
-    )
-  }
+  // getCategoryList() {
+  //   this._webService.commonMethod('category', '', "GET").subscribe(
+  //     data => {
+  //       if(data.Status == 'Success' && data.Response && data.Response.length){
+  //         this.categoryList = data.Response;
+  //       }
+  //     }
+  //   )
+  // }
   createProcast() {
     if (!this.podcastForm.valid) {
       this.ispodcastFormValid = false;
@@ -60,7 +61,7 @@ export class CreatePodcastComponent implements OnInit {
       "age_restriction": this.podcastForm.value.age_restriction,
       "created_by": "Santosh"
     }
-    this._webService.commonMethod('', req, "Post").subscribe(
+    this._webService.commonMethod('podcast/create', req, "Post").subscribe(
       data => {
 
       }

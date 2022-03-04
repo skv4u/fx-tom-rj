@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12 d-flex flex-wrap align-items-center">
                 <div class="logo">
-                    <a href="#"><img src="assets/images/logo.jpg" alt="Logo" /></a>
+                    <a href="#"><img src="images/logo.jpg" alt="Logo" /></a>
                 </div>
                 <div class="top-title">
                     <h1>RJ Dashboard</h1>
@@ -14,8 +14,8 @@
                         <div class="top-name">
                             <div>
                                 <button id="btnGroupDrop1" type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
-                                </button>
+                  Dropdown
+                </button>
                                 <div class="subscribe">
                                     <span>200 Followers</span>
                                     <span>26 Subscribers</span>
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="top-img">
-                            <img src="assets/images/login-img.jpg" alt="img" />
+                            <img src="images/login-img.jpg" alt="img" />
                         </div>
                     </div>
                 </div>
@@ -92,33 +92,33 @@
     <div class="body-content">
         <h3><a routerLink="/dashboard"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
         <div class="c-podcast">
-            <h3>Creat a Podcast</h3>
+            <h3>Edit a Podcast</h3>
             <form [formGroup]="podcastForm">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-9 mb-4">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="Podcast Name" formControlName="name">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Podcast Name" value="Podcast 34" formControlName="name">
                                     <label for="floatingInput">Podcast Name</label>
                                 </div>
                             </div>
                             <div class="col-md-9 mb-4">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="Author Name" formControlName="author_name">
+                                    <input type="text" class="form-control" id="floatingInput" placeholder="Author Name" value="RJ Name" formControlName="author_name">
                                     <label for="floatingInput">Author Name</label>
                                 </div>
                             </div>
                             <div class="col-md-9 mb-4">
                                 <select class="form-control" formControlName="language">
-                                    <option>Language</option>
-                                </select>
+               <option>Language</option>
+             </select>
                             </div>
                             <div class="col-md-9 mb-4">
-                                <select multiple class="form-control" formControlName="category">
-                                    <option *ngFor="let category of _podService.categoryList" [value]="category.name">
-                                        {{category.name}}</option>
-                                </select>
+                                <select class="form-control" formControlName="category">
+                <option *ngFor="let category of _podService.categoryList" [value]="category.name">
+                  {{category.name}}</option>
+              </select>
                             </div>
                             <div class="col-md-3 mb-4 d-flex align-items-center">
                                 <p class="pe-3 mb-0">Explicit</p>
@@ -128,7 +128,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12 mb-4">
-                                <textarea class="form-control" placeholder="Describe you Podcast in few lines." formControlName="description"></textarea>
+                                <textarea class="form-control" placeholder="Describe you Podcast in few lines. Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines."
+                                    formControlName="description"></textarea>
                             </div>
                         </div>
                     </div>
@@ -150,9 +151,7 @@
                                                     </div>
                                                     <div class="dropzone-desc">
                                                         <i class="glyphicon glyphicon-download-alt"></i>
-                                                        <p class="mb-1">Drag and Drop Audio file</p>
-                                                        <p class="mb-1">Or</p>
-                                                        <p>Double click here to add form library</p>
+                                                        <p class="mb-1">" Morning comedy ver3 " file added</p>
                                                     </div>
                                                     <input type="file" name="img_logo" class="dropzone" formControlName="audiopath">
                                                 </div>
@@ -166,9 +165,7 @@
 
 
                         <div class="drop-zone">
-                            <span class="drop-zone__prompt">
-                                <p>Upload <br /> Podcast picture <br />Or<br /> Topic picture</p>
-                            </span>
+                            <span class="drop-zone__prompt"><p>Upload <br/> Podcast picture <br/>Or<br/> Topic picture</p>                </span>
                             <input type="file" name="myFile" class="drop-zone__input" formControlName="imagepath">
                         </div>
 
@@ -176,11 +173,104 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button class="custome-button"><a routerLink="create-podcast-confirmation.html"
-                                (click)="createProcast()">Create</a></button>
+                        <textarea class="form-control my-4">Notes to communicate </textarea>
+                        <button class="custome-button">Update</button>
                     </div>
                 </div>
             </form>
+            <div class="row my-4">
+                <div class="col-12 mt-4">
+                    <h2 class="mb-4">Notes on Podcast</h2>
+                    <!-- <textarea class="form-control mb-4">Notes on edit if you wish to communicate admin</textarea> -->
+                    <div class="table-responsive dashboard-table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Status</th>
+                                    <th>Notes</th>
+                                    <th class="text-center">File</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="mb-0">25th Jan 2021</p>
+                                        <span class="small">20:30</span>
+
+                                    </td>
+                                    <td>
+                                        <p class="m-0">Admin</p>
+                                    </td>
+
+                                    <td>(Live)</td>
+                                    <td>We are going on live on 25th 22:10</td>
+                                    <td class="text-center"><i class="far fa-file-download"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="mb-0">25th Jan 2021</p>
+                                        <span class="small">20:30</span>
+
+                                    </td>
+                                    <td>
+                                        <p class="m-0">RJ</p>
+                                    </td>
+
+                                    <td>(Live)</td>
+                                    <td>Nice work</td>
+                                    <td class="text-center"><i class="far fa-file-download"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="mb-0">25th Jan 2021</p>
+                                        <span class="small">20:30</span>
+
+                                    </td>
+                                    <td>
+                                        <p class="m-0">Admin</p>
+                                    </td>
+
+                                    <td>(Live)</td>
+                                    <td>We are going on live on 25th 22:10</td>
+                                    <td class="text-center"><i class="far fa-file-download"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="mb-0">25th Jan 2021</p>
+                                        <span class="small">20:30</span>
+
+                                    </td>
+                                    <td>
+                                        <p class="m-0">RJ</p>
+                                    </td>
+
+                                    <td>(Live)</td>
+                                    <td>Nice work</td>
+                                    <td class="text-center"><i class="far fa-file-download"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="mb-0">25th Jan 2021</p>
+                                        <span class="small">20:30</span>
+
+                                    </td>
+                                    <td>
+                                        <p class="m-0">Admin</p>
+                                    </td>
+
+                                    <td>(Live)</td>
+                                    <td>We are going on live on 25th 22:10</td>
+                                    <td class="text-center"><i class="far fa-file-download"></i></td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -9,7 +9,9 @@ import { RegisterThanksComponent } from './public/register-thanks/register-thank
 import { PodcastListComponent } from './private/podcast-list/podcast-list.component';
 import { CreatePodcastComponent } from './private/create-podcast/create-podcast.component';
 import { CreatePodcastConformationComponent } from './private/create-podcast-conformation/create-podcast-conformation.component';
-
+import { AboutPodcastComponent } from './private/about-podcast/about-podcast.component';
+import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.component';
+import { EditProfileComponent } from './public/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -22,6 +24,9 @@ const routes: Routes = [
   {path: 'dashboard', component: PodcastListComponent },
   {path: 'create-podcast', component: CreatePodcastComponent },
   {path: 'create-podcast-conformation', component: CreatePodcastConformationComponent },
+  {path: 'about-podcast', component: AboutPodcastComponent },
+  {path: 'edit-podcast', component: EditPodcastComponent },
+  {path: 'edit-profile', component: EditProfileComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 
