@@ -15,8 +15,8 @@
 
     <div class="top-right">
         <ul>
-            <li class="active"><a href="signin.html">Sign in</a></li>
-            <li><a href="register.html">Register</a></li>
+            <li class="active"><a routerLink="/login">Sign in</a></li>
+            <li><a routerLink="/register">Register</a></li>
         </ul>
 
     </div>
@@ -32,25 +32,40 @@
                 <img src="assets/images/login-img.jpg" alt="Sign In" />
             </div>
             <div class="signin_form">
-                <div class="row">
-                    <div class="col-md-10 col-12">
+                <form [formGroup]="loginForm" (submit)="signin()">
+                    <div class="row">
+                        <!-- [FormGroup]="loginForm" -->
+                        <div class="col-md-10 col-12">
 
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="User Name">
-                            <label for="floatingInput">User Name</label>
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="User Name" formControlName="username">
+                                <label for="floatingInput">User Name</label>
+                            </div>
+                            <div class="required-error">
+                                <span class="error-span" *ngIf="loginForm.get('username').errors && (loginForm.get('username').touched || loginForm.get('username').dirty) || !isloginFormValid">
+                                    <span *ngIf="loginForm.get('username').hasError('required')">
+                                        User Name is required
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Password" formControlName="password">
+                                <label for="floatingInput">Password</label>
+                            </div>
+                            <div class="required-error">
+                                <span class="error-span" *ngIf="loginForm.get('password').errors && (loginForm.get('password').touched || loginForm.get('password').dirty) || !isloginFormValid">
+                                    <span *ngIf="loginForm.get('password').hasError('required')">
+                                        Password is required
+                                    </span>
+                                </span>
+                            </div>
+                            <p class="forget"><a routerLink="/forgot-password">Forgot password</a></p>
                         </div>
-
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Password">
-                            <label for="floatingInput">Password</label>
+                        <div>
+                            <a routerLink="/dashboard"><button class="custome-button">Sign In</button></a>
                         </div>
-                        <p class="forget"><a href="otp.html">Forgot password</a></p>
                     </div>
-                    <div>
-                        <a href="dashboard.html"><button class="custome-button">Sign In</button></a>
-                    </div>
-                </div>
-
+                </form>
             </div>
         </div>
     </div>

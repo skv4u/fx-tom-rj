@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { WebService } from 'src/app/shared/services/web.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  loginForm: FormGroup;
+  isloginFormValid: boolean = true;
+  constructor(
+    public fb: FormBuilder, public _webService: WebService) { }
 
   ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    })
   }
+  signin() {
+    if (!this.loginForm.valid) {
+      this.isloginFormValid = false;
+      return
+    } else {
+      let req = {
+        "LoginID": this.loginForm.value.username,
+        "Password": this.loginForm.value.password
+      }
+      this._webService.commonMethod('', req, "Post").subscribe(
+        data => {
 
+        }
+      )
+    }
+  }
 }

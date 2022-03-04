@@ -1,0 +1,184 @@
+<!--Header Start Here-->
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="logo">
+                    <a routerLink="/#"><img src="assets/images/logo.jpg" alt="Logo" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--Header End Here-->
+
+<!--Title sec Start Here-->
+<div class="title-sec">
+    <div class="main-title">
+        <h1>RJ Registration</h1>
+    </div>
+    <div class="top-right">
+        <ul>
+            <li><a routerLink="/login">Sign in</a></li>
+            <li class="active"><a routerLink="/rj-Register">Register</a></li>
+        </ul>
+
+    </div>
+
+</div>
+<!--Title sec End Here-->
+
+
+<div class="body-main">
+    <div class="body-content">
+        <h3>Register</h3>
+        <h4 class="mb-3">Personal Information</h4>
+        <form [formGroup]="registerForm" (submit)="register()">
+            <div class="row">
+                <div class="col-md-4 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="fullname" placeholder="Full Name" formControlName="fullname">
+                        <label for="fullname">Full Name</label>
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="username" placeholder="User Name *" formControlName="username">
+                        <label for="username">User Name *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('username').errors && (registerForm.get('username').touched || registerForm.get('username').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('username').hasError('required')">
+                                User Name is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="dob" placeholder="Date of Birth *" formControlName="dob">
+                        <label for="dob">Date of Birth *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('dob').errors && (registerForm.get('dob').touched || registerForm.get('dob').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('dob').hasError('required')">
+                                Date of Birth is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="+91 Phone Number *" formControlName="phone">
+                        <label for="floatingInput">+91 Phone Number *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('phone').errors && (registerForm.get('phone').touched || registerForm.get('phone').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('phone').hasError('required')">
+                                Phone Number is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Email ID *" formControlName="email">
+                        <label for="floatingInput">Email ID *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('email').errors && (registerForm.get('email').touched || registerForm.get('email').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('email').hasError('required')">
+                                Email is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 1" formControlName="address1">
+                        <label for="floatingInput">Address 1</label>
+                    </div>
+                </div>
+                <div class="col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 2" formControlName="address2">
+                        <label for="floatingInput">Address 2</label>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 3" formControlName="address3">
+                        <label for="floatingInput">Address 3</label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <select class="form-control" formControlName="country">
+                        <option>Country</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <select class="form-control" formControlName="state">
+                        <option>State</option>
+                    </select>
+                </div>
+
+                <div class="col-md-12 col-12 mb-4 d-flex align-items-center flex-wrap radio-width">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" formControlName="usertype">
+                        <label class="form-check-label" for="inlineRadio1">Individual Podcaster</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" formControlName="usertype">
+                        <label class="form-check-label" for="inlineRadio2">Organisation</label>
+                    </div>
+                    <div class="w-50">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Organisation working for?" formControlName="podcaster_value">
+                            <label for="floatingInput">Organisation working for?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <h4>Please Set Password !</h4> -->
+            <div class="row">
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingInput" placeholder="Password" formControlName="password">
+                        <label for="floatingInput">Password</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('password').errors && (registerForm.get('password').touched || registerForm.get('password').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('password').hasError('required')">
+                                Password is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="floatingInput" placeholder="Confirm Password" formControlName="confirmPassword">
+                        <label for="floatingInput">Confirm Password</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('confirmPassword').errors && (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty) || !isPasswordValid">
+                            <span *ngIf="registerForm.get('confirmPassword').hasError('required')">
+                                Confirm Password not matched
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="co1-12 mb-4">
+                    <button class="custome-button"><a routerLink="/register-thank-you.html">Register as Podcaster</a></button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
