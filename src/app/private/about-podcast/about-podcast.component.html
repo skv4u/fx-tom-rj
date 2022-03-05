@@ -130,17 +130,22 @@
 
 
                                             <div class="dropzone-wrapper border-0">
-                                                <div class="preview-zone hidden">
+                                                <div class="preview-zone" *ngIf="_podService.podcastListData.audiopath != ''">
                                                     <div class="box box-solid">
 
-                                                        <div class="box-body"></div>
+                                                        <div class="box-body"> <audio controls>
+                                                            <source src="{{_podService.podcastListData.audiopath}}" type="audio/ogg">
+
+                                                        </audio></div>
                                                     </div>
                                                 </div>
-                                                <div class="dropzone-desc">
-                                                    <i class="glyphicon glyphicon-download-alt"></i>
-                                                    <p class="mb-1">" Morning comedy ver3 " file added</p>
+                                                <div *ngIf="_podService.podcastListData.audiopath == ''">
+                                                    <div class="dropzone-desc">
+                                                        <i class="glyphicon glyphicon-download-alt"></i>
+                                                        <p class="mb-1">" Morning comedy ver3 " file added</p>
+                                                    </div>
+                                                    <input type="file" name="img_logo" class="dropzone">
                                                 </div>
-                                                <input type="file" name="img_logo" class="dropzone">
                                             </div>
                                         </div>
                                     </div>

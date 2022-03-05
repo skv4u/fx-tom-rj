@@ -8,6 +8,7 @@ export class PorcastService {
 podcastListData: any;
 categoryList: any[] = [];
 languageList: any[] = [];
+noteList: any[] = [];
   constructor(public _webService: WebService) { }
   getCategoryList() {
     this._webService.commonMethod('category', '', "GET").subscribe(
@@ -27,4 +28,19 @@ languageList: any[] = [];
       }
     )
   }
+
+  getNodeList() {
+    let req = {
+      "podcast_id": this.podcastListData.id
+    }
+    this._webService.commonMethod('podcast/note/list', req, "POST").subscribe(
+      data => {
+        if(data.Status == 'Success' && data.Response && data.Response.length){
+          this.noteList = data.Response;
+        }
+      }
+    )
+  }
+
+
 }

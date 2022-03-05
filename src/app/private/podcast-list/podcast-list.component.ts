@@ -44,8 +44,10 @@ export class PodcastListComponent implements OnInit {
   getlistFilter(){
 
   }
-
-
+  gotopodcasters(list){
+    this._podService.podcastListData = list; 
+    this.router.navigate(['/', 'about-podcast'])
+  }
 
 
 }

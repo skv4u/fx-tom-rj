@@ -12,6 +12,7 @@ export class AboutPodcastComponent implements OnInit {
 
   ngOnInit() {
     console.log(this._podService.podcastListData,"+++++++++++")
+    this._podService.getNodeList();
   }
 
 }

@@ -203,11 +203,12 @@
                         <tbody>
                             <tr *ngFor="let list of RJDasboardList">
                                 <td class="pic">
-                                    <img [src]="list.imagepath" alt="img" />
+                                    <img *ngIf="list.imagepath" [src]="list.imagepath" alt="img" />
+                                    <img *ngIf="!list.imagepath" src="./assets/images/login-img.jpg" alt="img" />
                                 </td>
                                 <td class="rjsname">
                                     <h5 class="mb-0">{{list.name}}</h5>
-                                    <p (click)="_podService.podcastListData = list"><a routerLink="/about-podcast">About the Podcasters</a></p>
+                                    <p (click)="gotopodcasters(list)"><a>About the Podcasters</a></p>
                                 </td>
                                 <td>{{list.category}}</td>
                                 <td class="text-center">
