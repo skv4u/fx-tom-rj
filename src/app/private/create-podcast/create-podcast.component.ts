@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
 import { PorcastService } from '../porcast.service';
 
@@ -12,59 +15,75 @@ export class CreatePodcastComponent implements OnInit {
 
   podcastForm: FormGroup;
   ispodcastFormValid: boolean = true;
+  audioFileName: string = '';
+  pictureFileName: string = '';
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService) { }
+    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router) { }
 
   ngOnInit() {
-    console.log(this._podService.podcastListData,"_podService");
     this.podcastForm = this.fb.group({
       name: ['', [Validators.required]],
       author_name: ['', [Validators.required]],
       language: ['', [Validators.required]],
       category: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      imagepath: ['', [Validators.required]],
-      audiopath: ['', [Validators.required]],
+      imagepath: '',
+      audiopath: '',
       approvals: '',
-      broadcast_date: '',
-      upload_date: '',
       age_restriction: false,
     })
-   // this.getCategoryList();
   }
-  // getCategoryList() {
-  //   this._webService.commonMethod('category', '', "GET").subscribe(
-  //     data => {
-  //       if(data.Status == 'Success' && data.Response && data.Response.length){
-  //         this.categoryList = data.Response;
-  //       }
-  //     }
-  //   )
-  // }
   createProcast() {
     if (!this.podcastForm.valid) {
       this.ispodcastFormValid = false;
       return
     }
     let req = {
-      "user_id": 1,
+      "user_id": this._localStorage.getUserData().id,
       "name": this.podcastForm.value.name,
       "author_name": this.podcastForm.value.author_name,
       "language": this.podcastForm.value.language,
       "category": this.podcastForm.value.category,
       "description": this.podcastForm.value.description,
       "imagepath": this.podcastForm.value.imagepath,
-      "audiopath": this.podcastForm.value.audiopath,
-      "approvals": this.podcastForm.value.approvals,
-      "broadcast_date": this.podcastForm.value.broadcast_date,
-      "upload_date": this.podcastForm.value.upload_date,
-      "age_restriction": this.podcastForm.value.age_restriction,
-      "created_by": "Santosh"
+      "audiopath": this.audioFileName,
+      "approvals": "Pending",
+      "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
+      "created_by": this._localStorage.getUserData().username
     }
-    this._webService.commonMethod('podcast/create', req, "Post").subscribe(
+    this._webService.commonMethod('podcast/create', req, "POST").subscribe(
       data => {
+        if (data.Status == 'Success' && data.Response) {
+          this.router.navigate(['/', 'create-podcast-conformation'])
+        }else {
 
+        }
       }
     )
   }
+
+  uploadFile(element) {
+    const file = element[0];
+    if (file == undefined) return;
+    console.log(file, "element");
+    // if(file.type.include('audio')){
+    let formData = new FormData();
+    formData.append('filename', file, file.name);
+    this._webService.UploadDocument("s3bucket/upload", formData).
+      subscribe((data: any) => {
+        this.audioFileName = data.Response;
+      }, err => {
+        // this._toastService.error("Error uploading file.");
+      });
+    //}
+    //  else {
+    //    this.toaster.error('not a Audio File')
+    //  }
+
+
+  }
+
+
+
+
 }

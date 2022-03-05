@@ -139,12 +139,12 @@
                     </ul>
                 </div>
                 <div class="s-box">
-                    <a href="#" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5">
+                    <a (click)="issettingOpen=!issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
                         <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
                         <!-- <li><a class="dropdown-item" href="edit-category.html">Edit Category</a></li> -->
                         <!-- <li><a class="dropdown-item" href="#">Manage Ads</a></li> -->
-                        <li><a class="dropdown-item" routerLink="/login">Log out</a></li>
+                        <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>
                     </ul>
                 </div>
                 <!-- <div class="s-box online"><a href="#"> Chat with RJs <i class="fas fa-user-cog"></i></a></div> -->
@@ -176,9 +176,9 @@
                                 <th class="pic">Picture</th>
                                 <th>Title</th>
                                 <th>
-                                    <a href="#" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
-                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" *ngFor="let a of _podService.categoryList">
-                                        <li><a class="dropdown-item" href="#">{{a.name}}</a></li>
+                                    <a (click)="iscategoryOpen = !iscategoryOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':iscategoryOpen ? 'block':'none'}" *ngFor="let a of _podService.categoryList">
+                                        <li><a class="dropdown-item" ((click)="getlistFilter()">{{a.name}}</a></li>
                                         <!-- <li><a class="dropdown-item" href="#">Politics</a></li>
                                         <li><a class="dropdown-item" href="#">News</a></li> -->
                                     </ul>

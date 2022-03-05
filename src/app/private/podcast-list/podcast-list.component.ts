@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { WebService } from 'src/app/shared/services/web.service';
 import { PorcastService } from '../porcast.service';
 
@@ -10,18 +12,22 @@ import { PorcastService } from '../porcast.service';
 export class PodcastListComponent implements OnInit {
 
   RJDasboardList: any[] = [];
-
-  constructor(public _webService: WebService, public _podService: PorcastService) { }
+  issettingOpen: boolean = false;
+  iscategoryOpen: boolean = false;
+  constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router) { }
 
   ngOnInit() {
+    if(!this._localStorage.getUserData())
+    this.router.navigate(['/','login'])
     this.getPodcastList();
+    this._podService.getCategoryList();
+    this._podService.getLanguageList();
   }
   getPodcastList() {
     let req = {
-      "user_id": 1,
+      "user_id": this._localStorage.getUserData().id,
       "podcast_id": ""
     }
-    console.log(req,"req");
     this._webService.commonMethod('podcast/list', req, "POST").subscribe(
       data => {
         if (data.Status == "Success" && data.Response && data.Response.length) {
@@ -30,4 +36,16 @@ export class PodcastListComponent implements OnInit {
       }
     )
   }
+  
+  LogOut(){
+   localStorage.clear();
+   this.router.navigate(['/', 'logout'])
+  }
+  getlistFilter(){
+
+  }
+
+
+
+
 }

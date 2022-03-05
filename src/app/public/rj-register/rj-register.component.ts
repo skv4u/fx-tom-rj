@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
 
 @Component({
@@ -16,19 +18,19 @@ export class RjRegisterComponent implements OnInit {
   countryList: any[] = [];
   stateList: any[] = [];
   constructor(
-    public fb: FormBuilder, public _webService: WebService) { }
+    public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
       fullname: '',
       username: ['', [Validators.required]],
-      usertype: 'Individual',
+      usertype: 'RJ',
       dob: ['', [Validators.required]],
       isd: '',
       phone: ['', [Validators.required]],
       email: ['', [Validators.required]],
       profile_image: '',
-      podcaster_type: '',
+      podcaster_type: 'Individual',
       podcaster_value: '',
       address1: '',
       address2: '',
@@ -71,7 +73,11 @@ export class RjRegisterComponent implements OnInit {
       }
       this._webService.commonMethod('user/register', req, "POST").subscribe(
         data => {
-          console.log(data, "data");
+          if(data.Status == 'Success' && data.Response){
+            this.router.navigate(['/', 'register-thanks'])
+            }else {
+             this.toaster.error(data.Response);
+            }
         }
       )
     }
@@ -87,6 +93,7 @@ export class RjRegisterComponent implements OnInit {
   }
 
   getStateList(){
+    this.stateList = [];
     this._webService.commonMethod('country/state/' + this.registerForm.value.country, '', "GET").subscribe(
       data => {
         if(data.Status == 'Success' && data.Response && data.Response.length){

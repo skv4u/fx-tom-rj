@@ -35,6 +35,14 @@ export class WebService {
         }
     }
 
-
+    UploadDocument(url: string, data: any) {
+        let headers = {
+          headers: new HttpHeaders({
+            'enctype': 'multipart/form-data'
+          })
+        };
+        return this.http.post(this.APIUrl.DEV + '/' + url, data, headers);
+    
+      }
 
 }

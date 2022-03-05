@@ -110,15 +110,24 @@
                                 </div>
                             </div>
                             <div class="col-md-9 mb-4">
-                                <select class="form-control" formControlName="language">
-                                    <option>Language</option>
-                                </select>
+                                <div class="form-floating">
+                                    <select class="form-control" formControlName="language">
+                                        <option *ngFor="let language of _podService.languageList"
+                                            [value]="language.name">
+                                            {{language.name}}</option>
+                                    </select>
+                                    <label for="floatingInput">Language</label>
+                                </div>
                             </div>
                             <div class="col-md-9 mb-4">
-                                <select multiple class="form-control" formControlName="category">
-                                    <option *ngFor="let category of _podService.categoryList" [value]="category.name">
-                                        {{category.name}}</option>
-                                </select>
+                                <div class="form-floating">
+                                    <select class="form-control" formControlName="category">
+                                        <option *ngFor="let category of _podService.categoryList"
+                                            [value]="category.name">
+                                            {{category.name}}</option>
+                                    </select>
+                                    <label for="floatingInput">Category</label>
+                                </div>
                             </div>
                             <div class="col-md-3 mb-4 d-flex align-items-center">
                                 <p class="pe-3 mb-0">Explicit</p>
@@ -142,19 +151,24 @@
 
 
                                                 <div class="dropzone-wrapper">
-                                                    <div class="preview-zone hidden">
+                                                    <div class="preview-zone" *ngIf="audioFileName != ''">
                                                         <div class="box box-solid">
 
-                                                            <div class="box-body"></div>
+                                                            <div class="box-body"> <audio controls>
+                                                                    <source src="{{audioFileName}}" type="audio/ogg">
+
+                                                                </audio></div>
                                                         </div>
                                                     </div>
-                                                    <div class="dropzone-desc">
-                                                        <i class="glyphicon glyphicon-download-alt"></i>
-                                                        <p class="mb-1">Drag and Drop Audio file</p>
-                                                        <p class="mb-1">Or</p>
-                                                        <p>Double click here to add form library</p>
+                                                    <div *ngIf="audioFileName == ''">
+                                                        <div class="dropzone-desc">
+                                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                                            <p class="mb-1">Drag and Drop Audio file</p>
+                                                            <p class="mb-1">Or</p>
+                                                            <p>Double click here to add form library</p>
+                                                        </div>
+                                                        <input type="file" #fileInput (change)="uploadFile($event.target.files)" name="img_logo" class="dropzone" accept="audio/*">
                                                     </div>
-                                                    <input type="file" name="img_logo" class="dropzone" formControlName="audiopath">
                                                 </div>
                                             </div>
                                         </div>
@@ -169,15 +183,14 @@
                             <span class="drop-zone__prompt">
                                 <p>Upload <br /> Podcast picture <br />Or<br /> Topic picture</p>
                             </span>
-                            <input type="file" name="myFile" class="drop-zone__input" formControlName="imagepath">
+                            <input type="file" style="opacity: 0;height: 100%;width: 100%;position: absolute;border: 1px solid;left: 0px;top: 0px;z-index: 1;" (change)="uploadFile($event.target.files)" name="myFile" class="drop-zone__input" accept="image/*">
                         </div>
 
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <button class="custome-button"><a routerLink="create-podcast-confirmation.html"
-                                (click)="createProcast()">Create</a></button>
+                        <button class="custome-button"><a (click)="createProcast()">Create</a></button>
                     </div>
                 </div>
             </form>

@@ -25,8 +25,8 @@ export class EditPodcastComponent implements OnInit {
       imagepath: [this._podService.podcastListData.imagepath, [Validators.required]],
       audiopath: [this._podService.podcastListData.audiopath, [Validators.required]],
       approvals: this._podService.podcastListData.approvals,
-      broadcast_date: this._podService.podcastListData.broadcast_date,
-      upload_date: this._podService.podcastListData.upload_date,
+      // broadcast_date: this._podService.podcastListData.broadcast_date,
+      // upload_date: this._podService.podcastListData.upload_date,
       age_restriction: this._podService.podcastListData.age_restriction,
     })
   }
