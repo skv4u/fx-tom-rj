@@ -29,17 +29,19 @@
         <div class="col-md-8 px-1 d-flex" *ngIf="!iscreatebuttonVisiable"></div>
         <div class="col-md-8 px-1 d-flex" *ngIf="iscreatebuttonVisiable">
 
-            <a routerLink="/create-podcast" class="custome-button"><i class="fal fa-cloud-upload"></i> Create a podcast</a>
+            <a routerLink="/create-podcast" class="custome-button"><i class="fal fa-cloud-upload"></i> Create a
+                podcast</a>
             <div class="top-search">
                 <div class="input-group mb-0 mx-4">
-                    <button class="btn btn-outline-secondary" type="button" (click)="_podService.searchList()"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-outline-secondary" type="button" (click)="_podService.searchList()"><i
+                            class="fas fa-search"></i></button>
                     <input type="text" class="form-control" placeholder="Search for podcast or Company or Data" [(ngModel)]='_podService.serachvalue'>
                 </div>
             </div>
 
         </div>
 
-        <div class="col-md-4 settings-main">
+        <!-- <div class="col-md-4 settings-main">
             <div class="s_inner">
                 <div class="s-box" *ngIf="iscreatebuttonVisiable">
                     <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sliders-h"></i></a>
@@ -99,14 +101,85 @@
                 </div>
                 <div class="s-box"><a id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup>5</sup></a>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-                        <li><a class="dropdown-item" href="#">link 1</a></li>
-                        <li><a class="dropdown-item" href="#">link 2</a></li>
-                        <li><a class="dropdown-item" href="#">link 3</a></li>
-                        <li><a class="dropdown-item" href="#">link 4</a></li>
-                        <li><a class="dropdown-item" href="#">link 5</a></li>
-                        <li><a class="dropdown-item" href="#">link 6</a></li>
-                        <li><a class="dropdown-item" href="#">link 7</a></li>
-                        <li><a class="dropdown-item" href="#">link 8</a></li>
+                        <li><a class="dropdown-item">link 1</a></li>
+                        <li><a class="dropdown-item">link 2</a></li>
+                        <li><a class="dropdown-item">link 3</a></li>
+                        <li><a class="dropdown-item">link 4</a></li>
+                        <li><a class="dropdown-item">link 5</a></li>
+                        <li><a class="dropdown-item">link 6</a></li>
+                        <li><a class="dropdown-item">link 7</a></li>
+                        <li><a class="dropdown-item">link 8</a></li>
+                    </ul>
+                </div>
+                <div class="s-box">
+                    <a (click)="issettingOpen=!issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
+                        <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
+                        <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="col-md-4 settings-main">
+            <div class="s_inner">
+                <div class="s-box">
+                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter"><i class="fas fa-sliders-h"></i></a>
+                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter ? 'block':'none'}">
+                        <form>
+                            <li>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check1">
+                                    <label class="form-check-label">Title</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check2">
+                                    <label class="form-check-label">Category</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check3">
+                                    <label class="form-check-label">Upload Date</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check4">
+                                    <label class="form-check-label">Status</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check5">
+                                    <label class="form-check-label">Broadcast Date</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check6">
+                                    <label class="form-check-label">User Comments</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check7">
+                                    <label class="form-check-label">Edit</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check8">
+                                    <label class="form-check-label">Delete</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="check9">
+                                    <label class="form-check-label">Latest Notes
+                                    </label>
+                                </div>
+                                <button class="custome-button my-3" (click)="ShowFilter = false">Done</button>
+                            </li>
+                        </form>
+                    </ul>
+                </div>
+                <div class="s-box"><a (click)="showBell = !showBell" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup>5</sup></a>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}">
+                        <li><a class="dropdown-item" (click)="showBell = false">link 1</a></li>
+                        <li><a class="dropdown-item" (click)="showBell = false">link 2</a></li>
+                        <li><a class="dropdown-item" (click)="showBell = false">link 3</a></li>
+                        <li><a class="dropdown-item" (click)="showBell = false">link 4</a></li>
+                        <li><a class="dropdown-item" (click)="showBell = false">link 5</a></li>
+                        <li><a class="dropdown-item" (click)="showBell = false">link 6</a></li>
+                        <li><a class="dropdown-item" (click)="showBell = false">link 7</a></li>
+                        <li><a class="dropdown-item" (click)="showBell = false">link 8</a></li>
                     </ul>
                 </div>
                 <div class="s-box">

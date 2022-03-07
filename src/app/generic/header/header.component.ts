@@ -11,6 +11,8 @@ import { LocalstorageService } from 'src/app/shared/services/localstorage.servic
 export class HeaderComponent implements OnInit {
 iscreatebuttonVisiable: boolean = false;
 issettingOpen: boolean = false;
+ShowFilter: boolean = false;
+showBell: boolean = false;
   constructor(public router: Router, public _localStorage: LocalstorageService, public _podService: PorcastService) { }
 
   ngOnInit() {
