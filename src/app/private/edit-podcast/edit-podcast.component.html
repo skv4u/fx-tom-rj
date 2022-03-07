@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3 mb-4 d-flex align-items-center">
-                                <p class="pe-3 mb-0">Explicit</p>
+                                <p class="pe-3 mb-0">Age Restriction</p>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" formControlName="age_restriction">
                                     <label class="form-check-label" for="flexSwitchCheckDefault"></label>
@@ -109,11 +109,11 @@
                 <div class="row">
                     <div class="col-12">
                         <textarea class="form-control my-4">Notes to communicate </textarea>
-                        <button class="custome-button">Update</button>
+                        <button class="custome-button" (click)="updateProcast()">Update</button>
                     </div>
                 </div>
             </form>
-            <div class="row my-4">
+            <div class="row my-4" *ngIf="_podService.noteList.length">
                 <div class="col-12 mt-4">
                     <h2 class="mb-4">Notes on Podcast</h2>
                     <!-- <textarea class="form-control mb-4">Notes on edit if you wish to communicate admin</textarea> -->
@@ -129,7 +129,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let note of _podService.noteList">
                                     <td>
                                         <p class="mb-0">25th Jan 2021</p>
                                         <span class="small">20:30</span>
@@ -140,66 +140,9 @@
                                     </td>
 
                                     <td>(Live)</td>
-                                    <td>We are going on live on 25th 22:10</td>
+                                    <td>{{note.description}}</td>
                                     <td class="text-center"><i class="far fa-file-download"></i></td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <p class="mb-0">25th Jan 2021</p>
-                                        <span class="small">20:30</span>
-
-                                    </td>
-                                    <td>
-                                        <p class="m-0">RJ</p>
-                                    </td>
-
-                                    <td>(Live)</td>
-                                    <td>Nice work</td>
-                                    <td class="text-center"><i class="far fa-file-download"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="mb-0">25th Jan 2021</p>
-                                        <span class="small">20:30</span>
-
-                                    </td>
-                                    <td>
-                                        <p class="m-0">Admin</p>
-                                    </td>
-
-                                    <td>(Live)</td>
-                                    <td>We are going on live on 25th 22:10</td>
-                                    <td class="text-center"><i class="far fa-file-download"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="mb-0">25th Jan 2021</p>
-                                        <span class="small">20:30</span>
-
-                                    </td>
-                                    <td>
-                                        <p class="m-0">RJ</p>
-                                    </td>
-
-                                    <td>(Live)</td>
-                                    <td>Nice work</td>
-                                    <td class="text-center"><i class="far fa-file-download"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p class="mb-0">25th Jan 2021</p>
-                                        <span class="small">20:30</span>
-
-                                    </td>
-                                    <td>
-                                        <p class="m-0">Admin</p>
-                                    </td>
-
-                                    <td>(Live)</td>
-                                    <td>We are going on live on 25th 22:10</td>
-                                    <td class="text-center"><i class="far fa-file-download"></i></td>
-                                </tr>
-
 
                             </tbody>
                         </table>

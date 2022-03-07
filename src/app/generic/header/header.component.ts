@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PorcastService } from 'src/app/private/porcast.service';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 iscreatebuttonVisiable: boolean = false;
 issettingOpen: boolean = false;
-  constructor(public router: Router) { }
+  constructor(public router: Router, public _localStorage: LocalstorageService, public _podService: PorcastService) { }
 
   ngOnInit() {
     if(window.location.hash == '#/dashboard')

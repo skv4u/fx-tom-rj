@@ -5,9 +5,9 @@
     <div class="body-content">
         <div class="information dasdboard">
             <ul>
-                <li class="pending"><strong>3</strong> <a href="#">Pending</a></li>
-                <li class="rejected"><strong>1</strong> <a href="#">Rejected</a></li>
-                <li class="approved"><strong>3</strong> Approved</li>
+                <li class="pending"><strong>{{StatisticsList[0].PendingTotal}} </strong> <a>Pending</a></li>
+                <li class="rejected"><strong>{{StatisticsList[0].RejectedTotal}} </strong> <a>Rejected</a></li>
+                <li class="approved"><strong>{{StatisticsList[0].ApprovedTotal}} </strong> Approved</li>
                 <li class="approved"><strong>56</strong> Live</li>
                 <li class="comments"><strong>300</strong> Comments</li>
             </ul>
@@ -21,21 +21,19 @@
                                 <th class="pic">Picture</th>
                                 <th>Title</th>
                                 <th>
-                                    <a (click)="iscategoryOpen = !iscategoryOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
-                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':iscategoryOpen ? 'block':'none'}" *ngFor="let a of _podService.categoryList">
-                                        <li><a class="dropdown-item" ((click)="getlistFilter()">{{a.name}}</a></li>
-                                        <!-- <li><a class="dropdown-item" href="#">Politics</a></li>
-                                        <li><a class="dropdown-item" href="#">News</a></li> -->
+                                    <a id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="iscategoryOpen = !iscategoryOpen" style="cursor: pointer;">Category</a>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':iscategoryOpen ? 'block':'none'}">
+                                        <li><a class="dropdown-item" *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);iscategoryOpen = false">{{a.name}}</a></li>
                                     </ul>
                                 </th>
                                 <th class="text-center">Upload Date</th>
                                 <th>
                                     <a href="" id="btnGroupDrop6" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Status</a>
                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6">
-                                        <li class="pending"><a class="dropdown-item" href="#">Pending</a></li>
-                                        <li class="approved"><a class="dropdown-item" href="#">Approved</a></li>
-                                        <li class="rejected"><a class="dropdown-item" href="#">Rejected</a></li>
-                                        <li class="block"><a class="dropdown-item" href="#">Block</a></li>
+                                        <li class="pending"><a class="dropdown-item">Pending</a></li>
+                                        <li class="approved"><a class="dropdown-item">Approved</a></li>
+                                        <li class="rejected"><a class="dropdown-item">Rejected</a></li>
+                                        <li class="block"><a class="dropdown-item">Block</a></li>
                                     </ul>
                                 </th>
                                 <th class="text-center">Broadcast Date</th>
@@ -46,7 +44,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let list of RJDasboardList">
+                            <tr *ngFor="let list of _podService.RJDasboardList">
                                 <td class="pic">
                                     <img *ngIf="list.imagepath" [src]="list.imagepath" alt="img" />
                                     <img *ngIf="!list.imagepath" src="./assets/images/login-img.jpg" alt="img" />
@@ -86,7 +84,7 @@
                                 </td>
                                 <td class="text-center">{{list.UserComments}}</td>
                                 <td class="text-center"><a routerLink="/edit-podcast"><i class="fas fa-pen" (click)="_podService.podcastListData = list"></i></a></td>
-                                <td class="text-center"><a href="#" data-bs-toggle="modal" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
+                                <td class="text-center"><a data-bs-toggle="modal" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
                                 <td class="text-center">{{list.LatestNotes}}</td>
                             </tr>
 

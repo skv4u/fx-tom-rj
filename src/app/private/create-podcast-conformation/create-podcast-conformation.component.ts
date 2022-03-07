@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 
 @Component({
   selector: 'app-create-podcast-conformation',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePodcastConformationComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _localStorage: LocalstorageService) { }
 
   ngOnInit() {
   }

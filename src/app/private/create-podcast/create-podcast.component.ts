@@ -22,6 +22,11 @@ export class CreatePodcastComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router) { }
 
   ngOnInit() {
+    if(this._localStorage.getUserData().approval_status != 'Approved'){
+      this.toaster.error('Your not approved yet.')
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }
     this.podcastForm = this.fb.group({
       name: ['', [Validators.required]],
       author_name: ['', [Validators.required]],

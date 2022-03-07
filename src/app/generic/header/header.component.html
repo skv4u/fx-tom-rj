@@ -32,8 +32,8 @@
             <a routerLink="/create-podcast" class="custome-button"><i class="fal fa-cloud-upload"></i> Create a podcast</a>
             <div class="top-search">
                 <div class="input-group mb-0 mx-4">
-                    <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
-                    <input type="text" class="form-control" placeholder="Search for podcast or Company or Data">
+                    <button class="btn btn-outline-secondary" type="button" (click)="_podService.searchList()"><i class="fas fa-search"></i></button>
+                    <input type="text" class="form-control" placeholder="Search for podcast or Company or Data" [(ngModel)]='_podService.serachvalue'>
                 </div>
             </div>
 

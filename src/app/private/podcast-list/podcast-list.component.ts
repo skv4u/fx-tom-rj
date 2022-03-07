@@ -11,9 +11,10 @@ import { PorcastService } from '../porcast.service';
 })
 export class PodcastListComponent implements OnInit {
 
-  RJDasboardList: any[] = [];
+  
   issettingOpen: boolean = false;
   iscategoryOpen: boolean = false;
+  StatisticsList: any[] = [];
   constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router) { }
 
   ngOnInit() {
@@ -22,6 +23,7 @@ export class PodcastListComponent implements OnInit {
     return
   }
     this.getPodcastList();
+    this.getStatisticsList();
     this._podService.getCategoryList();
     this._podService.getLanguageList();
   }
@@ -33,7 +35,8 @@ export class PodcastListComponent implements OnInit {
     this._webService.commonMethod('podcast/list', req, "POST").subscribe(
       data => {
         if (data.Status == "Success" && data.Response && data.Response.length) {
-          this.RJDasboardList = data.Response;
+          this._podService.RJDasboardList = data.Response;
+          this._podService.RJDasboardList1 = data.Response;
         }
       }
     )
@@ -51,5 +54,19 @@ export class PodcastListComponent implements OnInit {
     this.router.navigate(['/', 'about-podcast'])
   }
 
+  
+
+    getStatisticsList() {
+      let req = {
+        "user_id": this._localStorage.getUserData().id
+      }
+      this._webService.commonMethod('user/statistics', req, "POST").subscribe(
+        data => {
+          if(data.Status == 'Success' && data.Response && data.Response.length){
+            this.StatisticsList = data.Response;
+          }
+        }
+      )
+    }
 
 }

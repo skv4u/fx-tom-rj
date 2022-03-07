@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { PorcastService } from '../porcast.service';
 
 @Component({
@@ -8,9 +11,14 @@ import { PorcastService } from '../porcast.service';
 })
 export class AboutPodcastComponent implements OnInit {
 
-  constructor(public _podService: PorcastService) { }
+  constructor(public _podService: PorcastService, public _localStorage: LocalstorageService, public toaster: ToastService, public router: Router) { }
 
   ngOnInit() {
+    if(this._localStorage.getUserData().approval_status != 'Approved'){
+      this.toaster.error('Your not approved yet.')
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }
     console.log(this._podService.podcastListData,"+++++++++++")
     this._podService.getNodeList();
   }

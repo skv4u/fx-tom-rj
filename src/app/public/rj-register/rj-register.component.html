@@ -38,9 +38,15 @@
                 <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="fullname" placeholder="Full Name" formControlName="fullname">
-                        <label for="fullname">Full Name</label>
+                        <label for="fullname">Full Name *</label>
                     </div>
-
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('fullname').errors && (registerForm.get('fullname').touched || registerForm.get('fullname').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('fullname').hasError('required')">
+                                Full Name is required
+                            </span>
+                        </span>
+                    </div>
                 </div>
                 <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
@@ -115,7 +121,7 @@
                 </div>
                 <div class="col-md-3 mb-4">
                     <div class="form-floating">
-                        <select class="form-control" placeholder="Country" formControlName="country" (click)="getStateList()">
+                        <select class="form-control" placeholder="Country" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
                             <option *ngFor="let country of countryList" [value]="country.id">
                                 {{country.name}}</option>
                         </select>
@@ -124,7 +130,7 @@
                 </div>
                 <div class="col-md-3 mb-4">
                     <div class="form-floating">
-                        <select class="form-control" placeholder="State" formControlName="state">
+                        <select class="form-control" placeholder="State" [(ngModel)]="state" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let state of stateList" [value]="state.name">
                                 {{state.name}}</option>
                         </select>

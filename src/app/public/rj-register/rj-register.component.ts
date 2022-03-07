@@ -15,6 +15,8 @@ export class RjRegisterComponent implements OnInit {
   registerForm: FormGroup;
   isregisterFormValid: boolean = true;
   isPasswordValid: boolean = true;
+  country: string = '';
+  state: string = '';
   countryList: any[] = [];
   stateList: any[] = [];
   constructor(
@@ -22,7 +24,7 @@ export class RjRegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      fullname: '',
+      fullname: ['', [Validators.required]],
       username: ['', [Validators.required]],
       usertype: 'RJ',
       dob: ['', [Validators.required]],
@@ -35,8 +37,6 @@ export class RjRegisterComponent implements OnInit {
       address1: '',
       address2: '',
       address3: '',
-      country: '',
-      state: '',
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
     })
@@ -68,8 +68,8 @@ export class RjRegisterComponent implements OnInit {
         "address1": this.registerForm.value.address1,
         "address2": this.registerForm.value.address2,
         "address3": this.registerForm.value.address3,
-        "country": this.registerForm.value.country,
-        "state": this.registerForm.value.state
+        "country": this.country,
+        "state": this.state
       }
       this._webService.commonMethod('user/register', req, "POST").subscribe(
         data => {
@@ -87,6 +87,8 @@ export class RjRegisterComponent implements OnInit {
       data => {
         if(data.Status == 'Success' && data.Response && data.Response.length){
           this.countryList = data.Response;
+          this.country = "91";
+          this. getStateList();
         }
       }
     )
@@ -94,10 +96,11 @@ export class RjRegisterComponent implements OnInit {
 
   getStateList(){
     this.stateList = [];
-    this._webService.commonMethod('country/state/' + this.registerForm.value.country, '', "GET").subscribe(
+    this._webService.commonMethod('country/state/' + this.country, '', "GET").subscribe(
       data => {
         if(data.Status == 'Success' && data.Response && data.Response.length){
           this.stateList = data.Response;
+          this.state = this.stateList[0].name;
         }
       }
     )

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
 import { PorcastService } from '../porcast.service';
 @Component({
@@ -17,9 +18,15 @@ export class EditPodcastComponent implements OnInit {
   audioFileName: string = '';
   pictureFileName: string = '';
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router) { }
+    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) { }
 
   ngOnInit() {
+    // if(this._localStorage.getUserData().approval_status != 'Approved'){
+    //   this.toaster.error('Your not approved yet.')
+    //   this.router.navigate(['/', 'dashboard'])
+    //   return
+    // }
+    this._podService.getNodeList();
     this.audioFileName = this._podService.podcastListData.audiopath;
     this.pictureFileName = this._podService.podcastListData.imagepath;
     this.podcastForm = this.fb.group({
@@ -79,7 +86,7 @@ export class EditPodcastComponent implements OnInit {
 
   }
 
-  createProcast() {
+  updateProcast() {
     if (!this.podcastForm.valid) {
       this.ispodcastFormValid = false;
       return
@@ -97,11 +104,11 @@ export class EditPodcastComponent implements OnInit {
       "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
       "created_by": this._localStorage.getUserData().username
     }
-    this._webService.commonMethod('', req, "POST").subscribe(
+    this._webService.commonMethod('podcast/update', req, "POST").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response) {
           this.router.navigate(['/', 'dashboard'])
-        }else {
+        } else {
 
         }
       }

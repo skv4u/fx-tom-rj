@@ -34,94 +34,134 @@
         <h3><a routerLink="/dashboard"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
         <h4>Edit RJ Profile</h4>
         <!-- <form class="my-4"> -->
-        <div class="row">
-            <div class="col-md-4 col-12 mb-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Full Name" value="RJ Full Name">
-                    <label for="floatingInput">Full Name</label>
-                </div>
-
-            </div>
-            <div class="col-md-4 col-12 mb-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="User Name *" value="Test">
-                    <label for="floatingInput">User Name *</label>
-                </div>
-
-            </div>
-            <div class="col-md-4 col-12 mb-4">
-                <div class="form-floating">
-                    <input type="date" class="form-control" id="floatingInput" placeholder="Date of Birth *" value="26/02/2022">
-                    <label for="floatingInput">Date of Birth *</label>
-                </div>
-
-            </div>
-            <div class="col-md-6 col-12 mb-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="+91 Phone Number *" value="+91 9988776655">
-                    <label for="floatingInput">+91 Phone Number *</label>
-                </div>
-
-            </div>
-            <div class="col-md-6 col-12 mb-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Email ID *" value="test@gmail.com">
-                    <label for="floatingInput">Email ID *</label>
-                </div>
-            </div>
-            <div class="col-12 mb-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Address 1" value="Adress1">
-                    <label for="floatingInput">Address 1</label>
-                </div>
-            </div>
-            <div class="col-12 mb-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Address 2" value="Adress2">
-                    <label for="floatingInput">Address 2</label>
-                </div>
-            </div>
-
-            <div class="col-6 mb-4">
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingInput" placeholder="Address 3" value="Adress3">
-                    <label for="floatingInput">Address 3</label>
-                </div>
-            </div>
-            <div class="col-md-3 mb-4">
-                <select class="form-control">
-          <option>Country</option>
-        </select>
-            </div>
-            <div class="col-md-3 mb-4">
-                <select class="form-control">
-           <option>State</option>
-         </select>
-            </div>
-
-            <div class="col-md-12 col-12 mb-4 d-flex align-items-center flex-wrap radio-width">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                    <label class="form-check-label" for="inlineRadio1">Individual Podcaster</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">Organisation</label>
-                </div>
-                <div class="w-50">
+        <form [formGroup]="registerForm">
+            <div class="row">
+                <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Organisation working for?">
-                        <label for="floatingInput">Organisation working for?</label>
+                        <input type="text" class="form-control" id="fullname" placeholder="Full Name" formControlName="fullname" disabled>
+                        <label for="fullname">Full Name *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('fullname').errors && (registerForm.get('fullname').touched || registerForm.get('fullname').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('fullname').hasError('required')">
+                                Full Name is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="username" placeholder="User Name *" formControlName="username" disabled>
+                        <label for="username">User Name *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('username').errors && (registerForm.get('username').touched || registerForm.get('username').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('username').hasError('required')">
+                                User Name is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="date" class="form-control" id="dob" placeholder="Date of Birth *" formControlName="dob">
+                        <label for="dob">Date of Birth *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('dob').errors && (registerForm.get('dob').touched || registerForm.get('dob').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('dob').hasError('required')">
+                                Date of Birth is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="+91 Phone Number *" formControlName="phone">
+                        <label for="floatingInput">+91 Phone Number *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('phone').errors && (registerForm.get('phone').touched || registerForm.get('phone').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('phone').hasError('required')">
+                                Phone Number is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Email ID *" formControlName="email">
+                        <label for="floatingInput">Email ID *</label>
+                    </div>
+                    <div class="required-error">
+                        <span class="error-span" *ngIf="registerForm.get('email').errors && (registerForm.get('email').touched || registerForm.get('email').dirty) || !isregisterFormValid">
+                            <span *ngIf="registerForm.get('email').hasError('required')">
+                                Email is required
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 1" formControlName="address1">
+                        <label for="floatingInput">Address 1</label>
+                    </div>
+                </div>
+                <div class="col-12 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 2" formControlName="address2">
+                        <label for="floatingInput">Address 2</label>
+                    </div>
+                </div>
+
+                <div class="col-6 mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 3" formControlName="address3">
+                        <label for="floatingInput">Address 3</label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="form-floating">
+                        <select class="form-control" placeholder="Country" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
+                            <option *ngFor="let country of countryList" [value]="country.id">
+                                {{country.name}}</option>
+                        </select>
+                        <label for="floatingInput">Country</label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="form-floating">
+                        <select class="form-control" placeholder="State" [(ngModel)]="state" [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let state of stateList" [value]="state.name">
+                                {{state.name}}</option>
+                        </select>
+                        <label for="floatingInput">State</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-12 mb-4 d-flex align-items-center flex-wrap radio-width">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio1" value="Individual" formControlName="podcaster_type">
+                        <label class="form-check-label" for="inlineRadio1">Individual Podcaster</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio2" value="Organisation" formControlName="podcaster_type">
+                        <label class="form-check-label" for="inlineRadio2">Organisation</label>
+                    </div>
+                    <div class="w-50">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Organisation working for?" formControlName="podcaster_value">
+                            <label for="floatingInput">Organisation working for?</label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </form>
         <div class="row">
             <div class="co1-12 mb-4">
                 <label><strong>Notes </strong></label>
                 <textarea class="form-control mb-4">Reason for edit</textarea>
-                <button class="custome-button"><a href="dashboard.html" >Update</a></button>
+                <button class="custome-button" (click)="updateProfile()"><a>Update</a></button>
             </div>
             <!-- </form> -->
         </div>
