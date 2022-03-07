@@ -19,6 +19,7 @@ import { CreatePodcastConformationComponent } from './private/create-podcast-con
 import { EditProfileComponent } from './public/edit-profile/edit-profile.component';
 import { AboutPodcastComponent } from './private/about-podcast/about-podcast.component';
 import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.component';
+import { HeaderComponent } from './generic/header/header.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.compon
     CreatePodcastConformationComponent,
     EditProfileComponent,
     AboutPodcastComponent,
-    EditPodcastComponent
+    EditPodcastComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

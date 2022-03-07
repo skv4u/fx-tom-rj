@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit {
     public router: Router,
     public toaster: ToastService) { }
   ngOnInit() {
+    if(this._localStorage.getUserData()){
+    this.router.navigate(['/','dashboard'])
+    return
+  }
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]

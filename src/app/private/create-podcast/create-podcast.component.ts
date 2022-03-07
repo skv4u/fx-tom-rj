@@ -17,6 +17,7 @@ export class CreatePodcastComponent implements OnInit {
   ispodcastFormValid: boolean = true;
   audioFileName: string = '';
   pictureFileName: string = '';
+  issettingOpen: boolean = false;
   constructor(
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router) { }
 
@@ -45,7 +46,7 @@ export class CreatePodcastComponent implements OnInit {
       "language": this.podcastForm.value.language,
       "category": this.podcastForm.value.category,
       "description": this.podcastForm.value.description,
-      "imagepath": this.podcastForm.value.imagepath,
+      "imagepath": this.pictureFileName,
       "audiopath": this.audioFileName,
       "approvals": "Pending",
       "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
@@ -62,7 +63,7 @@ export class CreatePodcastComponent implements OnInit {
     )
   }
 
-  uploadFile(element) {
+  uploadaudio(element) {
     const file = element[0];
     if (file == undefined) return;
     console.log(file, "element");
@@ -84,6 +85,32 @@ export class CreatePodcastComponent implements OnInit {
   }
 
 
+  uploadFile(element) {
+    const file = element[0];
+    if (file == undefined) return;
+    console.log(file, "element");
+    // if(file.type.include('audio')){
+    let formData = new FormData();
+    formData.append('filename', file, file.name);
+    this._webService.UploadDocument("s3bucket/upload", formData).
+      subscribe((data: any) => {
+        this.pictureFileName = data.Response;
+      }, err => {
+        // this._toastService.error("Error uploading file.");
+      });
+    //}
+    //  else {
+    //    this.toaster.error('not a Audio File')
+    //  }
 
+
+  }
+
+
+
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['/', 'login']);
+  }
 
 }

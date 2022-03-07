@@ -17,8 +17,10 @@ export class PodcastListComponent implements OnInit {
   constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router) { }
 
   ngOnInit() {
-    if(!this._localStorage.getUserData())
+    if(!this._localStorage.getUserData()){
     this.router.navigate(['/','login'])
+    return
+  }
     this.getPodcastList();
     this._podService.getCategoryList();
     this._podService.getLanguageList();
