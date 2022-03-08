@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LocalstorageService } from '../shared/services/localstorage.service';
 import { WebService } from '../shared/services/web.service';
 
 @Injectable({
@@ -12,7 +13,17 @@ export class PorcastService {
   noteList: any[] = [];
   RJDasboardList: any[] = [];
   RJDasboardList1: any[] = [];
-  constructor(public _webService: WebService) { }
+  deletedList: any;
+  isDelete: boolean = false;
+  isProcessing: boolean = false;
+  StatisticsList: any = {
+    PendingTotal: 0,
+    RejectedTotal: 0,
+    ApprovedTotal: 0,
+    LiveTotal: 0,
+    CommentTotal: 0,
+  };
+  constructor(public _webService: WebService, public _localStorage: LocalstorageService) { }
   getCategoryList() {
     this._webService.commonMethod('category', '', "GET").subscribe(
       data => {
@@ -46,9 +57,45 @@ export class PorcastService {
   }
 
   searchList(data?:any) {
-    debugger
     let tempdata=data ? data : this.serachvalue;
     let temp = this.RJDasboardList1.filter(x => JSON.stringify(x).toLowerCase().includes(tempdata.toLowerCase()));
     this.RJDasboardList = temp;
     }
+
+    getPodcastList() {
+      this.isProcessing = true;
+      let req = {
+        "user_id": this._localStorage.getUserData().id,
+        "podcast_id": ""
+      }
+      this._webService.commonMethod('podcast/list', req, "POST").subscribe(
+        data => {
+          if (data.Status == "Success" && data.Response && data.Response.length) {
+            data.Response.forEach(data => {
+              data.ispodcastDelete = false;
+            });
+            console.log(data.Response, "data.Response")
+            this.RJDasboardList = data.Response;
+            this.RJDasboardList1 = data.Response;
+          }
+          this.isProcessing = false;
+        }
+      )
+    }
+  
+    getStatisticsList() {
+      let req = {
+        "user_id": this._localStorage.getUserData().id
+      }
+      this._webService.commonMethod('user/statistics', req, "POST").subscribe(
+        data => {
+          if (data.Status == 'Success' && data.Response && data.Response.length) {
+            this.StatisticsList = data.Response[0];
+          }
+        }
+      )
+    }
+  
+
+
 }

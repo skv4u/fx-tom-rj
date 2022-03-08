@@ -1,4 +1,4 @@
-<app-loader *ngIf="isProcessing"></app-loader>
+<app-loader *ngIf="_podService.isProcessing"></app-loader>
 <app-header>
 
 </app-header>
@@ -7,11 +7,11 @@
     <div class="body-content">
         <div class="information dasdboard">
             <ul>
-                <li class="pending"><strong>{{StatisticsList.PendingTotal}} </strong> <a>Pending</a></li>
-                <li class="rejected"><strong>{{StatisticsList.RejectedTotal}} </strong> <a>Rejected</a></li>
-                <li class="approved"><strong>{{StatisticsList.ApprovedTotal}} </strong> Approved</li>
-                <li class="approved"><strong>{{StatisticsList.LiveTotal}} </strong> Live</li>
-                <li class="comments"><strong>{{StatisticsList.CommentTotal}} </strong> Comments</li>
+                <li class="pending"><strong>{{_podService.StatisticsList.PendingTotal}} </strong> <a>Pending</a></li>
+                <li class="rejected"><strong>{{_podService.StatisticsList.RejectedTotal}} </strong> <a>Rejected</a></li>
+                <li class="approved"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved</li>
+                <li class="approved"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>
+                <li class="comments"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li>
             </ul>
         </div>
         <div class="row">
@@ -95,8 +95,8 @@
                                 </td>
                                 <td class="text-center">{{list.UserComments}}</td>
                                 <td class="text-center"><a routerLink="/edit-podcast"><i class="fas fa-pen" (click)="_podService.podcastListData = list"></i></a></td>
-                                <td class="text-center"><a data-bs-toggle="modal" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
-                                <td class="text-center">{{list.LatestNotes}}</td>
+                                <td class="text-center"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
+                                <td class="text-center">{{list.latest_note}}</td>
                             </tr>
 
                         </tbody>
@@ -105,4 +105,5 @@
             </div>
         </div>
     </div>
+    <app-delete-popup *ngIf="_podService.isDelete"></app-delete-popup>
 </div>

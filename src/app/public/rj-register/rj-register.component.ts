@@ -79,7 +79,7 @@ export class RjRegisterComponent implements OnInit {
         data => {
           this.isProgressing = false;
           if(data.Response.indexOf("Duplicate") != -1){
-          this.toaster.error("'" +this.registerForm.value.username + "' is already Exsits");
+          this.toaster.error("'" + this.registerForm.value.username + ' or ' + this.registerForm.value.phone + "' is already Exsits");
           return
         }
           if(data.Status == 'Success' && data.Response){
@@ -115,4 +115,19 @@ export class RjRegisterComponent implements OnInit {
       }
     )
   }
+
+  removeSpace(ele){
+    const charCode = (ele.which) ? ele.which : ele.keyCode;
+    if (charCode == 32) {
+      return true;
+    }
+
+    return true;
+  //   if (ele.which == 32){
+  //     console.log('Space Detected');
+  //     return false;
+  // }
+  }
+
+
 }

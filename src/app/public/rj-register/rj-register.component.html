@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="logo">
-                    <a routerLink="/#"><img src="assets/images/logo.jpg" alt="Logo" /></a>
+                    <a><img src="./assets/images/logo.jpg" alt="Logo" /></a>
                 </div>
             </div>
         </div>
@@ -88,10 +88,10 @@
                         <span class="error-span" *ngIf="registerForm.get('phone').hasError('minlength')">
                                 Minimum length 10 Characters
                             </span>
-                        <span *ngIf="registerForm.get('phone').hasError('maxlength')">
+                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('maxlength')">
                                 Maximum length 10 Characters
                             </span>
-                        <span *ngIf="registerForm.get('phone').hasError('customNumber')">
+                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('customNumber')">
                                Numbers Only
                             </span>
                         </span>
@@ -107,7 +107,7 @@
                             <span *ngIf="registerForm.get('email').hasError('required')">
                                 Email is required
                             </span>
-                        <span *ngIf="registerForm.get('email').hasError('customEmail')">
+                        <span class="error-span" *ngIf="registerForm.get('email').hasError('customEmail')">
                                 Invalid Email
                             </span>
                         <span class="error-span" *ngIf="registerForm.get('email').hasError('maxlength')">

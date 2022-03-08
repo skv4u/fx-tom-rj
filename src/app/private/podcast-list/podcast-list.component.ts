@@ -12,76 +12,47 @@ import { PorcastService } from '../porcast.service';
 })
 export class PodcastListComponent implements OnInit {
 
-  
+
   issettingOpen: boolean = false;
   iscategoryOpen: boolean = false;
   isProcessing: boolean = false;
-  StatisticsList: any ={
-    PendingTotal: 0,
-    RejectedTotal: 0,
-    ApprovedTotal: 0,
-    LiveTotal: 0,
-    CommentTotal: 0,
-  };
+  isDelete: boolean = false;
   isStatusOpen: boolean = false;
   constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) { }
 
   ngOnInit() {
-    if(!this._localStorage.getUserData()){
-    this.router.navigate(['/','login'])
-    return
-  }
-  if(this._localStorage.getUserData().approval_status != 'Approved'){
-   // this.toaster.error('Your approval is pending.');
-    return
-  }
-    this.getPodcastList();
-    this.getStatisticsList();
+    if (!this._localStorage.getUserData()) {
+      this.router.navigate(['/', 'login'])
+      return
+    }
+    if (this._localStorage.getUserData().approval_status != 'Approved') {
+      // this.toaster.error('Your approval is pending.');
+      return
+    }
+    this._podService.getPodcastList();
+    this._podService.getStatisticsList();
     this._podService.getCategoryList();
     this._podService.getLanguageList();
   }
-  getPodcastList() {
-    this.isProcessing = true;
-    let req = {
-      "user_id": this._localStorage.getUserData().id,
-      "podcast_id": ""
-    }
-    this._webService.commonMethod('podcast/list', req, "POST").subscribe(
-      data => {
-        if (data.Status == "Success" && data.Response && data.Response.length) {
-          this._podService.RJDasboardList = data.Response;
-          this._podService.RJDasboardList1 = data.Response;
-        }
-        this.isProcessing = false;
-      }
-    )
-  }
   
-  LogOut(){
-   localStorage.clear();
-   this.router.navigate(['/', 'logout'])
+  LogOut() {
+    localStorage.clear();
+    this.router.navigate(['/', 'logout'])
   }
-  getlistFilter(){
+  getlistFilter() {
 
   }
-  gotopodcasters(list){
-    this._podService.podcastListData = list; 
+  gotopodcasters(list) {
+    this._podService.podcastListData = list;
     this.router.navigate(['/', 'about-podcast'])
   }
 
-  
 
-    getStatisticsList() {
-      let req = {
-        "user_id": this._localStorage.getUserData().id
-      }
-      this._webService.commonMethod('user/statistics', req, "POST").subscribe(
-        data => {
-          if(data.Status == 'Success' && data.Response && data.Response.length){
-            this.StatisticsList = data.Response[0];
-          }
-        }
-      )
-    }
+
+  
+  deletepopup(list) {
+    this._podService.deletedList = list;
+    this._podService.isDelete = true;
+  }
 
 }

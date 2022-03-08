@@ -45,4 +45,18 @@ export class WebService {
     
       }
 
+      DeleteDocument(url: string, filename: string, method?: string) {
+        method = method ? method : 'POST';
+      //  url_type = url_type ? url_type : this.default_url_type;
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'bearer '
+        })
+        let endPoint = this.APIUrl["DEV"] + "/" + url;
+        if (method == 'POST')
+          return this.http.post(endPoint, '"' + filename + '"', { headers: headers });
+      }
+
+
 }

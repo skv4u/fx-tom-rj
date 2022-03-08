@@ -103,7 +103,7 @@ export class EditProfileComponent implements OnInit {
           "created_by": this._localStorage.getUserData().username
         //   }
       }
-      this._webService.commonMethod('user/update ', req, "PUT").subscribe(
+      this._webService.commonMethod('user/update', req, "PUT").subscribe(
         data => {
           if(data.Status == 'Success' && data.Response){
             this.isProgessing = false;

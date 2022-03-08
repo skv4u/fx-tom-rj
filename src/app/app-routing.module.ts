@@ -12,6 +12,7 @@ import { CreatePodcastConformationComponent } from './private/create-podcast-con
 import { AboutPodcastComponent } from './private/about-podcast/about-podcast.component';
 import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.component';
 import { EditProfileComponent } from './public/edit-profile/edit-profile.component';
+import { DeletePopupComponent } from './private/podcast-list/delete-popup/delete-popup.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'about-podcast', component: AboutPodcastComponent },
   {path: 'edit-podcast', component: EditPodcastComponent },
   {path: 'edit-profile', component: EditProfileComponent },
+  {path: 'delete', component: DeletePopupComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 

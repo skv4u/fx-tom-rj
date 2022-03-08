@@ -68,7 +68,12 @@
                                                 <div class="dropzone-wrapper">
                                                     <div class="preview-zone" *ngIf="audioFileName != ''">
                                                         <div class="box box-solid">
-
+                                                            <button (click)="removeAudio()" style="right: -230px;
+                                                            position: relative;
+                                                            top: 10px;
+                                                            background: none;
+                                                            border: none;
+                                                            color: #f00;"><i class="fas fa-trash-alt"></i></button>
                                                             <div class="box-body"> <audio controls>
                                                                     <source src="{{audioFileName}}" type="audio/ogg">
 
@@ -103,6 +108,13 @@
 
                         <div class="drop-zone upload-image" *ngIf="pictureFileName">
                             <img [src]="pictureFileName" [alt]="pictureFileName">
+                            <button (click)="removeFile()" style="right: -11px;
+                            cursor: pointer;
+                            top: -11px;
+                            position: absolute;
+                            background: none;
+                            border: none;
+                            color: #f00;"><i class="fas fa-trash-alt"></i></button>
                         </div>
 
                     </div>

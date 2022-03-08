@@ -21,6 +21,7 @@ import { AboutPodcastComponent } from './private/about-podcast/about-podcast.com
 import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.component';
 import { HeaderComponent } from './generic/header/header.component';
 import { LoaderComponent } from './generic/loader/loader.component';
+import { DeletePopupComponent } from './private/podcast-list/delete-popup/delete-popup.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { LoaderComponent } from './generic/loader/loader.component';
     AboutPodcastComponent,
     EditPodcastComponent,
     HeaderComponent,
-    LoaderComponent
+    LoaderComponent,
+    DeletePopupComponent
   ],
   imports: [
     BrowserModule,

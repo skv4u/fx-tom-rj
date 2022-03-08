@@ -13,6 +13,7 @@ iscreatebuttonVisiable: boolean = false;
 issettingOpen: boolean = false;
 ShowFilter: boolean = false;
 showBell: boolean = false;
+userName: string = this._localStorage.getUserData().fullname;
   constructor(public router: Router, public _localStorage: LocalstorageService, public _podService: PorcastService) { }
 
   ngOnInit() {

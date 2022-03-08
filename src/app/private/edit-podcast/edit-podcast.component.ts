@@ -128,6 +128,29 @@ export class EditPodcastComponent implements OnInit {
     )
   }
 
+  removeFile(){
+    let req = {
+        filename : this.pictureFileName
+    }
+    this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
+      subscribe((data: any) => {
+        this.pictureFileName = '';
+      });
+
+
+  }
+
+  removeAudio(){
+    let req = {
+        filename : this.audioFileName
+    }
+    this._webService.DeleteDocument("s3bucket/remove", this.audioFileName, 'DELETE').
+      subscribe((data: any) => {
+        this.audioFileName = '';
+      });
+
+
+  }
 
 
 }
