@@ -17,15 +17,17 @@ export class EditPodcastComponent implements OnInit {
   categoryList: any[] = [];
   audioFileName: string = '';
   pictureFileName: string = '';
+  noteDescription: string = '';
+  isProcessing: boolean = false;
   constructor(
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) { }
 
   ngOnInit() {
-    // if(this._localStorage.getUserData().approval_status != 'Approved'){
-    //   this.toaster.error('Your not approved yet.')
-    //   this.router.navigate(['/', 'dashboard'])
-    //   return
-    // }
+    if(this._localStorage.getUserData().approval_status != 'Approved'){
+      this.toaster.error('Your approval is pending.')
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }
     this._podService.getNodeList();
     this.audioFileName = this._podService.podcastListData.audiopath;
     this.pictureFileName = this._podService.podcastListData.imagepath;
@@ -87,11 +89,19 @@ export class EditPodcastComponent implements OnInit {
   }
 
   updateProcast() {
+    this.isProcessing = true;
     if (!this.podcastForm.valid) {
+      this.isProcessing = false;
       this.ispodcastFormValid = false;
       return
     }
+    if(this.noteDescription == ''){
+      this.isProcessing = false;
+      this.toaster.error("Notes are Required")
+      return
+    }
     let req = {
+      "id": this._podService.podcastListData.id,
       "user_id": this._localStorage.getUserData().id,
       "name": this.podcastForm.value.name,
       "author_name": this.podcastForm.value.author_name,
@@ -100,17 +110,20 @@ export class EditPodcastComponent implements OnInit {
       "description": this.podcastForm.value.description,
       "imagepath": this.pictureFileName,
       "audiopath": this.audioFileName,
-      "approvals": this.podcastForm.value.approvals,
       "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
-      "created_by": this._localStorage.getUserData().username
+      "created_by": this._localStorage.getUserData().username,
+      "usertype": "RJ",
+      "note_description": this.noteDescription,
+      "status": this.podcastForm.value.approvals
     }
-    this._webService.commonMethod('podcast/update', req, "POST").subscribe(
+    this._webService.commonMethod('podcast/update', req, "PUT").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response) {
           this.router.navigate(['/', 'dashboard'])
         } else {
 
         }
+        this.isProcessing = true;
       }
     )
   }

@@ -1,3 +1,4 @@
+<app-loader *ngIf="isProcessing"></app-loader>
 <app-header></app-header>
 
 
@@ -108,7 +109,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <textarea class="form-control my-4">Notes to communicate </textarea>
+                        <textarea class="form-control my-4" placeholder="Notes to communicate" [(ngModel)]="noteDescription" [ngModelOptions]="{standalone: true}"></textarea>
                         <button class="custome-button" (click)="updateProcast()">Update</button>
                     </div>
                 </div>
@@ -131,17 +132,19 @@
                             <tbody>
                                 <tr *ngFor="let note of _podService.noteList">
                                     <td>
-                                        <p class="mb-0">25th Jan 2021</p>
-                                        <span class="small">20:30</span>
+                                        <p class="mb-0">{{note.note_date}}</p>
+                                        <!-- <span class="small">20:30</span> -->
 
                                     </td>
                                     <td>
-                                        <p class="m-0">Admin</p>
+                                        <p class="m-0">{{note.usertype}}</p>
                                     </td>
 
-                                    <td>(Live)</td>
+                                    <td>{{note.status}}</td>
                                     <td>{{note.description}}</td>
-                                    <td class="text-center"><i class="far fa-file-download"></i></td>
+                                    <td class="text-center">
+                                        <a download="audio.mp3" [href]="note.audio_path" target="_blank"><i class="far fa-file-download"></i></a>
+                                    </td>
                                 </tr>
 
                             </tbody>

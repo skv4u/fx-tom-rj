@@ -20,6 +20,7 @@ import { EditProfileComponent } from './public/edit-profile/edit-profile.compone
 import { AboutPodcastComponent } from './private/about-podcast/about-podcast.component';
 import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.component';
 import { HeaderComponent } from './generic/header/header.component';
+import { LoaderComponent } from './generic/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HeaderComponent } from './generic/header/header.component';
     EditProfileComponent,
     AboutPodcastComponent,
     EditPodcastComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

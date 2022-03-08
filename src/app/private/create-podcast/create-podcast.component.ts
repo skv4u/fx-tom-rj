@@ -18,12 +18,13 @@ export class CreatePodcastComponent implements OnInit {
   audioFileName: string = '';
   pictureFileName: string = '';
   issettingOpen: boolean = false;
+  isProcessing: boolean = false;
   constructor(
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router) { }
 
   ngOnInit() {
     if(this._localStorage.getUserData().approval_status != 'Approved'){
-      this.toaster.error('Your not approved yet.')
+      this.toaster.error('Your approval is pending.')
       this.router.navigate(['/', 'dashboard'])
       return
     }
@@ -40,7 +41,9 @@ export class CreatePodcastComponent implements OnInit {
     })
   }
   createProcast() {
+    this.isProcessing = true;
     if (!this.podcastForm.valid) {
+      this.isProcessing = false;
       this.ispodcastFormValid = false;
       return
     }
@@ -64,6 +67,7 @@ export class CreatePodcastComponent implements OnInit {
         }else {
 
         }
+        this.isProcessing = false;
       }
     )
   }

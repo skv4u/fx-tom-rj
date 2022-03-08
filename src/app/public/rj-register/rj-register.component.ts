@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
 
@@ -19,8 +20,9 @@ export class RjRegisterComponent implements OnInit {
   state: string = '';
   countryList: any[] = [];
   stateList: any[] = [];
+  isProgressing: boolean = false;
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService) { }
+    public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _commonService: CommonService) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -29,8 +31,8 @@ export class RjRegisterComponent implements OnInit {
       usertype: 'RJ',
       dob: ['', [Validators.required]],
       isd: '',
-      phone: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      phone: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),this._commonService.customNumber]],
+      email: ['', [Validators.required,this._commonService.customEmail, Validators.maxLength(60)]],
       profile_image: '',
       podcaster_type: 'Individual',
       podcaster_value: '',
@@ -44,12 +46,14 @@ export class RjRegisterComponent implements OnInit {
   }
 
   register() {
-    debugger
+    this.isProgressing = true;
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
+      this.isProgressing = false;
       this.isPasswordValid = false;
       return
     }
     if (!this.registerForm.valid) {
+      this.isProgressing = false;
       this.isregisterFormValid = false;
       return
     } else {
@@ -73,7 +77,13 @@ export class RjRegisterComponent implements OnInit {
       }
       this._webService.commonMethod('user/register', req, "POST").subscribe(
         data => {
+          this.isProgressing = false;
+          if(data.Response.indexOf("Duplicate") != -1){
+          this.toaster.error("'" +this.registerForm.value.username + "' is already Exsits");
+          return
+        }
           if(data.Status == 'Success' && data.Response){
+            this.toaster.success('Registration done Successfully');
             this.router.navigate(['/', 'register-thanks'])
             }else {
              this.toaster.error(data.Response);

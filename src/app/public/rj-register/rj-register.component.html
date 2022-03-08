@@ -1,3 +1,4 @@
+<app-loader *ngIf="isProgressing"></app-loader>
 <!--Header Start Here-->
 <header class="header">
     <div class="container-fluid">
@@ -84,6 +85,15 @@
                             <span *ngIf="registerForm.get('phone').hasError('required')">
                                 Phone Number is required
                             </span>
+                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('minlength')">
+                                Minimum length 10 Characters
+                            </span>
+                        <span *ngIf="registerForm.get('phone').hasError('maxlength')">
+                                Maximum length 10 Characters
+                            </span>
+                        <span *ngIf="registerForm.get('phone').hasError('customNumber')">
+                               Numbers Only
+                            </span>
                         </span>
                     </div>
                 </div>
@@ -96,6 +106,12 @@
                         <span class="error-span" *ngIf="registerForm.get('email').errors && (registerForm.get('email').touched || registerForm.get('email').dirty) || !isregisterFormValid">
                             <span *ngIf="registerForm.get('email').hasError('required')">
                                 Email is required
+                            </span>
+                        <span *ngIf="registerForm.get('email').hasError('customEmail')">
+                                Invalid Email
+                            </span>
+                        <span class="error-span" *ngIf="registerForm.get('email').hasError('maxlength')">
+                                Maximum length 60 Charecters only
                             </span>
                         </span>
                     </div>

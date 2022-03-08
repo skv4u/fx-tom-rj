@@ -1,15 +1,17 @@
+<app-loader *ngIf="isProcessing"></app-loader>
 <app-header>
 
 </app-header>
-<div class="body-main">
+<div *ngIf="_localStorage.getUserData().approval_status != 'Approved'">Your approval is pending.</div>
+<div class="body-main" *ngIf="_localStorage.getUserData().approval_status == 'Approved'">
     <div class="body-content">
         <div class="information dasdboard">
             <ul>
-                <li class="pending"><strong>{{StatisticsList[0].PendingTotal}} </strong> <a>Pending</a></li>
-                <li class="rejected"><strong>{{StatisticsList[0].RejectedTotal}} </strong> <a>Rejected</a></li>
-                <li class="approved"><strong>{{StatisticsList[0].ApprovedTotal}} </strong> Approved</li>
-                <li class="approved"><strong>56</strong> Live</li>
-                <li class="comments"><strong>300</strong> Comments</li>
+                <li class="pending"><strong>{{StatisticsList.PendingTotal}} </strong> <a>Pending</a></li>
+                <li class="rejected"><strong>{{StatisticsList.RejectedTotal}} </strong> <a>Rejected</a></li>
+                <li class="approved"><strong>{{StatisticsList.ApprovedTotal}} </strong> Approved</li>
+                <li class="approved"><strong>{{StatisticsList.LiveTotal}} </strong> Live</li>
+                <li class="comments"><strong>{{StatisticsList.CommentTotal}} </strong> Comments</li>
             </ul>
         </div>
         <div class="row">
@@ -28,12 +30,12 @@
                                 </th>
                                 <th class="text-center">Upload Date</th>
                                 <th>
-                                    <a id="btnGroupDrop6" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Status</a>
-                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6">
-                                        <li class="pending"><a class="dropdown-item">Pending</a></li>
-                                        <li class="approved"><a class="dropdown-item">Approved</a></li>
-                                        <li class="rejected"><a class="dropdown-item">Rejected</a></li>
-                                        <li class="block"><a class="dropdown-item">Block</a></li>
+                                    <a id="btnGroupDrop6" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="isStatusOpen = !isStatusOpen">Status</a>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6" [ngStyle]="{'display':isStatusOpen ? 'block':'none'}">
+                                        <li class="pending" (click)="this._podService.searchList('Pending');isStatusOpen =false;"><a class="dropdown-item">Pending</a></li>
+                                        <li class="approved" (click)="this._podService.searchList('Approved');isStatusOpen =false;"><a class="dropdown-item">Approved</a></li>
+                                        <li class="rejected" (click)="this._podService.searchList('Rejected');isStatusOpen =false;"><a class="dropdown-item">Rejected</a></li>
+                                        <li class="block" (click)="this._podService.searchList('Block');isStatusOpen =false;"><a class="dropdown-item">Block</a></li>
                                     </ul>
                                 </th>
                                 <th class="text-center">Broadcast Date</th>
@@ -75,8 +77,17 @@
                                     </div>
                                 </div> -->
 
-                                <td>
+                                <td *ngIf="list.approvals == 'Pending'">
                                     <li class="pending">{{list.approvals}}</li>
+                                </td>
+                                <td *ngIf="list.approvals == 'Approved'">
+                                    <li class="approved">{{list.approvals}}</li>
+                                </td>
+                                <td *ngIf="list.approvals == 'Rejected'">
+                                    <li class="rejected">{{list.approvals}}</li>
+                                </td>
+                                <td *ngIf="list.approvals == 'Block'">
+                                    <li class="block">{{list.approvals}}</li>
                                 </td>
                                 <td class="text-center">
                                     <p class="mb-0">{{list.broadcast_date}}</p>

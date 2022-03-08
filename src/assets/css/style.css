@@ -147,7 +147,7 @@ textarea.form-control{ height: 100px!important;}
   box-shadow: none;
   border: 1px solid rgba(0,0,0,.5);
 }
-.form-control.small{ width:50px; padding: 8px 10px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; margin-right: 10px;}
+.form-control.small{ width:52px; padding: 8px 10px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; margin-right: 10px;}
 
 .custome-button{
 border-radius: 4px;
@@ -162,6 +162,7 @@ min-width: 90px;
 background:var(--red-color);
 border: none;
 }
+.custome-button a{ color: var(--white-color);}
 .custome-outline{
   border-radius: 4px;
   color: var(--red-color);
@@ -198,7 +199,7 @@ border: none;
 ::-webkit-scrollbar-thumb {background:var(--tickets-color); border-radius:50px;}  
 /*********************************************************************/
 .header{background: var(--header-bg) repeat; padding: 15px 0px;}
-.logo{ width:50px; height:50px; background: var(--link-color);}
+.logo img{ max-width: 77px;}
 .title-sec{ display: flex; padding: 10px 15px 0px; background:var(--header-bg2) repeat; width: 100%; align-items: end;}
 .main-title{ width: auto;}
 .main-title h1{ margin-bottom: 15px; font-weight: 600;}
@@ -370,6 +371,7 @@ border: none;
    .dashboard-table ul.dropdown-menu li:before{width:8px; height:8px; background: var(--pending); left:6px; top:13px;content: ""; position: absolute; border-radius: 50%;}
    .dropdown-item.active, .dropdown-item:active{ background:#f4f5f7;}
    .dashboard-table ul.dropdown-menu li.approved:before{ background: var(--approved);}
+   .dashboard-table ul.dropdown-menu li.block:before{ background: var(--text-color);}
    .dashboard-table ul.dropdown-menu li.rejected:before{ background: var(--red-color);}
    .dashboard-table ul.dropdown-menu li.modify:before{ background: var(--modify);}
    .dashboard-table ul.dropdown-menu li.broadcast:before{ background: var(--broadcast);}
@@ -531,6 +533,12 @@ border: none;
     .modal-dialog.custome-modal{ max-width: 650px;}
     .custome-modal .modal-header{ justify-content: center;}
     td i{ font-size: 20px; }
+
+    .dropdown-menu.top-filter{
+      padding: 20px 10px;
+    }
+    .dropdown-menu.top-filter .form-check-input  { width: 16px; height: 16px; margin-right: 10px;}
+    .form-check-label{ font-size: var(--clamp16);}
 
 
 @media screen and (max-width:767px) {

@@ -35,7 +35,7 @@
                 <div class="input-group mb-0 mx-4">
                     <button class="btn btn-outline-secondary" type="button" (click)="_podService.searchList()"><i
                             class="fas fa-search"></i></button>
-                    <input type="text" class="form-control" placeholder="Search for podcast or Company or Data" [(ngModel)]='_podService.serachvalue'>
+                    <input type="text" class="form-control" placeholder="Search for podcast or Company or Data" [(ngModel)]='_podService.serachvalue' (keyup.enter)="_podService.searchList()">
                 </div>
             </div>
 
@@ -170,8 +170,10 @@
                         </form>
                     </ul>
                 </div>
-                <div class="s-box"><a (click)="showBell = !showBell" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup>5</sup></a>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}">
+                <div class="s-box">
+                    <a (click)="showBell = !showBell" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i></a>
+                    <!-- <sup>5</sup></a> -->
+                    <!-- <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}">
                         <li><a class="dropdown-item" (click)="showBell = false">link 1</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 2</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 3</a></li>
@@ -180,11 +182,11 @@
                         <li><a class="dropdown-item" (click)="showBell = false">link 6</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 7</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 8</a></li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <div class="s-box">
                     <a (click)="issettingOpen=!issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
+                    <ul class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
                         <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>
                     </ul>

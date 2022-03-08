@@ -15,7 +15,7 @@ export class AboutPodcastComponent implements OnInit {
 
   ngOnInit() {
     if(this._localStorage.getUserData().approval_status != 'Approved'){
-      this.toaster.error('Your not approved yet.')
+      this.toaster.error('Your approval is pending.')
       this.router.navigate(['/', 'dashboard'])
       return
     }
