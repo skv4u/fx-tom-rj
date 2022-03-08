@@ -93,7 +93,7 @@
                                     <p class="mb-0">{{list.broadcast_date}}</p>
                                     <span class="small">{{list.BroadcastTime}}</span>
                                 </td>
-                                <td class="text-center">{{list.UserComments}}</td>
+                                <td class="text-center">{{list.comment_count}}</td>
                                 <td class="text-center"><a routerLink="/edit-podcast"><i class="fas fa-pen" (click)="_podService.podcastListData = list"></i></a></td>
                                 <td class="text-center"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
                                 <td class="text-center">{{list.latest_note}}</td>
