@@ -126,7 +126,7 @@
 
         <div class="col-md-4 settings-main">
             <div class="s_inner">
-                <div class="s-box">
+                <div class="s-box" *ngIf="_podService.isListPage">
                     <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter"><i class="fas fa-sliders-h"></i></a>
                     <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter ? 'block':'none'}">
                         <form>

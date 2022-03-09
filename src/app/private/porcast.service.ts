@@ -17,6 +17,7 @@ export class PorcastService {
   NotificationList: any[] = [];
   isDelete: boolean = false;
   isProcessing: boolean = false;
+  isListPage: boolean = false;
   StatisticsList: any = {
     PendingTotal: 0,
     RejectedTotal: 0,

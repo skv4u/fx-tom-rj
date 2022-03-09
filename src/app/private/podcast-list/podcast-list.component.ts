@@ -21,6 +21,7 @@ export class PodcastListComponent implements OnInit {
   constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) { }
 
   ngOnInit() {
+    this._podService.isListPage = true;
     if (!this._localStorage.getUserData()) {
       this.router.navigate(['/', 'login'])
       return

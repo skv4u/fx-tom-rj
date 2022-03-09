@@ -23,6 +23,7 @@ export class CreatePodcastComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router) { }
 
   ngOnInit() {
+    this._podService.isListPage = false;
     if(this._localStorage.getUserData().approval_status != 'Approved'){
       this.toaster.error('Your approval is pending.')
       this.router.navigate(['/', 'dashboard'])
@@ -41,12 +42,20 @@ export class CreatePodcastComponent implements OnInit {
     })
   }
   createProcast() {
-    this.isProcessing = true;
     if (!this.podcastForm.valid) {
       this.isProcessing = false;
       this.ispodcastFormValid = false;
       return
     }
+    if (this.audioFileName == '') {
+      this.toaster.error("Audio file is required")
+      return
+    }
+    if (this.pictureFileName == '') {
+      this.toaster.error("Podcast image is required")
+      return
+    }
+    this.isProcessing = true;
     let req = {
       "user_id": this._localStorage.getUserData().id,
       "name": this.podcastForm.value.name,
@@ -75,17 +84,21 @@ export class CreatePodcastComponent implements OnInit {
   uploadaudio(element) {
     const file = element[0];
     if (file == undefined) return;
-    console.log(file, "element");
-    // if(file.type.include('audio')){
+    console.log(file.type, "element");
+     if(file.type.indexOf('audio') == -1){
+       this.toaster.error("Invalid audio file");
+       return
+    }
     let formData = new FormData();
     formData.append('filename', file, file.name);
+    this.isProcessing = true;
     this._webService.UploadDocument("s3bucket/upload", formData).
       subscribe((data: any) => {
         this.audioFileName = data.Response;
+        this.isProcessing = false;
       }, err => {
         // this._toastService.error("Error uploading file.");
       });
-    //}
     //  else {
     //    this.toaster.error('not a Audio File')
     //  }
@@ -98,14 +111,19 @@ export class CreatePodcastComponent implements OnInit {
     const file = element[0];
     if (file == undefined) return;
     console.log(file, "element");
-    // if(file.type.include('audio')){
+    if(file.type.indexOf('image') == -1){
+      this.toaster.error("Invalid image");
+      return
+   }
     let formData = new FormData();
     formData.append('filename', file, file.name);
+    this.isProcessing = true;
     this._webService.UploadDocument("s3bucket/upload", formData).
       subscribe((data: any) => {
         this.pictureFileName = data.Response;
+        this.isProcessing = false;
       }, err => {
-        // this._toastService.error("Error uploading file.");
+         this.toaster.error("Error uploading file.");
       });
     //}
     //  else {
@@ -119,9 +137,13 @@ export class CreatePodcastComponent implements OnInit {
     let req = {
         filename : this.pictureFileName
     }
+    this.isProcessing = true;
     this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
       subscribe((data: any) => {
+        this.isProcessing = false;
         this.pictureFileName = '';
+      },err => {
+        this.isProcessing = false;
       });
 
 
@@ -131,9 +153,13 @@ export class CreatePodcastComponent implements OnInit {
     let req = {
         filename : this.audioFileName
     }
-    this._webService.DeleteDocument("s3bucket/remove", this.audioFileName, 'DELETE').
+    this.isProcessing = true;
+    this._webService.commonMethod("s3bucket/remove", this.audioFileName, 'DELETE').
       subscribe((data: any) => {
+        this.isProcessing = false;
         this.audioFileName = '';
+      },err => {
+        this.isProcessing = false;
       });
 
 

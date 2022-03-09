@@ -31,6 +31,7 @@ export class DeletePopupComponent implements OnInit {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.toaster.success("Deleted Successfully");
           this._podService.getPodcastList();
+          this._podService.getPodcastList();
           this._podService.getStatisticsList();
           this._podService.isDelete = false;
         }

@@ -19,6 +19,7 @@ export class AboutPodcastComponent implements OnInit {
       this.router.navigate(['/', 'dashboard'])
       return
     }
+    this._podService.isListPage = false;
     console.log(this._podService.podcastListData,"+++++++++++")
     this._podService.getNodeList();
   }
