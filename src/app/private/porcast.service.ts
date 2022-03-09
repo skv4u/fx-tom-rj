@@ -14,6 +14,7 @@ export class PorcastService {
   RJDasboardList: any[] = [];
   RJDasboardList1: any[] = [];
   deletedList: any;
+  NotificationList: any[] = [];
   isDelete: boolean = false;
   isProcessing: boolean = false;
   StatisticsList: any = {
@@ -22,7 +23,9 @@ export class PorcastService {
     ApprovedTotal: 0,
     LiveTotal: 0,
     CommentTotal: 0,
+    UnreadNotificationCount: "0"
   };
+  mobileNumber: number = 0;
   constructor(public _webService: WebService, public _localStorage: LocalstorageService) { }
   getCategoryList() {
     this._webService.commonMethod('category', '', "GET").subscribe(
@@ -91,11 +94,24 @@ export class PorcastService {
         data => {
           if (data.Status == 'Success' && data.Response && data.Response.length) {
             this.StatisticsList = data.Response[0];
+            this.getNotificationLise();
           }
         }
       )
     }
   
-
+getNotificationLise(){
+  let req = {
+      "user_id": this._localStorage.getUserData().id,
+      "usertype":"RJ"
+  }
+  this._webService.commonMethod('user/notificationlist', req, "POST").subscribe(
+    data => {
+      if (data.Status == 'Success' && data.Response && data.Response.length) {
+        this.NotificationList = data.Response;
+      }
+    }
+  )
+}
 
 }

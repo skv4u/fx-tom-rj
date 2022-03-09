@@ -2,7 +2,13 @@
 <app-header>
 
 </app-header>
-<div *ngIf="_localStorage.getUserData().approval_status != 'Approved'">Your approval is pending.</div>
+<div style="
+text-align: center;
+margin-top: 30px;
+font-size: 30px;
+color: #d03131;
+font-style: italic;
+" *ngIf="_localStorage.getUserData().approval_status != 'Approved'">Your approval is pending.</div>
 <div class="body-main" *ngIf="_localStorage.getUserData().approval_status == 'Approved'">
     <div class="body-content">
         <div class="information dasdboard">
@@ -25,7 +31,8 @@
                                 <th>
                                     <a id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="iscategoryOpen = !iscategoryOpen" style="cursor: pointer;">Category</a>
                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':iscategoryOpen ? 'block':'none'}">
-                                        <li><a class="dropdown-item" *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);iscategoryOpen = false">{{a.name}}</a></li>
+                                        <li><a class="dropdown-item" *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);iscategoryOpen = false">{{a.name}}</a>
+                                        </li>
                                     </ul>
                                 </th>
                                 <th class="text-center">Upload Date</th>
@@ -94,7 +101,8 @@
                                     <span class="small">{{list.BroadcastTime}}</span>
                                 </td>
                                 <td class="text-center">{{list.comment_count}}</td>
-                                <td class="text-center"><a routerLink="/edit-podcast"><i class="fas fa-pen" (click)="_podService.podcastListData = list"></i></a></td>
+                                <td class="text-center"><a routerLink="/edit-podcast"><i class="fas fa-pen"
+                                            (click)="_podService.podcastListData = list"></i></a></td>
                                 <td class="text-center"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
                                 <td class="text-center">{{list.latest_note}}</td>
                             </tr>

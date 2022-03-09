@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { WebService } from 'src/app/shared/services/web.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { Router } from '@angular/router';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { PorcastService } from 'src/app/private/porcast.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,44 +17,92 @@ export class ForgotPasswordComponent implements OnInit {
   isProgessing: boolean = false;
   isMobileNumberValid: boolean = true;
   MobileNumberForm: FormGroup;
-  constructor(public _webService: WebService, public fb: FormBuilder, public _commonService: CommonService) { }
+  InputList: any = {
+    input1: '',
+    input2: '',
+    input3: '',
+    input4: '',
+    input5: '',
+    input6: ''
+  } //= new Array(6).fill('');
+  constructor(public _webService: WebService, public fb: FormBuilder, public _commonService: CommonService, public router: Router, public toaster: ToastService, public _podCastService: PorcastService) { }
 
   ngOnInit() {
     this.MobileNumberForm = this.fb.group({
-      mobile: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10),this._commonService.customNumber]],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this._commonService.customNumber]],
     })
   }
-  getOTP(){
+  getOTP() {
     this.isProgessing = true;
-    if(!this.MobileNumberForm.valid){
+    if (!this.MobileNumberForm.valid) {
       this.isProgessing = false;
       this.isMobileNumberValid = false;
       return
     }
-   let req = {
+    let req = {
       "mobile": this.MobileNumberForm.value.mobile
-      }
-      this._webService.commonMethod('sms/otp', req, "POST").subscribe(
-        data => {
-          if(data.Status == 'Success' && data.Response){
-            this.isProgessing = false;
-          }
+    }
+    this._webService.commonMethod('sms/otp', req, "POST").subscribe(
+      data => {
+        if (data.Status == 'Success' && data.Response) {
+          this.isProgessing = false;
         }
-      )
+      }
+    )
   }
 
-  sendOTP(){
+  sendOTP() {
+    if (!this.MobileNumberForm.value.mobile) {
+      this.toaster.error("Please enter mobile number");
+      return
+    }
+    let otp: string = '';
+    for (let m in this.InputList) {
+      otp += this.InputList[m];
+    }
+    if(otp.length != 6){
+      this.toaster.error("Invalid OTP");
+      return
+    }
+    this.isProgessing = true;
+
     let req = {
       "mobile": this.MobileNumberForm.value.mobile,
-      "otp": "434351"
-      }
-      this._webService.commonMethod('sms/validate', req, "POST").subscribe(
-        data => {
-          if(data.Status == 'Success' && data.Response){
-            this.isProgessing = false;
-          }
+      "otp": otp
+    }
+    this._webService.commonMethod('sms/validate', req, "POST").subscribe(
+      data => {
+        if (data.Status == 'Success' && data.Response) {
+          this._podCastService.mobileNumber = this.MobileNumberForm.value.mobile;
+          this.router.navigate(['/', 'reset-password'])
+        } else if (data.Status == 'Success' && !data.Response) {
+          this.toaster.error("Invalid OTP")
         }
-      )
+        this.isProgessing = false;
+      }
+    )
   }
+
+  restrictKey(elem: any, index: number) {
+    // console.log(elem.keyCode);
+    let keyCodeList: number[] = [32];
+    if (keyCodeList.indexOf(elem.keyCode) !== -1) return false;
+    if (elem.keyCode == 8) {
+      index--;
+      if (document.getElementById('input' + index))
+        document.getElementById('input' + index).focus();
+      return true;
+    }
+    setTimeout(() => {
+      index++;
+      if (document.getElementById('input' + index))
+        document.getElementById('input' + index).focus();
+
+
+
+    }, 1)
+    return true;
+  }
+
 
 }

@@ -46,6 +46,7 @@ export class RjRegisterComponent implements OnInit {
   }
 
   register() {
+    debugger
     this.isProgressing = true;
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
       this.isProgressing = false;

@@ -174,18 +174,20 @@
                     </ul>
                 </div>
                 <div class="s-box">
-                    <a (click)="showBell = !showBell" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i></a>
-                    <!-- <sup>5</sup></a> -->
-                    <!-- <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}">
-                        <li><a class="dropdown-item" (click)="showBell = false">link 1</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 2</a></li>
+                    <a (click)="showBell = !showBell" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
+                    <!--  -->
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}">
+                        <li *ngFor="let a of _podService.NotificationList">
+                            <a class="dropdown-item" (click)="showBell = false" [innerHtml]="a.message"></a>
+                        </li>
+                        <!-- <li><a class="dropdown-item" (click)="showBell = false">link 2</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 3</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 4</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 5</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 6</a></li>
                         <li><a class="dropdown-item" (click)="showBell = false">link 7</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 8</a></li>
-                    </ul> -->
+                        <li><a class="dropdown-item" (click)="showBell = false">link 8</a></li> -->
+                    </ul>
                 </div>
                 <div class="s-box">
                     <a (click)="issettingOpen=!issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
