@@ -30,6 +30,8 @@ export class EditPodcastComponent implements OnInit {
       return
     }
     this._podService.getNodeList();
+    this._podService.getCategoryList();
+    this._podService.getLanguageList();
     this.audioFileName = this._podService.podcastListData.audiopath;
     this.pictureFileName = this._podService.podcastListData.imagepath;
     this.podcastForm = this.fb.group({

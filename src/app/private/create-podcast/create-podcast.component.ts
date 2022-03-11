@@ -29,6 +29,8 @@ export class CreatePodcastComponent implements OnInit {
       this.router.navigate(['/', 'dashboard'])
       return
     }
+    this._podService.getCategoryList();
+    this._podService.getLanguageList();
     this.podcastForm = this.fb.group({
       name: ['', [Validators.required]],
       author_name: ['', [Validators.required]],

@@ -27,7 +27,10 @@ export class PorcastService {
     UnreadNotificationCount: "0"
   };
   mobileNumber: number = 0;
-  constructor(public _webService: WebService, public _localStorage: LocalstorageService) { }
+  constructor(public _webService: WebService, public _localStorage: LocalstorageService) {
+    // this.getCategoryList();
+    // this.getLanguageList();
+   }
   getCategoryList() {
     this._webService.commonMethod('category', '', "GET").subscribe(
       data => {
