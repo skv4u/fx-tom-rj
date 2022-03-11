@@ -18,6 +18,7 @@ export class PodcastListComponent implements OnInit {
   isProcessing: boolean = false;
   isDelete: boolean = false;
   isStatusOpen: boolean = false;
+  isProgressing: boolean = false;
   constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) { }
 
   ngOnInit() {
@@ -26,8 +27,18 @@ export class PodcastListComponent implements OnInit {
       this.router.navigate(['/', 'login'])
       return
     }
+    if(this._localStorage.getUserData().approval_status == 'Pending'){
+    this.viewUser(() => {
+     this.genericCall();
+    });
+  }else {
+    this.genericCall();
+  }
+  }
+
+  genericCall()
+  {
     if (this._localStorage.getUserData().approval_status != 'Approved') {
-      // this.toaster.error('Your approval is pending.');
       return
     }
     this._podService.getPodcastList();
@@ -35,7 +46,26 @@ export class PodcastListComponent implements OnInit {
     this._podService.getCategoryList();
     this._podService.getLanguageList();
   }
-  
+
+
+  viewUser(callback) {
+    this.isProgressing = true;
+    let req = {
+      "username": this._localStorage.getUserData().username
+    }
+    this._webService.commonMethod('user/view', req, "POST").subscribe(
+      data => {
+        this.isProgressing = false;
+        if (data.Status == 'Success' && data.Response) {
+          this._localStorage.setUserData(data.Response);
+          callback();
+        }
+      }
+    )
+
+  }
+
+
   LogOut() {
     localStorage.clear();
     this.router.navigate(['/', 'logout'])
@@ -50,7 +80,7 @@ export class PodcastListComponent implements OnInit {
 
 
 
-  
+
   deletepopup(list) {
     this._podService.deletedList = list;
     this._podService.isDelete = true;

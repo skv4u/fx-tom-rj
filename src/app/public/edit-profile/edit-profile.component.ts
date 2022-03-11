@@ -87,6 +87,7 @@ export class EditProfileComponent implements OnInit {
         // {
           "id": this._localStorage.getUserData().id,
           "fullname": this.registerForm.value.fullname,
+          "username":  this.registerForm.value.username,
           "dob": this.registerForm.value.dob,
           "phone": this.registerForm.value.phone,
           "email": this.registerForm.value.email,

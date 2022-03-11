@@ -85,10 +85,14 @@ export class CreatePodcastComponent implements OnInit {
     const file = element[0];
     if (file == undefined) return;
     console.log(file.type, "element");
-     if(file.type.indexOf('audio') == -1){
+     if(!(file.type.indexOf('audio') != -1 || file.type.indexOf('video') != -1)){
        this.toaster.error("Invalid audio file");
        return
     }
+  //   if(file.type.indexOf('video') == -1){
+  //     this.toaster.error("Invalid video file");
+  //     return
+  //  }
     let formData = new FormData();
     formData.append('filename', file, file.name);
     this.isProcessing = true;
