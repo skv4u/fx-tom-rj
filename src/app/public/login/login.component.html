@@ -1,3 +1,4 @@
+<app-loader *ngIf="isProcessing"></app-loader>
 <!--Header Start Here-->
 <header class="header">
     <div class="container-fluid">
@@ -64,8 +65,8 @@
                             <p class="forget"><a routerLink="/forgot-password">Forgot password</a></p>
                         </div>
                         <div>
-                            <a><button class="custome-button" (click)="signin()" [disabled]="issignButtonEnable">Sign In</button></a>
-                            <img *ngIf="issignButtonEnable" src="./assets/images/loader.gif" style="width: auto;height: 30px;margin-left: 20px;">
+                            <a><button class="custome-button" (click)="signin()" [disabled]="isProcessing">Sign In</button></a>
+                            <!-- <img *ngIf="issignButtonEnable" src="./assets/images/loader.gif" style="width: auto;height: 30px;margin-left: 20px;"> -->
                         </div>
                     </div>
                 </form>

@@ -16,11 +16,25 @@
                                     <input type="text" class="form-control" id="floatingInput" placeholder="Podcast Name" value="Podcast 34" formControlName="name">
                                     <label for="floatingInput">Podcast Name</label>
                                 </div>
+                                <div class="required-error">
+                                    <span class="error-span" *ngIf="podcastForm.get('name').errors && (podcastForm.get('name').touched || podcastForm.get('name').dirty) || !ispodcastFormValid">
+                                        <span *ngIf="podcastForm.get('name').hasError('required')">
+                                            Podcast is required
+                                        </span>
+                                    </span>
+                                </div>
                             </div>
                             <div class="col-md-9 mb-4">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="floatingInput" placeholder="Author Name" value="RJ Name" formControlName="author_name">
                                     <label for="floatingInput">Author Name</label>
+                                </div>
+                                <div class="required-error">
+                                    <span class="error-span" *ngIf="podcastForm.get('author_name').errors && (podcastForm.get('author_name').touched || podcastForm.get('author_name').dirty) || !ispodcastFormValid">
+                                        <span *ngIf="podcastForm.get('author_name').hasError('required')">
+                                            Author Name is required
+                                        </span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-9 mb-4">
@@ -32,15 +46,29 @@
                                     </select>
                                     <label for="floatingInput">Language</label>
                                 </div>
+                                <div class="required-error">
+                                    <span class="error-span" *ngIf="podcastForm.get('language').errors && (podcastForm.get('language').touched || podcastForm.get('language').dirty) || !ispodcastFormValid">
+                                        <span *ngIf="podcastForm.get('language').hasError('required')">
+                                            Language is required
+                                        </span>
+                                    </span>
+                                </div>
                             </div>
                             <div class="col-md-9 mb-4">
                                 <div class="form-floating">
-                                    <select class="form-control" formControlName="category">
+                                    <select class="form-control" formControlName="category" multiple style="height: 100% !important;background: none;">
                                         <option *ngFor="let category of _podService.categoryList"
                                             [value]="category.name">
                                             {{category.name}}</option>
                                     </select>
-                                    <label for="floatingInput">Category</label>
+                                    <label>Category</label>
+                                </div>
+                                <div class="required-error">
+                                    <span class="error-span" *ngIf="podcastForm.get('category').errors && (podcastForm.get('category').touched || podcastForm.get('category').dirty) || !ispodcastFormValid">
+                                        <span *ngIf="podcastForm.get('category').hasError('required')">
+                                            Category is required
+                                        </span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-3 mb-4 d-flex align-items-center">
@@ -53,6 +81,13 @@
                             <div class="col-md-12 mb-4">
                                 <textarea class="form-control" placeholder="Describe you Podcast in few lines. Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines.Describe you Podcast in few lines."
                                     formControlName="description"></textarea>
+                            </div>
+                            <div class="required-error">
+                                <span class="error-span" *ngIf="podcastForm.get('description').errors && (podcastForm.get('description').touched || podcastForm.get('description').dirty) || !ispodcastFormValid">
+                                    <span *ngIf="podcastForm.get('description').hasError('required')">
+                                        Description is required
+                                    </span>
+                                </span>
                             </div>
                         </div>
                     </div>

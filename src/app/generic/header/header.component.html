@@ -126,45 +126,45 @@
 
         <div class="col-md-4 settings-main">
             <div class="s_inner">
-                <div class="s-box" *ngIf="_podService.isListPage">
-                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter"><i class="fas fa-sliders-h"></i></a>
-                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter ? 'block':'none'}">
+                <div class="s-box" *ngIf="_podService.isListPage" style="position: relative;">
+                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter;showBell = false;issettingOpen=false"><i class="fas fa-sliders-h"></i></a>
+                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
                         <form>
                             <li>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check1">
+                                    <input class="form-check-input" type="checkbox" id="check1" [(ngModel)]="_podService.podcastFilterList.isTittle" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Title</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check2">
+                                    <input class="form-check-input" type="checkbox" id="check2" [(ngModel)]="_podService.podcastFilterList.iscategory" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Category</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check3">
+                                    <input class="form-check-input" type="checkbox" id="check3" [(ngModel)]="_podService.podcastFilterList.isupdatedate" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Upload Date</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check4">
+                                    <input class="form-check-input" type="checkbox" id="check4" [(ngModel)]="_podService.podcastFilterList.isstatus" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Status</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check5">
+                                    <input class="form-check-input" type="checkbox" id="check5" [(ngModel)]="_podService.podcastFilterList.isbroadcast" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Broadcast Date</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check6">
+                                    <input class="form-check-input" type="checkbox" id="check6" [(ngModel)]="_podService.podcastFilterList.iscommits" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">User Comments</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check7">
+                                    <input class="form-check-input" type="checkbox" id="check7" [(ngModel)]="_podService.podcastFilterList.isedit" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Edit</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check8">
+                                    <input class="form-check-input" type="checkbox" id="check8" [(ngModel)]="_podService.podcastFilterList.islistdelete" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Delete</label>
                                 </div>
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check9">
+                                    <input class="form-check-input" type="checkbox" id="check9" [(ngModel)]="_podService.podcastFilterList.isnote" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Latest Notes
                                     </label>
                                 </div>
@@ -174,7 +174,7 @@
                     </ul>
                 </div>
                 <div class="s-box" style="position: relative;">
-                    <a (click)="updateNotification();showBell = !showBell" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
+                    <a (click)="updateNotification();showBell = !showBell;ShowFilter = false;issettingOpen=false" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
                     <!--  -->
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}" style="right: 0;">
                         <li *ngFor="let a of _podService.NotificationList">
@@ -193,7 +193,7 @@
                     </ul>
                 </div>
                 <div class="s-box">
-                    <a (click)="issettingOpen=!issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
+                    <a (click)="issettingOpen=!issettingOpen;showBell = false;ShowFilter = false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
                     <ul class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
                         <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>

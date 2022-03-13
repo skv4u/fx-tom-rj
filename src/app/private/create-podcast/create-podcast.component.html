@@ -54,12 +54,12 @@
                             </div>
                             <div class="col-md-9 mb-4">
                                 <div class="form-floating">
-                                    <select class="form-control" formControlName="category">
+                                    <select class="form-control" formControlName="category" multiple style="height: 100% !important;background: none;">
                                         <option *ngFor="let category of _podService.categoryList"
                                             [value]="category.name">
                                             {{category.name}}</option>
                                     </select>
-                                    <label for="floatingInput">Category</label>
+                                    <label>Category</label>
                                 </div>
                                 <div class="required-error">
                                     <span class="error-span" *ngIf="podcastForm.get('category').errors && (podcastForm.get('category').touched || podcastForm.get('category').dirty) || !ispodcastFormValid">

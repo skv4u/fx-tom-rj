@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   isloginFormValid: boolean = true;
-  issignButtonEnable: boolean = false;
+  isProcessing: boolean = false;
   constructor(
     public fb: FormBuilder, public _webService: WebService, 
     public _localStorage: LocalstorageService, 
@@ -31,12 +31,11 @@ export class LoginComponent implements OnInit {
     })
   }
   signin() {
-    this.issignButtonEnable = true;
     if (!this.loginForm.valid) {
       this.isloginFormValid = false;
-      this.issignButtonEnable = false;
       return
     } else {
+      this.isProcessing = true;
       let req = {
         "username": this.loginForm.value.username,
         "password": this.loginForm.value.password
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit {
           }else {
            this.toaster.error(data.Response);
           }
-          this.issignButtonEnable = false;
+          this.isProcessing = false;
           //console.log(data, "datadatadatadata");
         }
       )

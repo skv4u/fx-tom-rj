@@ -107,17 +107,19 @@
                             <tbody>
                                 <tr *ngFor="let note of _podService.noteList">
                                     <td>
-                                        <p class="mb-0">25th Jan 2021</p>
-                                        <span class="small">20:30</span>
+                                        <p class="mb-0">{{note.note_date}}</p>
+                                        <!-- <span class="small">20:30</span> -->
 
                                     </td>
                                     <td>
-                                        <p class="m-0">Admin</p>
+                                        <p class="m-0">{{note.usertype}}</p>
                                     </td>
 
-                                    <td>(Live)</td>
+                                    <td>{{note.status}}</td>
                                     <td>{{note.description}}</td>
-                                    <td class="text-center"><i class="far fa-file-download"></i></td>
+                                    <td class="text-center">
+                                        <a download="audio.mp3" [href]="note.audio_path" target="_blank"><i class="far fa-file-download"></i></a>
+                                    </td>
                                 </tr>
 
                             </tbody>
@@ -125,6 +127,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

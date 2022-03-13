@@ -63,7 +63,7 @@ export class CreatePodcastComponent implements OnInit {
       "name": this.podcastForm.value.name,
       "author_name": this.podcastForm.value.author_name,
       "language": this.podcastForm.value.language,
-      "category": this.podcastForm.value.category,
+      "category": this.podcastForm.value.category.join(","),
       "description": this.podcastForm.value.description,
       "imagepath": this.pictureFileName,
       "audiopath": this.audioFileName,
@@ -149,6 +149,7 @@ export class CreatePodcastComponent implements OnInit {
         this.isProcessing = false;
         this.pictureFileName = '';
       },err => {
+        this.pictureFileName = '';
         this.isProcessing = false;
       });
 
@@ -166,6 +167,7 @@ export class CreatePodcastComponent implements OnInit {
         this.audioFileName = '';
       },err => {
         this.isProcessing = false;
+        this.audioFileName = '';
       });
 
 

@@ -26,11 +26,22 @@ export class PorcastService {
     CommentTotal: 0,
     UnreadNotificationCount: "0"
   };
+  podcastFilterList: any = {
+    isTittle: false,
+    iscategory: false,
+    isupdatedate: false,
+    isstatus: false,
+    isbroadcast: false,
+    iscommits: false,
+    isedit: false,
+    islistdelete: false,
+    isnote: false
+  }
   mobileNumber: number = 0;
   constructor(public _webService: WebService, public _localStorage: LocalstorageService) {
     // this.getCategoryList();
     // this.getLanguageList();
-   }
+  }
   getCategoryList() {
     this._webService.commonMethod('category', '', "GET").subscribe(
       data => {
@@ -63,59 +74,59 @@ export class PorcastService {
     )
   }
 
-  searchList(data?:any) {
-    let tempdata=data ? data : this.serachvalue;
+  searchList(data?: any) {
+    let tempdata = data ? data : this.serachvalue;
     let temp = this.RJDasboardList1.filter(x => JSON.stringify(x).toLowerCase().includes(tempdata.toLowerCase()));
     this.RJDasboardList = temp;
-    }
-
-    getPodcastList() {
-      this.isProcessing = true;
-      let req = {
-        "user_id": this._localStorage.getUserData().id,
-        "podcast_id": ""
-      }
-      this._webService.commonMethod('podcast/list', req, "POST").subscribe(
-        data => {
-          if (data.Status == "Success" && data.Response && data.Response.length) {
-            data.Response.forEach(data => {
-              data.ispodcastDelete = false;
-            });
-            console.log(data.Response, "data.Response")
-            this.RJDasboardList = data.Response;
-            this.RJDasboardList1 = data.Response;
-          }
-          this.isProcessing = false;
-        }
-      )
-    }
-  
-    getStatisticsList() {
-      let req = {
-        "user_id": this._localStorage.getUserData().id
-      }
-      this._webService.commonMethod('user/statistics', req, "POST").subscribe(
-        data => {
-          if (data.Status == 'Success' && data.Response && data.Response.length) {
-            this.StatisticsList = data.Response[0];
-            this.getNotificationLise();
-          }
-        }
-      )
-    }
-  
-getNotificationLise(){
-  let req = {
-      "user_id": this._localStorage.getUserData().id,
-      "usertype":"RJ"
   }
-  this._webService.commonMethod('user/notificationlist', req, "POST").subscribe(
-    data => {
-      if (data.Status == 'Success' && data.Response && data.Response.length) {
-        this.NotificationList = data.Response;
-      }
+
+  getPodcastList() {
+    this.isProcessing = true;
+    let req = {
+      "user_id": this._localStorage.getUserData().id,
+      "podcast_id": ""
     }
-  )
-}
+    this._webService.commonMethod('podcast/list', req, "POST").subscribe(
+      data => {
+        if (data.Status == "Success" && data.Response && data.Response.length) {
+          data.Response.forEach(data => {
+            data.ispodcastDelete = false;
+          });
+          console.log(data.Response, "data.Response")
+          this.RJDasboardList = data.Response;
+          this.RJDasboardList1 = data.Response;
+        }
+        this.isProcessing = false;
+      }
+    )
+  }
+
+  getStatisticsList() {
+    let req = {
+      "user_id": this._localStorage.getUserData().id
+    }
+    this._webService.commonMethod('user/statistics', req, "POST").subscribe(
+      data => {
+        if (data.Status == 'Success' && data.Response && data.Response.length) {
+          this.StatisticsList = data.Response[0];
+          this.getNotificationLise();
+        }
+      }
+    )
+  }
+
+  getNotificationLise() {
+    let req = {
+      "user_id": this._localStorage.getUserData().id,
+      "usertype": "RJ"
+    }
+    this._webService.commonMethod('user/notificationlist', req, "POST").subscribe(
+      data => {
+        if (data.Status == 'Success' && data.Response && data.Response.length) {
+          this.NotificationList = data.Response;
+        }
+      }
+    )
+  }
 
 }

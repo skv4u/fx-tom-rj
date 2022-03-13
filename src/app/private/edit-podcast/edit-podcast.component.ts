@@ -38,7 +38,7 @@ export class EditPodcastComponent implements OnInit {
       name: [this._podService.podcastListData.name, [Validators.required]],
       author_name: [this._podService.podcastListData.author_name, [Validators.required]],
       language: [this._podService.podcastListData.language, [Validators.required]],
-      category: [this._podService.podcastListData.category, [Validators.required]],
+      category: [this._podService.podcastListData.category.split(","), [Validators.required]],
       description: [this._podService.podcastListData.description, [Validators.required]],
       imagepath: this._podService.podcastListData.imagepath,
       audiopath: this._podService.podcastListData.audiopath,
@@ -161,6 +161,7 @@ export class EditPodcastComponent implements OnInit {
         this.pictureFileName = '';
       },err => {
         this.isProcessing = false;
+        this.pictureFileName = '';
       });
 
 
@@ -176,6 +177,7 @@ export class EditPodcastComponent implements OnInit {
         this.isProcessing = false;
         this.audioFileName = '';
       },err => {
+        this.audioFileName = '';
         this.isProcessing = false;
       });
 
