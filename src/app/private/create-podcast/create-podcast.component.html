@@ -60,6 +60,7 @@
                                             {{category.name}}</option>
                                     </select>
                                     <label>Category</label>
+                                    <span style="font-size: 10px;">Use Ctrl or Shift key for multiple selection</span>
                                 </div>
                                 <div class="required-error">
                                     <span class="error-span" *ngIf="podcastForm.get('category').errors && (podcastForm.get('category').touched || podcastForm.get('category').dirty) || !ispodcastFormValid">

@@ -24,15 +24,15 @@ export class RjRegisterComponent implements OnInit {
   isPersonalInformationOpen: boolean = false;
   isdisplayinformationOpen: boolean = false;
   pictureFileName: string = '';
- MINIMUM_AGE: number = 15;
- MAXIMUM_AGE: number = 60;
- isindividual: boolean = false;
- ISD: string = '';
+  MINIMUM_AGE: number = 15;
+  MAXIMUM_AGE: number = 60;
+  isindividual: boolean = false;
+  ISD: string = '';
   constructor(
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _commonService: CommonService) { }
 
   ngOnInit() {
-  //  console.log(this.date, "date");
+    //  console.log(this.date, "date");
     this.registerForm = this.fb.group({
       fullname: ['', [Validators.required]],
       username: ['', [Validators.required]],
@@ -47,7 +47,7 @@ export class RjRegisterComponent implements OnInit {
       address1: '',
       address2: '',
       address3: '',
-      password: ['', [Validators.required,Validators.minLength(6), Validators.maxLength(60), this._commonService.customPassword]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(60), this._commonService.customPassword]],
       confirmPassword: ['', [Validators.required]],
       aboutme: '',
       twitter: '',
@@ -121,7 +121,7 @@ export class RjRegisterComponent implements OnInit {
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.countryList = data.Response;
-          this.country = "91";
+          this.country = "India";
           this.ISD = "+91"
           this.getStateList();
         }
@@ -131,7 +131,8 @@ export class RjRegisterComponent implements OnInit {
 
   getStateList() {
     this.stateList = [];
-    this._webService.commonMethod('country/state/' + this.country, '', "GET").subscribe(
+    let countryid = this.getCountryId();
+    this._webService.commonMethod('country/state/' + countryid, '', "GET").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.stateList = data.Response;
@@ -139,6 +140,16 @@ export class RjRegisterComponent implements OnInit {
         }
       }
     )
+  }
+
+  getCountryId() {
+    let id = '';
+    for (let a of this.countryList) {
+      if (a.name == this.country) {
+        id = a.id;
+      }
+    }
+    return id
   }
 
   removeSpace(ele) {
@@ -195,11 +206,11 @@ export class RjRegisterComponent implements OnInit {
 
 
   }
-  getpodcastdisable(){
+  getpodcastdisable() {
     this.isindividual = this.registerForm.value.podcaster_type == 'Individual' ? true : false;
   }
 
-  validation(){
+  validation() {
 
     let diff = new Date().getFullYear() - new Date(this.registerForm.value.dob).getFullYear();
 

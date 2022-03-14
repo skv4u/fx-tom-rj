@@ -327,7 +327,7 @@
                 </div>
                 <div class="col-md-1 col-12 mb-4">
                     <div class="form-floating">
-                        <select class="form-control" placeholder="ISD" [(ngModel)]="ISD" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
+                        <select class="form-control" placeholder="ISD" [(ngModel)]="ISD" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let country of countryList" [value]="country.dialcode">
                                 {{country.dialcode}}</option>
                         </select>
@@ -397,7 +397,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="form-floating">
                         <select class="form-control" placeholder="Country" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
-                            <option *ngFor="let country of countryList" [value]="country.id">
+                            <option *ngFor="let country of countryList" [value]="country.name">
                                 {{country.name}}</option>
                         </select>
                         <label for="floatingInput">Country</label>
@@ -415,11 +415,11 @@
 
                 <div class="col-md-12 col-12 mb-4 d-flex align-items-center flex-wrap radio-width">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio1" value="Individual" formControlName="podcaster_type" (change)="getpodcastdisable()">
+                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio1" value="individual" formControlName="podcaster_type" (change)="getpodcastdisable()">
                         <label class="form-check-label" for="inlineRadio1">Individual Podcaster</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio2" value="Organisation" formControlName="podcaster_type" (change)="getpodcastdisable()">
+                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio2" value="organization" formControlName="podcaster_type" (change)="getpodcastdisable()">
                         <label class="form-check-label" for="inlineRadio2">Organisation</label>
                     </div>
                     <div class="w-50">

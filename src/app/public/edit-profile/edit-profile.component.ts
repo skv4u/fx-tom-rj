@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { debug } from 'console';
 import { PorcastService } from 'src/app/private/porcast.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
@@ -22,7 +23,7 @@ export class EditProfileComponent implements OnInit {
   isProgessing: boolean = false;
   reasonforEdit: string = '';
   pictureFileName: string = '';
-  isPersonalInformationOpen: boolean = false;
+  isPersonalInformationOpen: boolean = true;
   isdisplayinformationOpen: boolean = false;
   MINIMUM_AGE: number = 15;
   MAXIMUM_AGE: number = 60;
@@ -32,6 +33,7 @@ export class EditProfileComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
     this._podService.isListPage = false;
+    debugger
     if(this._podService.Approval_Status == 'Pending'){
       this.toaster.error('Your approval is pending.')
       return
@@ -53,7 +55,7 @@ export class EditProfileComponent implements OnInit {
       phone: [this._localStorage.getUserData().phone, [Validators.required,Validators.minLength(10),Validators.maxLength(10),this._commonService.customNumber]],
       email: [this._localStorage.getUserData().email, [Validators.required,this._commonService.customEmail, Validators.maxLength(60)]],
       profile_image: this._localStorage.getUserData().profile_image,
-      podcaster_type: this._localStorage.getUserData().podcaster_type == 'individual' ? 'Individual' : "Organisation",
+      podcaster_type: this._localStorage.getUserData().podcaster_type,
       podcaster_value: this._localStorage.getUserData().podcaster_value,
       address1: this._localStorage.getUserData().address1,
       address2: this._localStorage.getUserData().address2,
@@ -73,13 +75,17 @@ export class EditProfileComponent implements OnInit {
   updateProfile() {
     let diff = new Date().getFullYear() - new Date(this.registerForm.value.dob).getFullYear();
 
-    if ((this.MAXIMUM_AGE < diff) || (this.MINIMUM_AGE > diff)) {
+    // if ((this.MAXIMUM_AGE < diff) || (this.MINIMUM_AGE > diff)) {
+      if (!(diff>= this.MINIMUM_AGE && diff<= this.MAXIMUM_AGE)){
       this.toaster.error("Invalid Date");
       return
     }
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
       this.isProgessing = false;
       this.isPasswordValid = false;
+      return
+    }if(this.reasonforEdit == ''){
+      this.toaster.error("Please enter some notes");
       return
     }
     if (!this.registerForm.valid) { 
@@ -117,9 +123,9 @@ export class EditProfileComponent implements OnInit {
           "username":  this.registerForm.value.username,
           "dob": this.registerForm.value.dob,
           "isd": this.ISD,
-          "phone": this.ISD ? this.ISD + this.registerForm.value.phone : this.registerForm.value.phone,
+          "phone": this.registerForm.value.phone,
           "email": this.registerForm.value.email,
-          "profile_image": this.registerForm.value.profile_image,
+          "profile_image": this.pictureFileName,
           "podcaster_type": this.registerForm.value.podcaster_type,
           "podcaster_value": this.registerForm.value.podcaster_value,
           "address1": this.registerForm.value.address1,
@@ -145,7 +151,7 @@ export class EditProfileComponent implements OnInit {
           if(data.Status == 'Success' && data.Response){
             this.isProgessing = false;
             this.toaster.success('Updated Successfully');
-            //this._localStorage.setUserData(req);
+            this._localStorage.setUserData(req);
             this.router.navigate(['/', 'dashboard'])
             }else {
              this.toaster.error(data.Response);
@@ -160,14 +166,6 @@ export class EditProfileComponent implements OnInit {
       data => {
         if(data.Status == 'Success' && data.Response && data.Response.length){
           this.countryList = data.Response;
-          // let id: string = '';
-          // for(let country of data.Response){
-          //   if(country.name == this.country){
-          //     id = country.id;
-          //   }
-          // }
-          // debugger
-          // this.country =  this.country ? id :"91";
           this. getStateList();
           this.isProgessing = false;
         }
@@ -175,16 +173,29 @@ export class EditProfileComponent implements OnInit {
     )
   }
 
-  getStateList(){
+  getStateList() {
     this.stateList = [];
-    this._webService.commonMethod('country/state/' + this.country, '', "GET").subscribe(
+    let countryid = this.getCountryId();
+    this._webService.commonMethod('country/state/' + countryid, '', "GET").subscribe(
       data => {
-        if(data.Status == 'Success' && data.Response && data.Response.length){
+        if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.stateList = data.Response;
           this.state = this.stateList[0].name;
         }
       }
     )
+  }
+
+  getCountryId() {
+    debugger
+    let id = '';
+    for (let a of this.countryList) {
+      if (a.name == this.country) {
+        id = a.id;
+        break;
+      }
+    }
+    return id
   }
   uploadFile(element) {
     const file = element[0];
