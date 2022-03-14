@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="logo">
-                    <a><img src="./assets/images/logo.jpg" alt="Logo" /></a>
+                    <a href="#"><img src="./assets/images/logo.jpg" alt="Logo" /></a>
                 </div>
             </div>
         </div>
@@ -28,14 +28,22 @@
 
 </div>
 <!--Title sec End Here-->
-
-
 <div class="body-main">
     <div class="body-content">
         <h3>Register</h3>
-        <h4 class="mb-3">Personal Information</h4>
+        <div class="title-sec mb-3 p-3 align-items-center justify-content-lg-between">
+            <div class="d-flex">
+                <h4 class="mb-0">Personal Information</h4>
+            </div>
+            <div class="d-flex" *ngIf="!isPersonalInformationOpen">
+                <i class="fal fa-plus-square fa-2x" (click)="isPersonalInformationOpen = true"></i>
+            </div>
+            <div class="d-flex" *ngIf="isPersonalInformationOpen">
+                <i class="fal fa-minus-square fa-2x" (click)="isPersonalInformationOpen = false"></i>
+            </div>
+        </div>
         <form [formGroup]="registerForm">
-            <div class="row">
+            <div class="row" *ngIf="isPersonalInformationOpen">
                 <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="fullname" placeholder="Full Name" formControlName="fullname">
@@ -64,7 +72,7 @@
                 </div>
                 <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
-                        <input type="date" class="form-control" id="dob" placeholder="Date of Birth *" formControlName="dob">
+                        <input type="date" class="form-control" id="dob" placeholder="Date of Birth *" formControlName="dob" (change)="validation()">
                         <label for="dob">Date of Birth *</label>
                     </div>
                     <div class="required-error">
@@ -75,10 +83,19 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-6 col-12 mb-4">
+                <div class="col-md-1 col-12 mb-4">
+                    <div class="form-floating">
+                        <select class="form-control" placeholder="ISD" [(ngModel)]="ISD" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
+                            <option *ngFor="let country of countryList" [value]="country.dialcode">
+                                {{country.dialcode}}</option>
+                        </select>
+                        <label for="floatingInput">ISD</label>
+                    </div>
+                </div>
+                <div class="col-md-5 col-12 mb-4">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="floatingInput" placeholder="+91 Phone Number *" formControlName="phone">
-                        <label for="floatingInput">+91 Phone Number *</label>
+                        <label for="floatingInput">Phone Number *</label>
                     </div>
                     <div class="required-error">
                         <span class="error-span" *ngIf="registerForm.get('phone').errors && (registerForm.get('phone').touched || registerForm.get('phone').dirty) || !isregisterFormValid">
@@ -92,7 +109,7 @@
                                 Maximum length 10 Characters
                             </span>
                         <span class="error-span" *ngIf="registerForm.get('phone').hasError('customNumber')">
-                               Numbers Only
+                                Numbers Only
                             </span>
                         </span>
                     </div>
@@ -156,223 +173,16 @@
 
                 <div class="col-md-12 col-12 mb-4 d-flex align-items-center flex-wrap radio-width">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio1" value="Individual" formControlName="podcaster_type">
+                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio1" value="Individual" formControlName="podcaster_type" (change)="getpodcastdisable()">
                         <label class="form-check-label" for="inlineRadio1">Individual Podcaster</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio2" value="Organisation" formControlName="podcaster_type">
+                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio2" value="Organisation" formControlName="podcaster_type" (change)="getpodcastdisable()">
                         <label class="form-check-label" for="inlineRadio2">Organisation</label>
                     </div>
                     <div class="w-50">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Organisation working for?" formControlName="podcaster_value">
-                            <label for="floatingInput">Organisation working for?</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingInput" placeholder="Password" formControlName="password">
-                        <label for="floatingInput">Password</label>
-                    </div>
-                    <div class="required-error">
-                        <span class="error-span" *ngIf="registerForm.get('password').errors && (registerForm.get('password').touched || registerForm.get('password').dirty) || !isregisterFormValid">
-                            <span *ngIf="registerForm.get('password').hasError('required')">
-                                Password is required
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingInput" placeholder="Confirm Password" formControlName="confirmPassword">
-                        <label for="floatingInput">Confirm Password</label>
-                    </div>
-                    <div class="required-error">
-                        <span class="error-span" *ngIf="registerForm.get('confirmPassword').errors && (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty) || !isPasswordValid">
-                            <span *ngIf="registerForm.get('confirmPassword').hasError('required')">
-                                Confirm Password not matched
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="co1-12 mb-4">
-                    <button class="custome-button" (click)="register()"><a>Register as
-                            Podcaster</a></button>
-                </div>
-
-            </div>
-        </form>
-    </div>
-</div>
-
-
-<!-- <div class="title-sec">
-    <div class="main-title">
-        <h1>RJ Registration</h1>
-    </div>
-    <div class="top-right">
-        <ul>
-            <li><a href="signin.html">Sign in</a></li>
-            <li class="active"><a href="register.html">Register</a></li>
-        </ul>
-
-    </div>
-
-</div> -->
-<!--Title sec End Here-->
-
-
-<!-- <div class="body-main">
-    <div class="body-content">
-        <h3>Register</h3>
-        <div class="title-sec mb-3 p-3 align-items-center justify-content-lg-between">
-            <div class="d-flex">
-                <h4 class="mb-0">Personal Information</h4>
-            </div>
-            <div class="d-flex">
-                <i class="fal fa-plus-square fa-2x"></i>
-            </div>
-        </div>
-        <form [formGroup]="registerForm">
-            <div class="row">
-                <div class="col-md-4 col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="fullname" placeholder="Full Name" formControlName="fullname">
-                        <label for="fullname">Full Name *</label>
-                    </div>
-                    <div class="required-error">
-                        <span class="error-span" *ngIf="registerForm.get('fullname').errors && (registerForm.get('fullname').touched || registerForm.get('fullname').dirty) || !isregisterFormValid">
-                                        <span *ngIf="registerForm.get('fullname').hasError('required')">
-                                            Full Name is required
-                                        </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-md-4 col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="username" placeholder="User Name *" formControlName="username">
-                        <label for="username">User Name *</label>
-                    </div>
-                    <div class="required-error">
-                        <span class="error-span" *ngIf="registerForm.get('username').errors && (registerForm.get('username').touched || registerForm.get('username').dirty) || !isregisterFormValid">
-                                        <span *ngIf="registerForm.get('username').hasError('required')">
-                                            User Name is required
-                                        </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-md-4 col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="date" class="form-control" id="dob" placeholder="Date of Birth *" formControlName="dob">
-                        <label for="dob">Date of Birth *</label>
-                    </div>
-                    <div class="required-error">
-                        <span class="error-span" *ngIf="registerForm.get('dob').errors && (registerForm.get('dob').touched || registerForm.get('dob').dirty) || !isregisterFormValid">
-                                        <span *ngIf="registerForm.get('dob').hasError('required')">
-                                            Date of Birth is required
-                                        </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="+91 Phone Number *" formControlName="phone">
-                        <label for="floatingInput">+91 Phone Number *</label>
-                    </div>
-                    <div class="required-error">
-                        <span class="error-span" *ngIf="registerForm.get('phone').errors && (registerForm.get('phone').touched || registerForm.get('phone').dirty) || !isregisterFormValid">
-                                        <span *ngIf="registerForm.get('phone').hasError('required')">
-                                            Phone Number is required
-                                        </span>
-                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('minlength')">
-                                            Minimum length 10 Characters
-                                        </span>
-                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('maxlength')">
-                                            Maximum length 10 Characters
-                                        </span>
-                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('customNumber')">
-                                           Numbers Only
-                                        </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Email ID *" formControlName="email">
-                        <label for="floatingInput">Email ID *</label>
-                    </div>
-                    <div class="required-error">
-                        <span class="error-span" *ngIf="registerForm.get('email').errors && (registerForm.get('email').touched || registerForm.get('email').dirty) || !isregisterFormValid">
-                                        <span *ngIf="registerForm.get('email').hasError('required')">
-                                            Email is required
-                                        </span>
-                        <span class="error-span" *ngIf="registerForm.get('email').hasError('customEmail')">
-                                            Invalid Email
-                                        </span>
-                        <span class="error-span" *ngIf="registerForm.get('email').hasError('maxlength')">
-                                            Maximum length 60 Charecters only
-                                        </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 1" formControlName="address1">
-                        <label for="floatingInput">Address 1</label>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 2" formControlName="address2">
-                        <label for="floatingInput">Address 2</label>
-                    </div>
-                </div>
-
-                <div class="col-6 mb-4">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="Address 3" formControlName="address3">
-                        <label for="floatingInput">Address 3</label>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="form-floating">
-                        <select class="form-control" placeholder="Country" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
-                                        <option *ngFor="let country of countryList" [value]="country.id">
-                                            {{country.name}}</option>
-                                    </select>
-                        <label for="floatingInput">Country</label>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <div class="form-floating">
-                        <select class="form-control" placeholder="State" [(ngModel)]="state" [ngModelOptions]="{standalone: true}">
-                                        <option *ngFor="let state of stateList" [value]="state.name">
-                                            {{state.name}}</option>
-                                    </select>
-                        <label for="floatingInput">State</label>
-                    </div>
-                </div>
-
-                <div class="col-md-12 col-12 mb-4 d-flex align-items-center flex-wrap radio-width">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio1" value="Individual" formControlName="podcaster_type">
-                        <label class="form-check-label" for="inlineRadio1">Individual Podcaster</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="podcaster_type" id="inlineRadio2" value="Organisation" formControlName="podcaster_type">
-                        <label class="form-check-label" for="inlineRadio2">Organisation</label>
-                    </div>
-                    <div class="w-50">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="floatingInput" placeholder="Organisation working for?" formControlName="podcaster_value">
+                            <input type="text" class="form-control" placeholder="Organisation working for?" formControlName="podcaster_value" [readonly]="isindividual">
                             <label for="floatingInput">Organisation working for?</label>
                         </div>
                     </div>
@@ -386,59 +196,77 @@
                 <div class="d-flex">
                     <h4 class="mb-0">RJ Profile display information</h4>
                 </div>
-                <div class="d-flex">
-                    <i class="fal fa-minus-square fa-2x"></i>
+                <div class="d-flex" *ngIf="!isdisplayinformationOpen">
+                    <i class="fal fa-plus-square fa-2x" (click)="isdisplayinformationOpen = true"></i>
+                </div>
+                <div class="d-flex" *ngIf="isdisplayinformationOpen">
+                    <i class="fal fa-minus-square fa-2x" (click)="isdisplayinformationOpen = false"></i>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="isdisplayinformationOpen">
                 <div class="col-md-3">
-                    <div class="profile-pic">
-                        <a href="#">Upload Profile Picture</a>
+                    <div class="profile-pic drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName == ''">
+                        <!-- <a>Upload Profile Picture</a> -->
+                        <span class="drop-zone__prompt">
+                            <p>Upload Profile Picture</p>
+                        </span>
+                        <input type="file" name="myFile" class="drop-zone__input" style="display: block;cursor: pointer;" (change)="uploadFile($event.target.files)" accept="image/">
+                    </div>
+                    <div class="profile-pic drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName">
+                        <img [src]="pictureFileName" [alt]="pictureFileName">
+                        <button (click)="removeFile()" style="right: -15px;
+                        cursor: pointer;
+                        top: -155px;
+                        background: none;
+                        border: none;
+                        color: #f00;
+                        font-size: 20px;
+                        position: relative;"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-12 col-12 mb-4">
                             <div class="form-floating">
-                                <textarea type="text" class="form-control" id="floatingInput" placeholder="Twitter"></textarea>
+                                <textarea type="text" class="form-control" id="floatingInput" placeholder="Twitter" formControlName="aboutme"></textarea>
                                 <label for="floatingInput">About Me</label>
                             </div>
                         </div>
                         <div class="col-md-6 col-12 mb-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Twitter">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Twitter" formControlName="twitter">
                                 <label for="floatingInput">Twitter</label>
                             </div>
                         </div>
                         <div class="col-md-6 col-12 mb-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Facebook">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Facebook" formControlName="facebook">
                                 <label for="floatingInput">Facebook</label>
                             </div>
                         </div>
 
                         <div class="col-md-6 col-12 mb-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Snapchat">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Snapchat" formControlName="snapchat">
                                 <label for="floatingInput">Snapchat</label>
                             </div>
                         </div>
                         <div class="col-md-6 col-12 mb-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Blogger">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Blogger" formControlName="blogger">
                                 <label for="floatingInput">Blogger</label>
                             </div>
                         </div>
 
                         <div class="col-md-6 col-12 mb-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="Telegran">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="Telegran" formControlName="telegram">
                                 <label for="floatingInput">Telegran</label>
                             </div>
                         </div>
                         <div class="col-md-6 col-12 mb-4">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="floatingInput" placeholder="LinkedIn">
+                                <input type="text" class="form-control" id="floatingInput" placeholder="LinkedIn" formControlName="linkedin">
                                 <label for="floatingInput">LinkedIn</label>
                             </div>
                         </div>
@@ -459,6 +287,15 @@
                             <span *ngIf="registerForm.get('password').hasError('required')">
                                 Password is required
                             </span>
+                        <span class="error-span" *ngIf="registerForm.get('password').hasError('minlength')">
+                                Minimum length 6 charcters required
+                            </span>
+                        <span class="error-span" *ngIf="registerForm.get('password').hasError('customPassword')">
+                               Password format incorrect
+                            </span>
+                        <span class="error-span" *ngIf="registerForm.get('password').hasError('maxlength')">
+                                    Maximum length 20 Charecters only
+                                </span>
                         </span>
                     </div>
                 </div>
@@ -489,4 +326,4 @@
 
         </form>
     </div>
-</div> -->
+</div>

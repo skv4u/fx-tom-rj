@@ -26,6 +26,7 @@ export class PorcastService {
     CommentTotal: 0,
     UnreadNotificationCount: "0"
   };
+  Approval_Status: string = this._localStorage.getUserData().approval_status;
   podcastFilterList: any = {
     isTittle: false,
     iscategory: false,

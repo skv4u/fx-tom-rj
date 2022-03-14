@@ -127,8 +127,8 @@
         <div class="col-md-4 settings-main">
             <div class="s_inner">
                 <div class="s-box" *ngIf="_podService.isListPage" style="position: relative;">
-                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter;showBell = false;issettingOpen=false"><i class="fas fa-sliders-h"></i></a>
-                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
+                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter;showBell = false;issettingOpen=false"><i class="fas fa-sliders-h curser"></i></a>
+                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter && _podService.RJDasboardList.length ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
                         <form>
                             <li>
                                 <div class="form-check mb-2">
@@ -174,7 +174,7 @@
                     </ul>
                 </div>
                 <div class="s-box" style="position: relative;">
-                    <a (click)="updateNotification();showBell = !showBell;ShowFilter = false;issettingOpen=false" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
+                    <a (click)="updateNotification();showBell = !showBell;ShowFilter = false;issettingOpen=false" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell curser"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
                     <!--  -->
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}" style="right: 0;">
                         <li *ngFor="let a of _podService.NotificationList">
@@ -193,7 +193,7 @@
                     </ul>
                 </div>
                 <div class="s-box">
-                    <a (click)="issettingOpen=!issettingOpen;showBell = false;ShowFilter = false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
+                    <a (click)="issettingOpen=!issettingOpen;showBell = false;ShowFilter = false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog curser"></i></a>
                     <ul class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
                         <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>

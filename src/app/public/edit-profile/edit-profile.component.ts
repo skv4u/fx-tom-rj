@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PorcastService } from 'src/app/private/porcast.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -20,16 +21,29 @@ export class EditProfileComponent implements OnInit {
   stateList: any[] = [];
   isProgessing: boolean = false;
   reasonforEdit: string = '';
+  pictureFileName: string = '';
+  isPersonalInformationOpen: boolean = false;
+  isdisplayinformationOpen: boolean = false;
+  MINIMUM_AGE: number = 15;
+  MAXIMUM_AGE: number = 60;
+  isindividual: boolean = false;
+  ISD: string = '';
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService) { }
+    public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
-    if(this._localStorage.getUserData().approval_status != 'Approved'){
+    this._podService.isListPage = false;
+    if(this._podService.Approval_Status == 'Pending'){
       this.toaster.error('Your approval is pending.')
+      return
+    }
+    if (this._podService.Approval_Status == 'Rejected') {
+      this.toaster.error('Please contact Admin')
       this.router.navigate(['/', 'dashboard'])
       return
     }
     this.country = this._localStorage.getUserData().country;
     this.state = this._localStorage.getUserData().state;
+    this.ISD = this._localStorage.getUserData().isd ? this._localStorage.getUserData().isd : "+91";
     this.registerForm = this.fb.group({
       fullname: [this._localStorage.getUserData().fullname, [Validators.required]],
       username: [this._localStorage.getUserData().username, [Validators.required]],
@@ -43,13 +57,26 @@ export class EditProfileComponent implements OnInit {
       podcaster_value: this._localStorage.getUserData().podcaster_value,
       address1: this._localStorage.getUserData().address1,
       address2: this._localStorage.getUserData().address2,
-      address3: this._localStorage.getUserData().address3
+      address3: this._localStorage.getUserData().address3,
+      aboutme: this._localStorage.getUserData().aboutme,
+      twitter: this._localStorage.getUserData().twitter,
+      facebook: this._localStorage.getUserData().facebook,
+      snapchat: this._localStorage.getUserData().snapchat,
+      blogger: this._localStorage.getUserData().blogger,
+      telegram: this._localStorage.getUserData().telegram,
+      linkedin: this._localStorage.getUserData().linkedin
     })
     this.getCountryList();
+    this.isindividual = this.registerForm.value.podcaster_type == 'Individual' ? true : false;
   }
 
   updateProfile() {
-    this.isProgessing = true;
+    let diff = new Date().getFullYear() - new Date(this.registerForm.value.dob).getFullYear();
+
+    if ((this.MAXIMUM_AGE < diff) || (this.MINIMUM_AGE > diff)) {
+      this.toaster.error("Invalid Date");
+      return
+    }
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
       this.isProgessing = false;
       this.isPasswordValid = false;
@@ -89,7 +116,8 @@ export class EditProfileComponent implements OnInit {
           "fullname": this.registerForm.value.fullname,
           "username":  this.registerForm.value.username,
           "dob": this.registerForm.value.dob,
-          "phone": this.registerForm.value.phone,
+          "isd": this.ISD,
+          "phone": this.ISD ? this.ISD + this.registerForm.value.phone : this.registerForm.value.phone,
           "email": this.registerForm.value.email,
           "profile_image": this.registerForm.value.profile_image,
           "podcaster_type": this.registerForm.value.podcaster_type,
@@ -101,14 +129,23 @@ export class EditProfileComponent implements OnInit {
           "state": this.state,
           "usertype":this.registerForm.value.usertype,
           "note_description": this.reasonforEdit,
-          "created_by": this._localStorage.getUserData().username
+          "created_by": this._localStorage.getUserData().username,
+          "aboutme": this.registerForm.value.aboutme,
+          "twitter": this.registerForm.value.twitter,
+          "facebook": this.registerForm.value.facebook,
+          "snapchat": this.registerForm.value.snapchat,
+          "blogger": this.registerForm.value.blogger,
+          "telegram": this.registerForm.value.telegram,
+          "linkedin": this.registerForm.value.linkedin
         //   }
       }
+      this.isProgessing = true; 
       this._webService.commonMethod('user/update', req, "PUT").subscribe(
         data => {
           if(data.Status == 'Success' && data.Response){
             this.isProgessing = false;
-            this.toaster.success('Register Updated Successfully');
+            this.toaster.success('Updated Successfully');
+            //this._localStorage.setUserData(req);
             this.router.navigate(['/', 'dashboard'])
             }else {
              this.toaster.error(data.Response);
@@ -118,18 +155,21 @@ export class EditProfileComponent implements OnInit {
     }
   }
   getCountryList(){
+    this.isProgessing = true;
     this._webService.commonMethod('country', '', "GET").subscribe(
       data => {
         if(data.Status == 'Success' && data.Response && data.Response.length){
           this.countryList = data.Response;
-          let id: string = '';
-          for(let country of data.Response){
-            if(country.name == this.country){
-              id = country.id;
-            }
-          }
-          this.country =  this.country ? id :"91";
+          // let id: string = '';
+          // for(let country of data.Response){
+          //   if(country.name == this.country){
+          //     id = country.id;
+          //   }
+          // }
+          // debugger
+          // this.country =  this.country ? id :"91";
           this. getStateList();
+          this.isProgessing = false;
         }
       }
     )
@@ -146,4 +186,52 @@ export class EditProfileComponent implements OnInit {
       }
     )
   }
+  uploadFile(element) {
+    const file = element[0];
+    if (file == undefined) return;
+    console.log(file, "element");
+    if(file.type.indexOf('image') == -1){
+      this.toaster.error("Invalid image");
+      return
+   }
+    let formData = new FormData();
+    formData.append('filename', file, file.name);
+    this.isProgessing = true;
+    this._webService.UploadDocument("s3bucket/upload", formData).
+      subscribe((data: any) => {
+        this.pictureFileName = data.Response;
+        this.isProgessing = false;
+      }, err => {
+         this.toaster.error("Error uploading file.");
+      });
+    //}
+    //  else {
+    //    this.toaster.error('not a Audio File')
+    //  }
+
+
+  }
+
+  removeFile(){
+    let req = {
+        filename : this.pictureFileName
+    }
+    this.isProgessing = true;
+    this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
+      subscribe((data: any) => {
+        this.isProgessing = false;
+        this.pictureFileName = '';
+      },err => {
+        this.pictureFileName = '';
+        this.isProgessing = false;
+      });
+
+
+  }
+
+  getpodcastdisable(){
+    this.isindividual = this.registerForm.value.podcaster_type == 'Individual' ? true : false;
+  }
+
+
 }

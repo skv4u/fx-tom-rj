@@ -24,8 +24,18 @@ export class EditPodcastComponent implements OnInit {
 
   ngOnInit() {
     this._podService.isListPage = false;
-    if(this._localStorage.getUserData().approval_status != 'Approved'){
+    if(this._podService.Approval_Status == 'Pending'){
       this.toaster.error('Your approval is pending.')
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }  
+    if (this._podService.Approval_Status == 'Rejected') {
+      this.toaster.error('Please contact Admin')
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }
+    if(this._podService.podcastListData.approvals == 'Live'){
+      this.toaster.error("Podcast has been live now");
       this.router.navigate(['/', 'dashboard'])
       return
     }

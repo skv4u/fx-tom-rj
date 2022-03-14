@@ -27,24 +27,22 @@ export class PodcastListComponent implements OnInit {
       this.router.navigate(['/', 'login'])
       return
     }
-    if(this._localStorage.getUserData().approval_status == 'Pending'){
-    this.viewUser(() => {
-     this.genericCall();
-    });
-  }else {
-    this.genericCall();
-  }
+    if (this._localStorage.getUserData().approval_status == 'Pending' || this._localStorage.getUserData().approval_status == 'Rejected') {
+      this.viewUser(() => {
+        this.genericCall();
+      });
+    } else {
+      this.genericCall();
+    }
   }
 
-  genericCall()
-  {
-    if (this._localStorage.getUserData().approval_status != 'Approved') {
-      return
-    }
+  genericCall() {
+    if (this._localStorage.getUserData().approval_status == 'Approved') {
     this._podService.getPodcastList();
     this._podService.getStatisticsList();
     this._podService.getCategoryList();
     this._podService.getLanguageList();
+    }
   }
 
 
@@ -82,6 +80,14 @@ export class PodcastListComponent implements OnInit {
 
 
   deletepopup(list) {
+    if (list.approvals == 'Live') {
+      this.toaster.error("Podcast has been live now");
+      return
+    }
+    if (this._localStorage.getUserData().approval_status == 'Rejected') {
+      this.toaster.error('Please contact Admin')
+      return
+    }
     this._podService.deletedList = list;
     this._podService.isDelete = true;
   }

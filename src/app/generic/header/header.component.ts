@@ -27,6 +27,9 @@ userName: string = this._localStorage.getUserData().fullname;
   }
 
   updateNotification(){
+    if(this._podService.Approval_Status == 'Pending' || this._podService.Approval_Status == 'Rejected'){
+      return
+    }
     let req = {
         "user_id": this._localStorage.getUserData().id
     }

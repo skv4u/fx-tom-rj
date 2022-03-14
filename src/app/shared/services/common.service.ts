@@ -30,4 +30,14 @@ export class CommonService {
     }
   }
 
+  customPassword(formControl: FormControl) {
+    let REGEXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&^_-]{6,20}$/;
+
+    return REGEXP.test(formControl.value) ? null : {
+      customPassword: {
+        valid: false
+      }
+    }
+  }
+
 }

@@ -2,14 +2,12 @@
 <app-header>
 
 </app-header>
-<div style="
-text-align: center;
-margin-top: 30px;
-font-size: 30px;
-color: #d03131;
-font-style: italic;
-" *ngIf="_localStorage.getUserData().approval_status != 'Approved'">Your approval is pending.</div>
-<div class="body-main" *ngIf="_localStorage.getUserData().approval_status == 'Approved'">
+<div class="pending_status" *ngIf="_podService.Approval_Status == 'Pending'">Your approval is pending.</div>
+
+<div class="pending_status" *ngIf="_podService.Approval_Status == 'Rejected'">Please Contact Admin</div>
+
+
+<div class="body-main" *ngIf="_podService.Approval_Status == 'Approved'">
     <div class="body-content">
         <div class="information dasdboard">
             <ul>
@@ -37,7 +35,7 @@ font-style: italic;
                                 </th>
                                 <th class="text-center" *ngIf="!_podService.podcastFilterList.isupdatedate">Upload Date</th>
                                 <th *ngIf="!_podService.podcastFilterList.isstatus">
-                                    <a id="btnGroupDrop6" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="isStatusOpen = !isStatusOpen">Status</a>
+                                    <a id="btnGroupDrop6" class="dropdown-toggle curser" data-bs-toggle="dropdown" aria-expanded="false" (click)="isStatusOpen = !isStatusOpen">Status</a>
                                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6" [ngStyle]="{'display':isStatusOpen ? 'block':'none'}">
                                         <li class="pending" (click)="this._podService.searchList('Pending');isStatusOpen =false;"><a class="dropdown-item">Pending</a></li>
                                         <li class="approved" (click)="this._podService.searchList('Approved');isStatusOpen =false;"><a class="dropdown-item">Approved</a></li>
@@ -60,7 +58,7 @@ font-style: italic;
                                 </td>
                                 <td class="rjsname" *ngIf="!_podService.podcastFilterList.isTittle">
                                     <h5 class="mb-0">{{list.name}}</h5>
-                                    <p (click)="gotopodcasters(list)"><a>About the Podcasters</a></p>
+                                    <p (click)="gotopodcasters(list)"><a class="podcast">About Podcast</a></p>
                                 </td>
                                 <td *ngIf="!_podService.podcastFilterList.iscategory">{{list.category}}</td>
                                 <td class="text-center" *ngIf="!_podService.podcastFilterList.isupdatedate">
@@ -113,7 +111,7 @@ font-style: italic;
                                 <td class="text-center" *ngIf="!_podService.podcastFilterList.iscommits">{{list.comment_count}}</td>
                                 <td class="text-center" *ngIf="!_podService.podcastFilterList.isedit"><a routerLink="/edit-podcast"><i class="fas fa-pen"
                                             (click)="_podService.podcastListData = list"></i></a></td>
-                                <td class="text-center" *ngIf="!_podService.podcastFilterList.islistdelete"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt"></i></a></td>
+                                <td class="text-center" *ngIf="!_podService.podcastFilterList.islistdelete"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt curser"></i></a></td>
                                 <td class="text-center" *ngIf="!_podService.podcastFilterList.isnote">{{list.latest_note}}</td>
                             </tr>
 
