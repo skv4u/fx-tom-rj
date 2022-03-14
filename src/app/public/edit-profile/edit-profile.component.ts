@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { debug } from 'console';
 import { PorcastService } from 'src/app/private/porcast.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
