@@ -477,8 +477,7 @@ textarea.form-control {
 
 .body-content {
     background: var(--white-color);
-    padding: 20px 30px;
-    min-height: 90vh;
+   
 }
 
 .body-content.login_page {
@@ -996,8 +995,8 @@ ul.dropdown-menu li a {
 }
 
 .dashboard-table {
-    max-height: 80vh;
-    overflow-y: auto;
+  height: calc(100vh - 215px);
+overflow-y: auto;
 }
 
 .dashboard-table table thead {
