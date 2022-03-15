@@ -313,6 +313,7 @@ textarea.form-control {
     align-items: center;
     justify-content: center;
     margin-right: 10px;
+    margin-bottom: 30px;
 }
 
 .custome-button {
@@ -327,6 +328,7 @@ textarea.form-control {
     min-width: 90px;
     background: var(--red-color);
     border: none;
+    margin-bottom:30px;
 }
 
 .custome-button a {
@@ -473,6 +475,8 @@ textarea.form-control {
 
 .body-main {
     padding: 0px 15px;
+overflow: auto;
+height: calc(100vh - 132px);
 }
 
 .body-content {
@@ -486,7 +490,7 @@ textarea.form-control {
 
 .body-content h3 a {
     color: var(--red-color);
-    margin-bottom: 50px;
+   
     display: block;
 }
 
@@ -901,7 +905,7 @@ td.rjsname p {
 
 .information ul li.modify,
 .information ul li.modify a {
-    color: var(--red-color);
+    color: var(--modify);
 }
 
 .information ul li.broadcast,
@@ -1379,7 +1383,7 @@ td li.live:before {
 }
 
 td i {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .dropdown-menu.top-filter {
@@ -1437,4 +1441,9 @@ td i {
     text-align: center;
     font-weight: 500;
     line-height: 1.3em;
+}
+
+.body-content h3{
+    padding: 30px;
+    margin: 0;
 }

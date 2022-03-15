@@ -8,14 +8,18 @@
 
 
 <div class="container-fluid" *ngIf="_podService.Approval_Status == 'Approved'">
+    <div class="row">
+        <div class="col-12">
+
+ 
     <div class="body-content">
         <div class="information dasdboard">
             <ul>
                 <li class="pending"><strong>{{_podService.StatisticsList.PendingTotal}} </strong> <a>Pending</a></li>
                 <li class="rejected"><strong>{{_podService.StatisticsList.RejectedTotal}} </strong> <a>Rejected</a></li>
-                <li class="approved"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved</li>
+                <li class="modify"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved</li>
                 <li class="approved"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>
-                <li class="comments"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li>
+                <li class="approved"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li>
             </ul>
         </div>
         <div class="row">
@@ -122,4 +126,6 @@
         </div>
     </div>
     <app-delete-popup *ngIf="_podService.isDelete"></app-delete-popup>
+</div>
+</div>
 </div>
