@@ -85,7 +85,7 @@
                 </div>
                 <div class="col-md-1 col-12 mb-4">
                     <div class="form-floating">
-                        <select class="form-control" placeholder="ISD" [(ngModel)]="ISD" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
+                        <select class="form-control" placeholder="ISD" [(ngModel)]="ISD" [ngModelOptions]="{standalone: true}">
                             <option *ngFor="let country of countryList" [value]="country.dialcode">
                                 {{country.dialcode}}</option>
                         </select>
@@ -155,7 +155,7 @@
                 <div class="col-md-3 mb-4">
                     <div class="form-floating">
                         <select class="form-control" placeholder="Country" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" (click)="getStateList()">
-                            <option *ngFor="let country of countryList" [value]="country.id">
+                            <option *ngFor="let country of countryList" [value]="country.name">
                                 {{country.name}}</option>
                         </select>
                         <label for="floatingInput">Country</label>
