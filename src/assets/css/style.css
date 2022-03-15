@@ -212,7 +212,7 @@ a {
     --light-gray: #999798;
     --drap-bg: #d8d8d8;
     --modify: #ffa600;
-    --rjapproved: #00bcfe;
+    --rjapproved: #ffa600;
     --broadcast: #1aa70a;
     --live: #0d5604;
     /*-------font-sizes-----*/
@@ -481,7 +481,8 @@ height: calc(100vh - 132px);
 
 .body-content {
     background: var(--white-color);
-   
+    padding: 20px;
+
 }
 
 .body-content.login_page {
@@ -601,7 +602,9 @@ height: calc(100vh - 132px);
 .tickets ul li.approved a {
     color: var(--approved);
 }
-
+.setting {
+    text-align:left !important;
+}
 .settings-main .s_inner {
     display: flex;
     align-items: center;
@@ -1444,6 +1447,10 @@ td i {
 }
 
 .body-content h3{
-    padding: 30px;
+    padding: 20px 0;
     margin: 0;
+}
+
+.title-sec .fa-minus-square, .title-sec .fa-plus-square {
+    cursor: pointer;
 }
