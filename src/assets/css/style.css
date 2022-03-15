@@ -214,7 +214,7 @@ a {
     --modify: #ffa600;
     --rjapproved: #ffa600;
     --broadcast: #1aa70a;
-    --live: #0d5604;
+    --live: #1aa70a;
     /*-------font-sizes-----*/
     --clamp12: clamp(10px, 0.625vw, 12px);
     --clamp14: clamp(12px, 0.72916vw, 14px);
@@ -273,7 +273,7 @@ h5 {
     font-size: clamp(16px, 0.9375vw, 18px);
     line-height: clamp(24px, 1.5625vw, 30px);
     margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-color);
 }
 
@@ -1019,9 +1019,12 @@ tr td {
 }
 
 tr th {
-    font-size: var(--clamp18);
+    font-size: var(--clamp24);
 }
 
+th{
+    font-weight:500;
+}
 tr:nth-child(even) {
     background: #f4f5f7;
 }
@@ -1336,7 +1339,7 @@ td li:before {
     height: 8px;
     background: var(--pending);
     left: 0px;
-    top: 5px;
+    top: 8px;
     content: "";
     position: absolute;
     border-radius: 50%;
