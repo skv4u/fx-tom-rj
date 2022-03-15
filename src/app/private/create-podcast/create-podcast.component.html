@@ -108,10 +108,13 @@
                                                             background: none;
                                                             border: none;
                                                             color: #f00;"><i class="fas fa-trash-alt"></i></button>
-                                                            <div class="box-body"> <audio controls>
-                                                                    <source src="{{audioFileName}}" type="audio/ogg">
-
-                                                                </audio></div>
+                                                            <div class="box-body">
+                                                                <audio controls preload="auto">
+                                                                    <source [src]="audioFileName" type="audio/mpeg">
+                                                                    <source [src]="audioFileName" type="audio/ogg">
+                                                                    Your browser does not support the audio element.
+                                                                </audio>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div *ngIf="audioFileName == ''">

@@ -21,7 +21,7 @@ export class RjRegisterComponent implements OnInit {
   countryList: any[] = [];
   stateList: any[] = [];
   isProgressing: boolean = false;
-  isPersonalInformationOpen: boolean = false;
+  isPersonalInformationOpen: boolean = true;
   isdisplayinformationOpen: boolean = false;
   pictureFileName: string = '';
   MINIMUM_AGE: number = 15;
