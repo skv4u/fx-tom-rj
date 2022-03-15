@@ -870,10 +870,10 @@ td.rjsname p {
 }
 
 .information ul li strong {
-    font-size: var(--clamp25);
-    font-weight: 700;
+    font-weight: 600;
     color: var(--tickets-color);
     line-height: 20px;
+    font-size: 28px;
 }
 
 .information ul li.pending,
