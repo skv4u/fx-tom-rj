@@ -212,9 +212,9 @@ a {
     --light-gray: #999798;
     --drap-bg: #d8d8d8;
     --modify: #ffa600;
-    --rjapproved: #00bcfe;
+    --rjapproved: #ffa600;
     --broadcast: #1aa70a;
-    --live: #0d5604;
+    --live: #1aa70a;
     /*-------font-sizes-----*/
     --clamp12: clamp(10px, 0.625vw, 12px);
     --clamp14: clamp(12px, 0.72916vw, 14px);
@@ -273,7 +273,7 @@ h5 {
     font-size: clamp(16px, 0.9375vw, 18px);
     line-height: clamp(24px, 1.5625vw, 30px);
     margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-color);
 }
 
@@ -313,6 +313,7 @@ textarea.form-control {
     align-items: center;
     justify-content: center;
     margin-right: 10px;
+    margin-bottom: 30px;
 }
 
 .custome-button {
@@ -327,6 +328,7 @@ textarea.form-control {
     min-width: 90px;
     background: var(--red-color);
     border: none;
+    margin-bottom:30px;
 }
 
 .custome-button a {
@@ -473,11 +475,14 @@ textarea.form-control {
 
 .body-main {
     padding: 0px 15px;
+overflow: auto;
+height: calc(100vh - 132px);
 }
 
 .body-content {
     background: var(--white-color);
-   
+    padding: 20px;
+
 }
 
 .body-content.login_page {
@@ -486,7 +491,7 @@ textarea.form-control {
 
 .body-content h3 a {
     color: var(--red-color);
-    margin-bottom: 50px;
+   
     display: block;
 }
 
@@ -503,7 +508,7 @@ textarea.form-control {
 
 .sign-main img {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 121px);
     object-fit: cover;
     object-position: center;
 }
@@ -514,7 +519,10 @@ textarea.form-control {
 
 .signin_form {
     width: 50%;
-    padding: 20px;
+    padding: ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .forget {
@@ -594,7 +602,9 @@ textarea.form-control {
 .tickets ul li.approved a {
     color: var(--approved);
 }
-
+.setting {
+    text-align:left !important;
+}
 .settings-main .s_inner {
     display: flex;
     align-items: center;
@@ -870,10 +880,10 @@ td.rjsname p {
 }
 
 .information ul li strong {
-    font-size: var(--clamp25);
-    font-weight: 700;
+    font-weight: 600;
     color: var(--tickets-color);
     line-height: 20px;
+    font-size: 28px;
 }
 
 .information ul li.pending,
@@ -898,7 +908,7 @@ td.rjsname p {
 
 .information ul li.modify,
 .information ul li.modify a {
-    color: var(--red-color);
+    color: var(--modify);
 }
 
 .information ul li.broadcast,
@@ -1009,9 +1019,12 @@ tr td {
 }
 
 tr th {
-    font-size: var(--clamp18);
+    font-size: var(--clamp24);
 }
 
+th{
+    font-weight:500;
+}
 tr:nth-child(even) {
     background: #f4f5f7;
 }
@@ -1326,7 +1339,7 @@ td li:before {
     height: 8px;
     background: var(--pending);
     left: 0px;
-    top: 5px;
+    top: 8px;
     content: "";
     position: absolute;
     border-radius: 50%;
@@ -1376,7 +1389,7 @@ td li.live:before {
 }
 
 td i {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .dropdown-menu.top-filter {
@@ -1434,4 +1447,13 @@ td i {
     text-align: center;
     font-weight: 500;
     line-height: 1.3em;
+}
+
+.body-content h3{
+    padding: 20px 0;
+    margin: 0;
+}
+
+.title-sec .fa-minus-square, .title-sec .fa-plus-square {
+    cursor: pointer;
 }
