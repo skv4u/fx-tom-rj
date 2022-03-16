@@ -92,4 +92,9 @@ export class PodcastListComponent implements OnInit {
     this._podService.isDelete = true;
   }
 
+  editpopup(list){
+    this._podService.podcastListData = list;
+    this.router.navigate(['/', 'edit-podcast'])
+  }
+
 }

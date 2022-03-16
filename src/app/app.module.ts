@@ -22,6 +22,7 @@ import { EditPodcastComponent } from './private/edit-podcast/edit-podcast.compon
 import { HeaderComponent } from './generic/header/header.component';
 import { LoaderComponent } from './generic/loader/loader.component';
 import { DeletePopupComponent } from './private/podcast-list/delete-popup/delete-popup.component';
+import { RjCommentsComponent } from './private/rj-comments/rj-comments.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DeletePopupComponent } from './private/podcast-list/delete-popup/delete
     EditPodcastComponent,
     HeaderComponent,
     LoaderComponent,
-    DeletePopupComponent
+    DeletePopupComponent,
+    RjCommentsComponent
   ],
   imports: [
     BrowserModule,

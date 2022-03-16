@@ -24,6 +24,7 @@ export class PorcastService {
     ApprovedTotal: 0,
     LiveTotal: 0,
     CommentTotal: 0,
+    ModifyTotal: 0,
     UnreadNotificationCount: "0"
   };
   Approval_Status: string = this._localStorage.getUserData().approval_status;

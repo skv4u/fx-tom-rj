@@ -94,7 +94,7 @@ export class EditPodcastComponent implements OnInit {
       "created_by": this._localStorage.getUserData().username,
       "usertype": "RJ",
       "note_description": this.noteDescription,
-      "status": this.podcastForm.value.approvals
+      "status": 'Pending'
     }
     this._webService.commonMethod('podcast/update', req, "PUT").subscribe(
       data => {
