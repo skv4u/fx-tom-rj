@@ -32,7 +32,10 @@
 <div class="body-main">
     <div class="body-content">
 
-        <p>Dear {{_localStorage.getUserData().username}}, Your podcast is created. Currently it is Pending Approval from the Tomtom Admin.</p>
+        <!-- <p>Dear {{_localStorage.getUserData().username}}, Your podcast is created. Currently it is Pending Approval from the Tomtom Admin.</p> -->
+
+        <p>Dear {{_localStorage.getUserData().fullname}} , </p>
+        <p>Your podcast is created. Currently it is Pending Approval from the Tomtom Admin.</p>
         <button class="custome-button"><a routerLink="/dashboard">ok</a></button>
     </div>
 </div>

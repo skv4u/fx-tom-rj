@@ -24,9 +24,8 @@ export class RjRegisterComponent implements OnInit {
   isPersonalInformationOpen: boolean = true;
   isdisplayinformationOpen: boolean = false;
   pictureFileName: string = '';
-  MINIMUM_AGE: number = 15;
-  MAXIMUM_AGE: number = 60;
-  isindividual: boolean = false;
+  MINIMUM_AGE: number = 13;
+  MAXIMUM_AGE: number = 100;
   ISD: string = '';
   constructor(
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _commonService: CommonService) { }
@@ -40,14 +39,14 @@ export class RjRegisterComponent implements OnInit {
       dob: ['', [Validators.required]],
       isd: '',
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this._commonService.customNumber]],
-      email: ['', [Validators.required, this._commonService.customEmail, Validators.maxLength(60)]],
+      email: ['', [Validators.required, this._commonService.customEmail]],
       profile_image: '',
       podcaster_type: 'Individual',
       podcaster_value: '',
       address1: '',
       address2: '',
       address3: '',
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(60), this._commonService.customPassword]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]],
       aboutme: '',
       twitter: '',
@@ -57,7 +56,6 @@ export class RjRegisterComponent implements OnInit {
       telegram: '',
       linkedin: ''
     })
-    this.isindividual = this.registerForm.value.podcaster_type == 'Individual' ? true : false
     this.getCountryList();
   }
 
@@ -107,6 +105,7 @@ export class RjRegisterComponent implements OnInit {
             return
           }
           if (data.Status == 'Success' && data.Response) {
+            this.emailSend(req);
             this.toaster.success('Registration done Successfully');
             this.router.navigate(['/', 'register-thanks'])
           } else {
@@ -207,7 +206,9 @@ export class RjRegisterComponent implements OnInit {
 
   }
   getpodcastdisable() {
-    this.isindividual = this.registerForm.value.podcaster_type == 'Individual' ? true : false;
+    if (this.registerForm.value.podcaster_type == 'individual') {
+      this.registerForm.get("podcaster_value").setValue('');
+    }
   }
 
   validation() {
@@ -219,5 +220,32 @@ export class RjRegisterComponent implements OnInit {
       return
     }
   }
+  emailSend(data) {
+    let req = {
+      "to": "pchaitanya26596@gmail.com",
+      //info@tomtom.com,
+      "to_name": data.username,
+      "cc": "",
+      "bcc": "",
+      "subject":  data.fullname + " - New RJ Registered",
+      "content": this.emailtemplate(data)
+    }  
+    this._webService.commonMethod('email/send', req, "POST").subscribe(
+      data => {
 
+      })
+  }
+  emailtemplate(data){
+    let url = window.location.origin + "/admin/#/login";
+    return (`<p> Hi <strong>Admin</strong>,</p>
+      <p>New RJ has been registered.</p>
+      <p>Here is the details</p>
+      <p>Name : ${data.fullname}</p>
+      <p>Username :  ${data.username}</p>
+      <p>Email : ${data.email}</p>
+      <p>Mobile : ${data.phone}</p>
+      <p><a href=${url} target="_blank"> Click here to View/Approve</a></p>
+      <p>&nbsp;</p>
+      <p>Regards,<br />Tomtom Team.</p>`);
+  }
 }

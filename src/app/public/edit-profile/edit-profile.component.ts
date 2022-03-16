@@ -24,15 +24,14 @@ export class EditProfileComponent implements OnInit {
   pictureFileName: string = '';
   isPersonalInformationOpen: boolean = true;
   isdisplayinformationOpen: boolean = false;
-  MINIMUM_AGE: number = 15;
-  MAXIMUM_AGE: number = 60;
+  MINIMUM_AGE: number = 13;
+  MAXIMUM_AGE: number = 100;
   isindividual: boolean = false;
   ISD: string = '';
   constructor(
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
     this._podService.isListPage = false;
-    debugger
     if(this._podService.Approval_Status == 'Pending'){
       this.toaster.error('Your approval is pending.')
       return
@@ -52,7 +51,7 @@ export class EditProfileComponent implements OnInit {
       dob: [this._localStorage.getUserData().dob, [Validators.required]],
       isd: this._localStorage.getUserData().isd,
       phone: [this._localStorage.getUserData().phone, [Validators.required,Validators.minLength(10),Validators.maxLength(10),this._commonService.customNumber]],
-      email: [this._localStorage.getUserData().email, [Validators.required,this._commonService.customEmail, Validators.maxLength(60)]],
+      email: [this._localStorage.getUserData().email, [Validators.required,this._commonService.customEmail]],
       profile_image: this._localStorage.getUserData().profile_image,
       podcaster_type: this._localStorage.getUserData().podcaster_type,
       podcaster_value: this._localStorage.getUserData().podcaster_value,
@@ -68,7 +67,7 @@ export class EditProfileComponent implements OnInit {
       linkedin: this._localStorage.getUserData().linkedin
     })
     this.getCountryList();
-    this.isindividual = this.registerForm.value.podcaster_type == 'Individual' ? true : false;
+    this.isindividual = this.registerForm.value.podcaster_type == 'individual' ? true : false;
   }
 
   updateProfile() {
@@ -186,7 +185,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   getCountryId() {
-    debugger
     let id = '';
     for (let a of this.countryList) {
       if (a.name == this.country) {
@@ -240,7 +238,12 @@ export class EditProfileComponent implements OnInit {
   }
 
   getpodcastdisable(){
-    this.isindividual = this.registerForm.value.podcaster_type == 'Individual' ? true : false;
+    if(this.registerForm.value.podcaster_type == 'individual'){
+      this.isindividual = true;
+     this.registerForm.get("podcaster_value").setValue('');
+    }else{
+      this.isindividual = false;
+    }
   }
 
 

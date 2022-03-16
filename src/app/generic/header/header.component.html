@@ -178,7 +178,7 @@
                     <!--  -->
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}" style="right: 0;">
                         <li *ngFor="let a of _podService.NotificationList">
-                            <a class="dropdown-item" (click)="showBell = false" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
+                            <a class="dropdown-item" (click)="showBell = false;_podService.searchList(a.podcast_id)" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
                         </li>
                         <!-- <li><a class="dropdown-item" (click)="getSelectedList(a)" *ngFor="let a of prodcastService.NotificationList" style="cursor: pointer;" [innerHTML]="a.message" ></a></li> -->
 
