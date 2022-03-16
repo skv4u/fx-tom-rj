@@ -212,9 +212,9 @@ a {
     --light-gray: #999798;
     --drap-bg: #d8d8d8;
     --modify: #ffa600;
-    --rjapproved: #ffa600;
+    --rjapproved: #00bcfe;
     --broadcast: #1aa70a;
-    --live: #1aa70a;
+    --live: #0d5604;
     /*-------font-sizes-----*/
     --clamp12: clamp(10px, 0.625vw, 12px);
     --clamp14: clamp(12px, 0.72916vw, 14px);
@@ -328,7 +328,7 @@ textarea.form-control {
     min-width: 90px;
     background: var(--red-color);
     border: none;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 .custome-button a {
@@ -475,14 +475,13 @@ textarea.form-control {
 
 .body-main {
     padding: 0px 15px;
-overflow: auto;
-height: calc(100vh - 132px);
+    overflow: auto;
+    height: calc(100vh - 132px);
 }
 
 .body-content {
     background: var(--white-color);
     padding: 20px;
-
 }
 
 .body-content.login_page {
@@ -491,7 +490,6 @@ height: calc(100vh - 132px);
 
 .body-content h3 a {
     color: var(--red-color);
-   
     display: block;
 }
 
@@ -519,7 +517,7 @@ height: calc(100vh - 132px);
 
 .signin_form {
     width: 50%;
-    padding: ;
+    /* padding: ; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -602,9 +600,11 @@ height: calc(100vh - 132px);
 .tickets ul li.approved a {
     color: var(--approved);
 }
+
 .setting {
-    text-align:left !important;
+    text-align: left !important;
 }
+
 .settings-main .s_inner {
     display: flex;
     align-items: center;
@@ -1005,8 +1005,8 @@ ul.dropdown-menu li a {
 }
 
 .dashboard-table {
-  height: calc(100vh - 215px);
-overflow-y: auto;
+    height: calc(100vh - 215px);
+    overflow-y: auto;
 }
 
 .dashboard-table table thead {
@@ -1022,9 +1022,10 @@ tr th {
     font-size: var(--clamp24);
 }
 
-th{
-    font-weight:500;
+th {
+    font-weight: 500;
 }
+
 tr:nth-child(even) {
     background: #f4f5f7;
 }
@@ -1438,7 +1439,6 @@ td i {
     justify-content: center;
 }
 
-
 .profile-pic a {
     text-transform: uppercase;
     font-size: 20px;
@@ -1449,11 +1449,12 @@ td i {
     line-height: 1.3em;
 }
 
-.body-content h3{
+.body-content h3 {
     padding: 20px 0;
     margin: 0;
 }
 
-.title-sec .fa-minus-square, .title-sec .fa-plus-square {
+.title-sec .fa-minus-square,
+.title-sec .fa-plus-square {
     cursor: pointer;
 }

@@ -27,6 +27,8 @@ export class PorcastService {
     ModifyTotal: 0,
     UnreadNotificationCount: "0"
   };
+  
+filterApplied: boolean = false;
   Approval_Status: string = this._localStorage.getUserData().approval_status;
   podcastFilterList: any = {
     isTittle: false,
@@ -77,10 +79,17 @@ export class PorcastService {
   }
 
   searchList(data?: any) {
-    debugger
+    this.filterApplied = true;
     let tempdata = data ? data : this.serachvalue;
     let temp = this.RJDasboardList1.filter(x => JSON.stringify(x).toLowerCase().includes(tempdata.toLowerCase()));
     this.RJDasboardList = temp;
+  }
+
+
+  resetValues(){
+    this.filterApplied = false;
+    this.serachvalue = '';
+    this.getPodcastList();
   }
 
   getPodcastList() {
@@ -95,9 +104,9 @@ export class PorcastService {
           data.Response.forEach(data => {
             data.ispodcastDelete = false;
           });
-          console.log(data.Response, "data.Response")
           this.RJDasboardList = data.Response;
           this.RJDasboardList1 = data.Response;
+          this.getStatisticsList();
         }
         this.isProcessing = false;
       }

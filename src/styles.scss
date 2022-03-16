@@ -288,3 +288,10 @@
 .curser {
     cursor: pointer;
 }
+
+.s-box a {
+    cursor: pointer;
+    &.active {
+        color: #00bcfe;
+    }
+}

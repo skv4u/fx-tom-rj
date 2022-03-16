@@ -41,7 +41,7 @@ export class RjRegisterComponent implements OnInit {
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this._commonService.customNumber]],
       email: ['', [Validators.required, this._commonService.customEmail]],
       profile_image: '',
-      podcaster_type: 'Individual',
+      podcaster_type: 'individual',
       podcaster_value: '',
       address1: '',
       address2: '',
@@ -78,7 +78,7 @@ export class RjRegisterComponent implements OnInit {
         "usertype": this.registerForm.value.usertype,
         "dob": this.registerForm.value.dob,
         "isd": this.ISD,
-        "phone": this.ISD ? this.ISD + this.registerForm.value.phone : this.registerForm.value.phone,
+        "phone":this.registerForm.value.phone,
         "email": this.registerForm.value.email,
         "profile_image": this.pictureFileName,
         "podcaster_type": this.registerForm.value.podcaster_type,
@@ -222,10 +222,9 @@ export class RjRegisterComponent implements OnInit {
   }
   emailSend(data) {
     let req = {
-      "to": "pchaitanya26596@gmail.com",
-      //info@tomtom.com,
+      "to": "info@tomtompodcast.com,admin@tomtompodcast.com",
       "to_name": data.username,
-      "cc": "",
+      "cc": "pchaitanya25596@gmail.com",
       "bcc": "",
       "subject":  data.fullname + " - New RJ Registered",
       "content": this.emailtemplate(data)

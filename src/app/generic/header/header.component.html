@@ -126,6 +126,11 @@
 
         <div class="col-md-4 settings-main">
             <div class="s_inner">
+                <div class="s-box" *ngIf="_podService.isListPage">
+                    <a [class.active]="_podService.filterApplied" (click)="_podService.resetValues()">
+                        <i class="fas fa-sync"></i>
+                    </a>
+                </div>
                 <div class="s-box" *ngIf="_podService.isListPage" style="position: relative;">
                     <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter;showBell = false;issettingOpen=false"><i class="fas fa-sliders-h curser"></i></a>
                     <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter && _podService.RJDasboardList.length ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
