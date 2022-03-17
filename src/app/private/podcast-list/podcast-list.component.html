@@ -20,7 +20,7 @@
                         <li class="rjapproved"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved</li>
                         <li class="live"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>
                         <li class="comments"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li>
-                        <li class="modify"><strong>{{_podService.StatisticsList.ModifyTotal}} </strong> Modified</li>
+                        <li class="modify"><strong>{{_podService.StatisticsList.ModifyTotal}} </strong> Modify</li>
                     </ul>
                 </div>
                 <div class="row">
@@ -32,22 +32,22 @@
                                         <th class="pic">Picture</th>
                                         <th *ngIf="!_podService.podcastFilterList.isTittle">Title</th>
                                         <th *ngIf="!_podService.podcastFilterList.iscategory">
-                                            <a id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="iscategoryOpen = !iscategoryOpen" style="cursor: pointer;">Category</a>
-                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':iscategoryOpen ? 'block':'none'}">
-                                                <li><a class="dropdown-item" *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);iscategoryOpen = false">{{a.name}}</a>
+                                            <a id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.iscategoryOpen = !_podService.AllfilterValues.iscategoryOpen" style="cursor: pointer;">Category</a>
+                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.iscategoryOpen ? 'block':'none'}">
+                                                <li *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);_podService.AllfilterValues.iscategoryOpen = false"><a class="dropdown-item">{{a.name}}</a>
                                                 </li>
                                             </ul>
                                         </th>
                                         <th *ngIf="!_podService.podcastFilterList.isupdatedate">Upload Date</th>
                                         <th *ngIf="!_podService.podcastFilterList.isstatus">
-                                            <a id="btnGroupDrop6" class="dropdown-toggle curser" data-bs-toggle="dropdown" aria-expanded="false" (click)="isStatusOpen = !isStatusOpen">Status</a>
-                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6" [ngStyle]="{'display':isStatusOpen ? 'block':'none'}">
-                                                <li class="pending" (click)="this._podService.searchList('Pending');isStatusOpen =false;"><a class="dropdown-item">Pending</a></li>
-                                                <li class="rjapproved" (click)="this._podService.searchList('Approved');isStatusOpen =false;"><a class="dropdown-item">Approved</a></li>
-                                                <li class="rejected" (click)="this._podService.searchList('Rejected');isStatusOpen =false;"><a class="dropdown-item">Rejected</a></li>
-                                                <li class="modify" (click)="this._podService.searchList('Modify');isStatusOpen =false;"><a class="dropdown-item">Modify</a></li>
-                                                <li class="live" (click)="this._podService.searchList('Live');isStatusOpen =false;"><a class="dropdown-item">Live</a></li>
-                                                <!-- <li class="block" (click)="this._podService.searchList('Block');isStatusOpen =false;"><a class="dropdown-item">Block</a></li> -->
+                                            <a id="btnGroupDrop6" class="dropdown-toggle curser" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.isStatusOpen = !_podService.AllfilterValues.isStatusOpen">Status</a>
+                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6" [ngStyle]="{'display':_podService.AllfilterValues.isStatusOpen ? 'block':'none'}">
+                                                <li class="pending" (click)="this._podService.searchList('Pending');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Pending</a></li>
+                                                <li class="rjapproved" (click)="this._podService.searchList('Approved');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Approved</a></li>
+                                                <li class="rejected" (click)="this._podService.searchList('Rejected');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Rejected</a></li>
+                                                <li class="modify" (click)="this._podService.searchList('Modify');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Modify</a></li>
+                                                <li class="live" (click)="this._podService.searchList('Live');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Live</a></li>
+                                                <!-- <li class="block" (click)="this._podService.searchList('Block');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Block</a></li> -->
                                             </ul>
                                         </th>
                                         <th *ngIf="!_podService.podcastFilterList.isbroadcast">Broadcast Date</th>

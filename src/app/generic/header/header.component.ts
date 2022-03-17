@@ -11,9 +11,6 @@ import { WebService } from 'src/app/shared/services/web.service';
 })
 export class HeaderComponent implements OnInit {
 iscreatebuttonVisiable: boolean = false;
-issettingOpen: boolean = false;
-ShowFilter: boolean = false;
-showBell: boolean = false;
 userName: string = this._podService.localStorageData.fullname;
   constructor(public router: Router, public _localStorage: LocalstorageService, public _podService: PorcastService, public webservice: WebService) { }
 
@@ -22,6 +19,7 @@ userName: string = this._podService.localStorageData.fullname;
     this.iscreatebuttonVisiable = true;
   }
   LogOut(){
+    this._podService.resetAllValues();
     localStorage.clear();
     this.router.navigate(['/', 'login'])
   }

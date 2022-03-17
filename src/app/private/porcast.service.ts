@@ -28,9 +28,9 @@ export class PorcastService {
     UnreadNotificationCount: "0"
   };
   localStorageData: any = {}
-  
-filterApplied: boolean = false;
- // Approval_Status: string = this.localStorageData.approval_status;
+
+  filterApplied: boolean = false;
+  // Approval_Status: string = this.localStorageData.approval_status;
   podcastFilterList: any = {
     isTittle: false,
     iscategory: false,
@@ -41,6 +41,13 @@ filterApplied: boolean = false;
     isedit: false,
     islistdelete: false,
     isnote: false
+  }
+  AllfilterValues: any = {
+    issettingOpen: false,
+    ShowFilter: false,
+    showBell: false,
+    iscategoryOpen: false,
+    isStatusOpen: false
   }
   mobileNumber: number = 0;
   constructor(public _webService: WebService, public _localStorage: LocalstorageService) {
@@ -90,7 +97,7 @@ filterApplied: boolean = false;
     this.RJDasboardList = temp;
   }
 
-  NotificationsearchList(data){
+  NotificationsearchList(data) {
     this.filterApplied = true;
     let tempdata = data ? data : this.serachvalue;
     let temp = this.RJDasboardList1.filter(x => JSON.stringify(x.id).toLowerCase().includes(tempdata.toLowerCase()));
@@ -98,15 +105,11 @@ filterApplied: boolean = false;
   }
 
 
-  resetValues(){
-    if(!this.filterApplied || this.localStorageData.approval_status == 'Pending'){
+  resetValues() {
+    if (this.localStorageData.approval_status == 'Pending' || this.localStorageData.approval_status == 'Rejected') {
       return
     }
-    if(!this.filterApplied || this.localStorageData.approval_status == 'Rejected'){
-      return
-    }
-    this.filterApplied = false;
-    this.serachvalue = '';
+    this.resetAllValues();
     this.getPodcastList();
   }
 
@@ -125,7 +128,7 @@ filterApplied: boolean = false;
           this.RJDasboardList = data.Response;
           this.RJDasboardList1 = data.Response;
           this.getStatisticsList();
-         // this.viewDetails();
+          // this.viewDetails();
         }
         this.isProcessing = false;
       }
@@ -159,9 +162,9 @@ filterApplied: boolean = false;
       }
     )
   }
-  viewDetails(){
+  viewDetails() {
     this.isProcessing = true;
-    this._webService.commonMethod('user/view/'+this.localStorageData.id, '', "GET").subscribe(
+    this._webService.commonMethod('user/view/' + this.localStorageData.id, '', "GET").subscribe(
       data => {
         this.isProcessing = false;
         if (data.Status == 'Success' && data.Response && data.Response.length) {
@@ -172,5 +175,15 @@ filterApplied: boolean = false;
     )
   }
 
-
+  resetAllValues() {
+    this.filterApplied = false;
+    this.serachvalue = '';
+    this.AllfilterValues = {
+      issettingOpen: false,
+      ShowFilter: false,
+      showBell: false,
+      iscategoryOpen: false,
+      isStatusOpen: false
+    }
+  }
 }

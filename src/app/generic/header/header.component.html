@@ -9,16 +9,38 @@
                 <div class="top-title">
                     <h1>RJ Dashboard</h1>
                 </div>
-                <div class="logo-right">
+                <!-- <div class="logo-right">
                     <div class="top-user">
                         <div class="top-img">
-                            <span style="position: absolute;
-                            left: -70px;
-                            top: 15px;">{{userName}}</span>
-                            <img src="./assets/images/login-img.jpg" alt="img" />
+                            <span style="position: relative;top: 13px;right: 10px;">{{userName}}</span>
+                            <img *ngIf="_podService.localStorageData.profile_image" [src]="_podService.localStorageData.profile_image" alt="img" />
+                            <img *ngIf="_podService.localStorageData.profile_image == ''" src="./assets/images/login-img.jpg" alt="img" />
+                        </div>
+                    </div>
+                </div> -->
+                <div class="logo-right">
+                    <div class="top-user">
+                        <div class="top-name">
+                            <div>
+                                <!-- <button id="btnGroupDrop1" type="button" class="dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                          </button> -->
+                                <p class="mb-0"><strong>{{userName}}</strong></p>
+                                <!-- <div class="subscribe">
+                                    <span>200 Followers</span>
+                                    <span>26 Subscribers</span>
+                                    <span>4.5 Rating</span>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="top-img">
+                            <img *ngIf="_podService.localStorageData.profile_image" [src]="_podService.localStorageData.profile_image" alt="img" />
+                            <img *ngIf="_podService.localStorageData.profile_image == ''" src="./assets/images/login-img.jpg" alt="img" />
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -32,7 +54,7 @@
         <div class="col-md-8 px-1 d-flex" *ngIf="!iscreatebuttonVisiable"></div>
         <div class="col-md-8 px-1 d-flex" *ngIf="iscreatebuttonVisiable">
 
-            <a routerLink="/create-podcast" class="custome-button"><i class="fal fa-cloud-upload"></i> Create a
+            <a routerLink="/create-podcast" class="custome-button" style="margin-bottom: 0px;"><i class="fal fa-cloud-upload"></i> Create a
                 podcast</a>
             <div class="top-search">
                 <div class="input-group mb-0 mx-4">
@@ -115,8 +137,8 @@
                     </ul>
                 </div>
                 <div class="s-box">
-                    <a (click)="issettingOpen=!issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
+                    <a (click)="_podService.AllfilterValues.issettingOpen=!_podService.AllfilterValues.issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.issettingOpen ? 'block':'none'}">
                         <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>
                     </ul>
@@ -132,8 +154,8 @@
                     </a>
                 </div>
                 <div class="s-box" *ngIf="_podService.isListPage" style="position: relative;">
-                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="ShowFilter = !ShowFilter;showBell = false;issettingOpen=false"><i class="fas fa-sliders-h curser"></i></a>
-                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="ShowFilter" [ngStyle]="{'display':ShowFilter && _podService.RJDasboardList.length ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
+                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.ShowFilter= !_podService.AllfilterValues.ShowFilter;_podService.AllfilterValues.showBell= false;_podService.AllfilterValues.issettingOpen=false"><i class="fas fa-sliders-h curser"></i></a>
+                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="_podService.AllfilterValues.ShowFilter" [ngStyle]="{'display':_podService.AllfilterValues.ShowFilter&& _podService.RJDasboardList.length ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
                         <form>
                             <li>
                                 <div class="form-check mb-2">
@@ -173,34 +195,36 @@
                                     <label class="form-check-label">Latest Notes
                                     </label>
                                 </div>
-                                <button class="custome-button my-3" (click)="ShowFilter = false">Done</button>
+                                <button class="custome-button my-3" (click)="_podService.AllfilterValues.ShowFilter= false">Done</button>
                             </li>
                         </form>
                     </ul>
                 </div>
                 <div class="s-box" style="position: relative;">
-                    <a (click)="updateNotification();showBell = !showBell;ShowFilter = false;issettingOpen=false" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell curser"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
+                    <a (click)="updateNotification();_podService.AllfilterValues.showBell= !_podService.AllfilterValues.showBell;_podService.AllfilterValues.ShowFilter= false;_podService.AllfilterValues.issettingOpen=false" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="fas fa-bell curser"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
                     <!--  -->
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':showBell ? 'block':'none'}" style="right: 0;">
+                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':_podService.AllfilterValues.showBell? 'block':'none'}" style="right: 0;">
                         <li *ngFor="let a of _podService.NotificationList">
-                            <a class="dropdown-item" (click)="showBell=false;_podService.NotificationsearchList(a.podcast_id)" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
+                            <a class="dropdown-item" (click)="_podService.AllfilterValues.showBell=false;_podService.NotificationsearchList(a.podcast_id)" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
                         </li>
                         <!-- <li><a class="dropdown-item" (click)="getSelectedList(a)" *ngFor="let a of prodcastService.NotificationList" style="cursor: pointer;" [innerHTML]="a.message" ></a></li> -->
 
 
-                        <!-- <li><a class="dropdown-item" (click)="showBell = false">link 2</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 3</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 4</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 5</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 6</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 7</a></li>
-                        <li><a class="dropdown-item" (click)="showBell = false">link 8</a></li> -->
+                        <!-- <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 2</a></li>
+                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 3</a></li>
+                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 4</a></li>
+                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 5</a></li>
+                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 6</a></li>
+                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 7</a></li>
+                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 8</a></li> -->
                     </ul>
                 </div>
                 <div class="s-box">
-                    <a (click)="issettingOpen=!issettingOpen;showBell = false;ShowFilter = false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog curser"></i></a>
-                    <ul class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':issettingOpen ? 'block':'none'}">
-                        <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
+                    <a (click)="_podService.AllfilterValues.issettingOpen=!_podService.AllfilterValues.issettingOpen;_podService.AllfilterValues.showBell= false;_podService.AllfilterValues.ShowFilter= false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="fas fa-cog curser"></i></a>
+                    <ul class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.issettingOpen ? 'block':'none'}">
+                        <li (click)="_podService.AllfilterValues.issettingOpen=false"><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>
                     </ul>
                 </div>
