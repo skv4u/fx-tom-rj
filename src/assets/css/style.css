@@ -951,7 +951,10 @@ ul.dropdown-menu li a {
 
 .s-box ul.dropdown-menu li a {
     color: var(--text-color);
-}
+    align-items: center;
+    display: flex;
+  }
+
 
 .btn-close {
     background: var(--text-color);
@@ -1466,3 +1469,7 @@ td i {
     cursor: pointer;
 }
 
+.dropdown-menu  .fa {
+    font-size: var(--clamp14) !important;
+    margin-right:3px;
+}

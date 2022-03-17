@@ -224,8 +224,8 @@
                     <a (click)="_podService.AllfilterValues.issettingOpen=!_podService.AllfilterValues.issettingOpen;_podService.AllfilterValues.showBell= false;_podService.AllfilterValues.ShowFilter= false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-cog curser"></i></a>
                     <ul class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.issettingOpen ? 'block':'none'}">
-                        <li (click)="_podService.viewDetails()"><a class="dropdown-item">Edit Profile</a></li>
-                        <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>
+                        <li (click)="_podService.viewDetails()"><a class="dropdown-item"><i class="fa fa-edit "></i> Edit Profile</a></li>
+                        <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()"><i class="fa fa-sign-out "></i> Log out</a></li>
                     </ul>
                 </div>
             </div>
