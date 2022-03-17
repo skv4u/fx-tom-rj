@@ -212,9 +212,9 @@ a {
     --light-gray: #999798;
     --drap-bg: #d8d8d8;
     --modify: #ffa600;
-    --rjapproved: #00bcfe;
+    --rjapproved: #ffa600;
     --broadcast: #1aa70a;
-    --live: #0d5604;
+    --live: #14ac02;
     /*-------font-sizes-----*/
     --clamp12: clamp(10px, 0.625vw, 12px);
     --clamp14: clamp(12px, 0.72916vw, 14px);
@@ -876,7 +876,7 @@ td.rjsname p {
 
 .information ul li {
     padding: 0px 30px 0px 0px;
-    font-size: var(--clamp16);
+    font-size: var(--clamp18);
 }
 
 .information ul li strong {
@@ -908,7 +908,7 @@ td.rjsname p {
 
 .information ul li.modify,
 .information ul li.modify a {
-    color: var(--modify);
+    color: var(--link-color);
 }
 
 .information ul li.broadcast,
@@ -918,8 +918,12 @@ td.rjsname p {
 
 .information ul li.comments,
 .information ul li.comments a {
-    color: var(--link-color);
+    color: var(--live);
 }
+
+.information ul li.live, .information ul li.live a {
+    color: var(--live);
+  }
 
 .information h4 {
     color: var(--tickets-color);
@@ -1019,7 +1023,7 @@ tr td {
 }
 
 tr th {
-    font-size: var(--clamp24);
+    font-size: var(--clamp18);
 }
 
 th {
@@ -1034,7 +1038,7 @@ tr:nth-child(even) {
     border: none;
     background: none;
     padding: 0px;
-    font-size: var(--clamp16);
+    font-size: var(--clamp18);
     color: var(--text-color);
 }
 
@@ -1132,6 +1136,7 @@ tr:nth-child(even) {
     color: var(--text-color);
     font-size: var(--clamp16);
     padding: 5px 20px;
+    cursor: pointer;
 }
 
 .dashboard-table ul.dropdown-menu li:before {
@@ -1173,7 +1178,9 @@ tr:nth-child(even) {
 .dashboard-table ul.dropdown-menu li.rjapproved:before {
     background: var(--rjapproved);
 }
-
+.dashboard-table ul.dropdown-menu li.live::before {
+    background: var(--live);
+  }
 .dashboard-table span.small {
     color: var(--link-color);
     font-size: var(--clamp14);
@@ -1458,3 +1465,4 @@ td i {
 .title-sec .fa-plus-square {
     cursor: pointer;
 }
+
