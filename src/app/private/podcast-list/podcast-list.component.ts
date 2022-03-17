@@ -23,11 +23,12 @@ export class PodcastListComponent implements OnInit {
 
   ngOnInit() {
     this._podService.isListPage = true;
-    if (!this._localStorage.getUserData()) {
+    if (!this._podService.localStorageData) {
       this.router.navigate(['/', 'login'])
       return
     }
-    if (this._localStorage.getUserData().approval_status == 'Pending' || this._localStorage.getUserData().approval_status == 'Rejected') {
+    console.log(this._podService.localStorageData,"this._podService.localStorageData")
+    if (this._podService.localStorageData.approval_status == 'Pending' || this._podService.localStorageData.approval_status == 'Rejected') {
       this.viewUser(() => {
         this.genericCall();
       });
@@ -37,11 +38,11 @@ export class PodcastListComponent implements OnInit {
   }
 
   genericCall() {
-    if (this._localStorage.getUserData().approval_status == 'Approved') {
+    if (this._podService.localStorageData.approval_status == 'Approved') {
     this._podService.getPodcastList();
     // this._podService.getStatisticsList();
-    this._podService.getCategoryList();
-    this._podService.getLanguageList();
+    // this._podService.getCategoryList();
+    // this._podService.getLanguageList();
     }
   }
 
@@ -49,7 +50,7 @@ export class PodcastListComponent implements OnInit {
   viewUser(callback) {
     this.isProgressing = true;
     let req = {
-      "username": this._localStorage.getUserData().username
+      "username": this._podService.localStorageData.username
     }
     this._webService.commonMethod('user/view', req, "POST").subscribe(
       data => {
@@ -64,7 +65,10 @@ export class PodcastListComponent implements OnInit {
   }
 
 
-  LogOut() {
+  LogOut() { 
+    this._podService.RJDasboardList = [];
+    this._podService.RJDasboardList1 = [];
+    localStorage.removeItem("user_data");
     localStorage.clear();
     this.router.navigate(['/', 'logout'])
   }
@@ -84,7 +88,7 @@ export class PodcastListComponent implements OnInit {
       this.toaster.error("Podcast has been live now");
       return
     }
-    if (this._localStorage.getUserData().approval_status == 'Rejected') {
+    if (this._podService.localStorageData.approval_status == 'Rejected') {
       this.toaster.error('Please contact Admin')
       return
     }

@@ -452,7 +452,7 @@
                         <input type="file" name="myFile" class="drop-zone__input" style="display: block;cursor: pointer;" (change)="uploadFile($event.target.files)" accept="image/">
                     </div>
                     <div class="profile-pic drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName">
-                        <img [src]="pictureFileName" [alt]="pictureFileName">
+                        <img [src]="pictureFileName" [alt]="pictureFileName" style="margin-left: 32px;">
                         <button (click)="removeFile()" style="right: -15px;
                         cursor: pointer;
                         top: -155px;

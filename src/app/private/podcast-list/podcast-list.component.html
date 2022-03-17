@@ -2,12 +2,12 @@
 <app-header>
 
 </app-header>
-<div class="pending_status" *ngIf="_podService.Approval_Status == 'Pending'">Your approval is pending.</div>
+<div class="pending_status" *ngIf="_podService.localStorageData.approval_status == 'Pending'">Your approval is pending.</div>
 
-<div class="pending_status" *ngIf="_podService.Approval_Status == 'Rejected'">Please Contact Admin</div>
+<div class="pending_status" *ngIf="_podService.localStorageData.approval_status == 'Rejected'">Please Contact Admin</div>
 
 
-<div class="container-fluid" *ngIf="_podService.Approval_Status == 'Approved'">
+<div class="container-fluid" *ngIf="_podService.localStorageData.approval_status == 'Approved'">
     <div class="row">
         <div class="col-12">
 

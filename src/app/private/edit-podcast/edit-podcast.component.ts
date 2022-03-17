@@ -24,12 +24,12 @@ export class EditPodcastComponent implements OnInit {
 
   ngOnInit() {
     this._podService.isListPage = false;
-    if(this._podService.Approval_Status == 'Pending'){
+    if(this._podService.localStorageData.approval_status == 'Pending'){
       this.toaster.error('Your approval is pending.')
       this.router.navigate(['/', 'dashboard'])
       return
     }  
-    if (this._podService.Approval_Status == 'Rejected') {
+    if (this._podService.localStorageData.approval_status == 'Rejected') {
       this.toaster.error('Please contact Admin')
       this.router.navigate(['/', 'dashboard'])
       return
@@ -40,8 +40,8 @@ export class EditPodcastComponent implements OnInit {
       return
     }
     this._podService.getNodeList();
-    this._podService.getCategoryList();
-    this._podService.getLanguageList();
+    // this._podService.getCategoryList();
+    // this._podService.getLanguageList();
     this.audioFileName = this._podService.podcastListData.audiopath;
     this.pictureFileName = this._podService.podcastListData.imagepath;
     this.podcastForm = this.fb.group({
@@ -82,7 +82,7 @@ export class EditPodcastComponent implements OnInit {
     this.isProcessing = true;
     let req = {
       "id": this._podService.podcastListData.id,
-      "user_id": this._localStorage.getUserData().id,
+      "user_id": this._podService.localStorageData.id,
       "name": this.podcastForm.value.name,
       "author_name": this.podcastForm.value.author_name,
       "language": this.podcastForm.value.language,
@@ -91,7 +91,7 @@ export class EditPodcastComponent implements OnInit {
       "imagepath": this.pictureFileName,
       "audiopath": this.audioFileName,
       "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
-      "created_by": this._localStorage.getUserData().username,
+      "created_by": this._podService.localStorageData.username,
       "usertype": "RJ",
       "note_description": this.noteDescription,
       "status": 'Pending'
@@ -194,5 +194,12 @@ export class EditPodcastComponent implements OnInit {
 
   }
 
+  logout(){
+    this._podService.RJDasboardList = [];
+    this._podService.RJDasboardList1 = [];
+    localStorage.removeItem("user_data");
+    localStorage.clear();
+    this.router.navigate(['/', 'login']);
+  }
 
 }

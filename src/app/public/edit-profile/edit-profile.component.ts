@@ -32,39 +32,42 @@ export class EditProfileComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
     this._podService.isListPage = false;
-    if(this._podService.Approval_Status == 'Pending'){
+    if(this._podService.localStorageData.approval_status == 'Pending'){
       this.toaster.error('Your approval is pending.')
-      return
-    }
-    if (this._podService.Approval_Status == 'Rejected') {
-      this.toaster.error('Please contact Admin')
       this.router.navigate(['/', 'dashboard'])
       return
     }
-    this.country = this._localStorage.getUserData().country;
-    this.state = this._localStorage.getUserData().state;
-    this.ISD = this._localStorage.getUserData().isd ? this._localStorage.getUserData().isd : "+91";
+    if (this._podService.localStorageData.approval_status == 'Rejected') {
+      this.toaster.error('Please contact Admin');
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }
+    console.log(this._podService.localStorageData,"his._podService.localStorageData")
+    this.country = this._podService.localStorageData.country;
+    this.state = this._podService.localStorageData.state;
+    this.pictureFileName = this._podService.localStorageData.profile_image;
+    this.ISD = this._podService.localStorageData.isd ? this._podService.localStorageData.isd : "+91";
     this.registerForm = this.fb.group({
-      fullname: [this._localStorage.getUserData().fullname, [Validators.required]],
-      username: [this._localStorage.getUserData().username, [Validators.required]],
+      fullname: [this._podService.localStorageData.fullname, [Validators.required]],
+      username: [this._podService.localStorageData.username, [Validators.required]],
       usertype: 'RJ',
-      dob: [this._localStorage.getUserData().dob, [Validators.required]],
-      isd: this._localStorage.getUserData().isd,
-      phone: [this._localStorage.getUserData().phone, [Validators.required,Validators.minLength(10),Validators.maxLength(10),this._commonService.customNumber]],
-      email: [this._localStorage.getUserData().email, [Validators.required,this._commonService.customEmail]],
-      profile_image: this._localStorage.getUserData().profile_image,
-      podcaster_type: this._localStorage.getUserData().podcaster_type,
-      podcaster_value: this._localStorage.getUserData().podcaster_value,
-      address1: this._localStorage.getUserData().address1,
-      address2: this._localStorage.getUserData().address2,
-      address3: this._localStorage.getUserData().address3,
-      aboutme: this._localStorage.getUserData().aboutme,
-      twitter: this._localStorage.getUserData().twitter,
-      facebook: this._localStorage.getUserData().facebook,
-      snapchat: this._localStorage.getUserData().snapchat,
-      blogger: this._localStorage.getUserData().blogger,
-      telegram: this._localStorage.getUserData().telegram,
-      linkedin: this._localStorage.getUserData().linkedin
+      dob: [this._podService.localStorageData.dob, [Validators.required]],
+      isd: this._podService.localStorageData.isd,
+      phone: [this._podService.localStorageData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(10),this._commonService.customNumber]],
+      email: [this._podService.localStorageData.email, [Validators.required,this._commonService.customEmail]],
+      profile_image: this._podService.localStorageData.profile_image,
+      podcaster_type: this._podService.localStorageData.podcaster_type,
+      podcaster_value: this._podService.localStorageData.podcaster_value,
+      address1: this._podService.localStorageData.address1,
+      address2: this._podService.localStorageData.address2,
+      address3: this._podService.localStorageData.address3,
+      aboutme: this._podService.localStorageData.aboutme,
+      twitter: this._podService.localStorageData.twitter,
+      facebook: this._podService.localStorageData.facebook,
+      snapchat: this._podService.localStorageData.snapchat,
+      blogger: this._podService.localStorageData.blogger,
+      telegram: this._podService.localStorageData.telegram,
+      linkedin: this._podService.localStorageData.linkedin
     })
     this.getCountryList();
     this.isindividual = this.registerForm.value.podcaster_type == 'individual' ? true : false;
@@ -116,7 +119,7 @@ export class EditProfileComponent implements OnInit {
 
 
         // {
-          "id": this._localStorage.getUserData().id,
+          "id": this._podService.localStorageData.id,
           "fullname": this.registerForm.value.fullname,
           "username":  this.registerForm.value.username,
           "dob": this.registerForm.value.dob,
@@ -133,7 +136,7 @@ export class EditProfileComponent implements OnInit {
           "state": this.state,
           "usertype":this.registerForm.value.usertype,
           "note_description": this.reasonforEdit,
-          "created_by": this._localStorage.getUserData().username,
+          "created_by": this._podService.localStorageData.username,
           "aboutme": this.registerForm.value.aboutme,
           "twitter": this.registerForm.value.twitter,
           "facebook": this.registerForm.value.facebook,
@@ -149,7 +152,9 @@ export class EditProfileComponent implements OnInit {
           if(data.Status == 'Success' && data.Response){
             this.isProgessing = false;
             this.toaster.success('Updated Successfully');
-            this._localStorage.setUserData(req);
+          //  this._localStorage.setUserData(req);
+           // this._podService.localStorageData = req;
+           this._podService.viewDetails();
             this.router.navigate(['/', 'dashboard'])
             }else {
              this.toaster.error(data.Response);

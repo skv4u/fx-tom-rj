@@ -24,11 +24,11 @@ export class DeletePopupComponent implements OnInit {
     }
     let req = {
       "id": this._podService.deletedList.id,
-      "user_id": this._localStorage.getUserData().id,
+      "user_id": this._podService.localStorageData.id,
       "usertype": "RJ",
       "note_description": this.description,
       "status": "Delete",
-      "created_by": this._localStorage.getUserData().username,
+      "created_by": this._podService.localStorageData.username,
       "audio_path":this._podService.deletedList.audiopath
     } 
     this._webService.commonMethod('podcast/delete', req, "POST").subscribe(

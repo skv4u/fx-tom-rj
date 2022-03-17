@@ -14,7 +14,7 @@ iscreatebuttonVisiable: boolean = false;
 issettingOpen: boolean = false;
 ShowFilter: boolean = false;
 showBell: boolean = false;
-userName: string = this._localStorage.getUserData().fullname;
+userName: string = this._podService.localStorageData.fullname;
   constructor(public router: Router, public _localStorage: LocalstorageService, public _podService: PorcastService, public webservice: WebService) { }
 
   ngOnInit() {
@@ -27,11 +27,11 @@ userName: string = this._localStorage.getUserData().fullname;
   }
 
   updateNotification(){
-    if(this._podService.Approval_Status == 'Pending' || this._podService.Approval_Status == 'Rejected'){
+    if(this._podService.localStorageData.approval_status == 'Pending' || this._podService.localStorageData.approval_status == 'Rejected'){
       return
     }
     let req = {
-        "user_id": this._localStorage.getUserData().id
+        "user_id": this._podService.localStorageData.id
     }
     this.webservice.commonMethod('user/notification/update', req, 'PUT').subscribe(
     (data)=>{

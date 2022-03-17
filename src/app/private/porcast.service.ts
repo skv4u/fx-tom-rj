@@ -27,9 +27,10 @@ export class PorcastService {
     ModifyTotal: 0,
     UnreadNotificationCount: "0"
   };
+  localStorageData: any = {}
   
 filterApplied: boolean = false;
-  Approval_Status: string = this._localStorage.getUserData().approval_status;
+ // Approval_Status: string = this.localStorageData.approval_status;
   podcastFilterList: any = {
     isTittle: false,
     iscategory: false,
@@ -43,6 +44,10 @@ filterApplied: boolean = false;
   }
   mobileNumber: number = 0;
   constructor(public _webService: WebService, public _localStorage: LocalstorageService) {
+    // if(this.localStorageData && Object.keys(this.localStorageData).length == 0){
+    //   this.localStorageData = this.localStorageData;
+    //  // this.Approval_Status = this.localStorageData.approval_status;
+    // }
     // this.getCategoryList();
     // this.getLanguageList();
   }
@@ -85,8 +90,21 @@ filterApplied: boolean = false;
     this.RJDasboardList = temp;
   }
 
+  NotificationsearchList(data){
+    this.filterApplied = true;
+    let tempdata = data ? data : this.serachvalue;
+    let temp = this.RJDasboardList1.filter(x => JSON.stringify(x.id).toLowerCase().includes(tempdata.toLowerCase()));
+    this.RJDasboardList = temp;
+  }
+
 
   resetValues(){
+    if(!this.filterApplied || this.localStorageData.approval_status == 'Pending'){
+      return
+    }
+    if(!this.filterApplied || this.localStorageData.approval_status == 'Rejected'){
+      return
+    }
     this.filterApplied = false;
     this.serachvalue = '';
     this.getPodcastList();
@@ -95,7 +113,7 @@ filterApplied: boolean = false;
   getPodcastList() {
     this.isProcessing = true;
     let req = {
-      "user_id": this._localStorage.getUserData().id,
+      "user_id": this.localStorageData.id,
       "podcast_id": ""
     }
     this._webService.commonMethod('podcast/list', req, "POST").subscribe(
@@ -107,6 +125,7 @@ filterApplied: boolean = false;
           this.RJDasboardList = data.Response;
           this.RJDasboardList1 = data.Response;
           this.getStatisticsList();
+         // this.viewDetails();
         }
         this.isProcessing = false;
       }
@@ -115,7 +134,7 @@ filterApplied: boolean = false;
 
   getStatisticsList() {
     let req = {
-      "user_id": this._localStorage.getUserData().id
+      "user_id": this.localStorageData.id
     }
     this._webService.commonMethod('user/statistics', req, "POST").subscribe(
       data => {
@@ -129,7 +148,7 @@ filterApplied: boolean = false;
 
   getNotificationLise() {
     let req = {
-      "user_id": this._localStorage.getUserData().id,
+      "user_id": this.localStorageData.id,
       "usertype": "RJ"
     }
     this._webService.commonMethod('user/notificationlist', req, "POST").subscribe(
@@ -140,5 +159,18 @@ filterApplied: boolean = false;
       }
     )
   }
+  viewDetails(){
+    this.isProcessing = true;
+    this._webService.commonMethod('user/view/'+this.localStorageData.id, '', "GET").subscribe(
+      data => {
+        this.isProcessing = false;
+        if (data.Status == 'Success' && data.Response && data.Response.length) {
+          this.localStorageData = data.Response;
+          this._localStorage.setUserData(data.Response)
+        }
+      }
+    )
+  }
+
 
 }

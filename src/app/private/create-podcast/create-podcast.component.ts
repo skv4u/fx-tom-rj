@@ -24,22 +24,21 @@ export class CreatePodcastComponent implements OnInit {
 
   ngOnInit() {
     this._podService.isListPage = false;
-    if(this._podService.Approval_Status == 'Pending'){
+    if(this._podService.localStorageData.approval_status == 'Pending'){
       this.toaster.error('Your approval is pending.')
       this.router.navigate(['/', 'dashboard'])
       return
     }
-    if (this._podService.Approval_Status == 'Rejected') {
+    if (this._podService.localStorageData.approval_status == 'Rejected') {
       this.toaster.error('Please contact Admin')
       this.router.navigate(['/', 'dashboard'])
       return
     }
-    this._podService.getCategoryList();
-    this._podService.getLanguageList();
+
     this.podcastForm = this.fb.group({
       name: ['', [Validators.required]],
       author_name: ['', [Validators.required]],
-      language: ['', [Validators.required]],
+      language: ['Telugu', [Validators.required]],
       category: ['', [Validators.required]],
       description: ['', [Validators.required]],
       imagepath: '',
@@ -63,8 +62,9 @@ export class CreatePodcastComponent implements OnInit {
       return
     }
     this.isProcessing = true;
+    console.log(this._podService.localStorageData,"this._podService.localStorageData");
     let req = {
-      "user_id": this._localStorage.getUserData().id,
+      "user_id": this._podService.localStorageData.id,
       "name": this.podcastForm.value.name,
       "author_name": this.podcastForm.value.author_name,
       "language": this.podcastForm.value.language,
@@ -74,8 +74,9 @@ export class CreatePodcastComponent implements OnInit {
       "audiopath": this.audioFileName,
       "approvals": "Pending",
       "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
-      "created_by": this._localStorage.getUserData().username
+      "created_by": this._podService.localStorageData.username
     }
+    console.log(req)
     this._webService.commonMethod('podcast/create', req, "POST").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response) {
@@ -179,6 +180,8 @@ export class CreatePodcastComponent implements OnInit {
   }
 
   logout(){
+    this._podService.RJDasboardList = [];
+    this._podService.RJDasboardList1 = [];
     localStorage.clear();
     this.router.navigate(['/', 'login']);
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PorcastService } from 'src/app/private/porcast.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, 
     public _localStorage: LocalstorageService, 
     public router: Router,
-    public toaster: ToastService) { }
+    public toaster: ToastService,
+    public _podCastService: PorcastService) { }
   ngOnInit() {
     if(this._localStorage.getUserData()){
     this.router.navigate(['/','dashboard'])
@@ -44,6 +46,8 @@ export class LoginComponent implements OnInit {
         data => {
           if(data.Status == 'Success' && data.Response){
           this._localStorage.setUserData(data.Response);
+         this._podCastService.localStorageData = data.Response;
+         console.log(this._podCastService.localStorageData,"this._podCastService.localStorageData");
           this.router.navigate(['/', 'dashboard'])
           }else {
            this.toaster.error(data.Response);
