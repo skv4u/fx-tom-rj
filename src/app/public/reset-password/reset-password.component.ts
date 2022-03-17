@@ -19,7 +19,7 @@ export class ResetPasswordComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
     this.resetForm = this.fb.group({
-      newPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     })
   }

@@ -32,16 +32,8 @@ export class EditProfileComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
     this._podService.isListPage = false;
-    if(this._podService.localStorageData.approval_status == 'Pending'){
-      this.toaster.error('Your approval is pending.')
-      this.router.navigate(['/', 'dashboard'])
-      return
-    }
-    if (this._podService.localStorageData.approval_status == 'Rejected') {
-      this.toaster.error('Please contact Admin');
-      this.router.navigate(['/', 'dashboard'])
-      return
-    }
+    this._podService.AllfilterValues.issettingOpen=false
+   
     console.log(this._podService.localStorageData,"his._podService.localStorageData")
     this.country = this._podService.localStorageData.country;
     this.state = this._podService.localStorageData.state;
@@ -154,7 +146,7 @@ export class EditProfileComponent implements OnInit {
             this.toaster.success('Updated Successfully');
           //  this._localStorage.setUserData(req);
            // this._podService.localStorageData = req;
-           this._podService.viewDetails();
+          // this._podService.viewDetails();
             this.router.navigate(['/', 'dashboard'])
             }else {
              this.toaster.error(data.Response);

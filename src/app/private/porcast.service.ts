@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalstorageService } from '../shared/services/localstorage.service';
+import { ToastService } from '../shared/services/toast.service';
 import { WebService } from '../shared/services/web.service';
 
 @Injectable({
@@ -50,7 +52,7 @@ export class PorcastService {
     isStatusOpen: false
   }
   mobileNumber: number = 0;
-  constructor(public _webService: WebService, public _localStorage: LocalstorageService) {
+  constructor(public _webService: WebService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) {
     // if(this.localStorageData && Object.keys(this.localStorageData).length == 0){
     //   this.localStorageData = this.localStorageData;
     //  // this.Approval_Status = this.localStorageData.approval_status;
@@ -162,14 +164,26 @@ export class PorcastService {
       }
     )
   }
-  viewDetails() {
+  viewDetails() { 
+    this.resetAllValues();
+    if(this.localStorageData.approval_status == 'Pending'){
+    this.toaster.error('Your approval is pending.')
+    // this.router.navigate(['/', 'dashboard'])
+    return
+  }
+  if (this.localStorageData.approval_status == 'Rejected') {
+    this.toaster.error('Please contact Admin');
+    // this.router.navigate(['/', 'dashboard'])
+    return
+  }
     this.isProcessing = true;
     this._webService.commonMethod('user/view/' + this.localStorageData.id, '', "GET").subscribe(
       data => {
         this.isProcessing = false;
-        if (data.Status == 'Success' && data.Response && data.Response.length) {
+        if (data.Status == 'Success' && data.Response) {
           this.localStorageData = data.Response;
           this._localStorage.setUserData(data.Response)
+          this.router.navigate(['/','edit-profile'])
         }
       }
     )
