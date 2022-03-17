@@ -57,6 +57,7 @@ export class PodcastListComponent implements OnInit {
         this.isProgressing = false;
         if (data.Status == 'Success' && data.Response) {
           this._localStorage.setUserData(data.Response);
+          this._podService.localStorageData = data.Response;
           callback();
         }
       }

@@ -190,15 +190,14 @@ export class EditProfileComponent implements OnInit {
   }
 
   getCountryId() {
-    let id = '';
     for (let a of this.countryList) {
       if (a.name == this.country) {
-        id = a.id;
-        break;
+        return a.id;
       }
     }
-    return id
+    return null;
   }
+
   uploadFile(element) {
     const file = element[0];
     if (file == undefined) return;
@@ -250,6 +249,14 @@ export class EditProfileComponent implements OnInit {
       this.isindividual = false;
     }
   }
+  validation() {
 
+    let diff = new Date().getFullYear() - new Date(this.registerForm.value.dob).getFullYear();
+
+    if ((this.MAXIMUM_AGE < diff) || (this.MINIMUM_AGE > diff)) {
+      this.toaster.error("Invalid date of birth");
+      return
+    }
+  }
 
 }

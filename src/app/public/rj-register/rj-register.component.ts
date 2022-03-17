@@ -142,13 +142,12 @@ export class RjRegisterComponent implements OnInit {
   }
 
   getCountryId() {
-    let id = '';
     for (let a of this.countryList) {
       if (a.name == this.country) {
-        id = a.id;
+        return a.id;
       }
     }
-    return id
+    return null
   }
 
   removeSpace(ele) {
