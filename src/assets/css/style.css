@@ -474,7 +474,6 @@ textarea.form-control {
 }
 
 .body-main {
-    padding: 0px 15px;
     overflow: auto;
     height: calc(100vh - 132px);
 }
@@ -506,7 +505,7 @@ textarea.form-control {
 
 .sign-main img {
     width: 100%;
-    height: calc(100vh - 121px);
+    height: calc(100vh - 135px);
     object-fit: cover;
     object-position: center;
 }
