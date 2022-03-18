@@ -19,7 +19,7 @@
                         <li class="rejected"><strong>{{_podService.StatisticsList.RejectedTotal}} </strong> <a>Rejected</a></li>
                         <li class="rjapproved"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved</li>
                         <li class="modify"><strong>{{_podService.StatisticsList.ModifyTotal}} </strong> Modify</li>
-                        <li class="live"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>                   
+                        <li class="live"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>
                         <li class="comments"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li>
                     </ul>
                 </div>
@@ -115,7 +115,13 @@
                                             <p class="mb-0 width-100">{{list.broadcast_date}}</p>
                                             <!-- <span class="small">{{list.BroadcastTime}}</span> -->
                                         </td>
-                                        <td *ngIf="!_podService.podcastFilterList.iscommits">{{list.comment_count}}</td>
+                                        <!-- <td>{{list.comment_count}}</td> -->
+                                        <td *ngIf="!_podService.podcastFilterList.iscommits">
+                                            <span *ngIf="list.comment_count == '0'">None</span>
+
+                                            <span *ngIf="list.comment_count != '0'" style="cursor: pointer;">{{list.comment_count}}</span>
+
+                                        </td>
                                         <td *ngIf="!_podService.podcastFilterList.isedit && list.approvals == 'Modify'"><a class="podcast" (click)="editpopup(list)"><i class="fas fa-pen"
                                             ></i></a></td>
                                         <th *ngIf="!_podService.podcastFilterList.isedit && list.approvals != 'Modify'"></th>
