@@ -67,6 +67,12 @@
                             <span *ngIf="registerForm.get('username').hasError('required')">
                                 User Name is required
                             </span>
+                        <span class="error-span" *ngIf="registerForm.get('username').hasError('customSpaceValidation') && (!registerForm.get('username').hasError('required'))">
+                                Space not allowed
+                                </span>
+                        <span class="error-span" *ngIf="registerForm.get('username').hasError('customAlphanumaric') && (!registerForm.get('username').hasError('required') && !registerForm.get('username').hasError('customSpaceValidation'))">
+                                Special character is not allowed
+                                </span>
                         </span>
                     </div>
                 </div>

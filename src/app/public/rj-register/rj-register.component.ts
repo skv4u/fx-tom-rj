@@ -34,12 +34,15 @@ export class RjRegisterComponent implements OnInit {
     //  console.log(this.date, "date");
     this.registerForm = this.fb.group({
       fullname: ['', [Validators.required]],
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required,
+        this._commonService.customAlphanumaric,
+        this._commonService.customSpaceValidation]],
       usertype: 'RJ',
       dob: ['', [Validators.required]],
       isd: '',
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this._commonService.customNumber]],
-      email: ['', [Validators.required, this._commonService.customEmail]],
+      email: ['', [Validators.required, this._commonService.customEmail,,
+        this._commonService.customSpaceValidation]],
       profile_image: '',
       podcaster_type: 'individual',
       podcaster_value: '',

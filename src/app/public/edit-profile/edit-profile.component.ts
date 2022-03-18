@@ -41,12 +41,14 @@ export class EditProfileComponent implements OnInit {
     this.ISD = this._podService.localStorageData.isd ? this._podService.localStorageData.isd : "+91";
     this.registerForm = this.fb.group({
       fullname: [this._podService.localStorageData.fullname, [Validators.required]],
-      username: [this._podService.localStorageData.username, [Validators.required]],
+      username: [this._podService.localStorageData.username, [Validators.required,
+        this._commonService.customAlphanumaric,
+        this._commonService.customSpaceValidation]],
       usertype: 'RJ',
       dob: [this._podService.localStorageData.dob, [Validators.required]],
       isd: this._podService.localStorageData.isd,
       phone: [this._podService.localStorageData.phone, [Validators.required,Validators.minLength(10),Validators.maxLength(10),this._commonService.customNumber]],
-      email: [this._podService.localStorageData.email, [Validators.required,this._commonService.customEmail]],
+      email: [this._podService.localStorageData.email, [Validators.required,this._commonService.customEmail,this._commonService.customSpaceValidation]],
       profile_image: this._podService.localStorageData.profile_image,
       podcaster_type: this._podService.localStorageData.podcaster_type,
       podcaster_value: this._podService.localStorageData.podcaster_value,
