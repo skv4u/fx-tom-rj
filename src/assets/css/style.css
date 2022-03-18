@@ -951,7 +951,7 @@ ul.dropdown-menu li a {
 .s-box ul.dropdown-menu li a {
     color: var(--text-color);
     align-items: center;
-    display: flex;
+    
   }
 
 
