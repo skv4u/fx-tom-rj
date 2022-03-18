@@ -1473,3 +1473,7 @@ td i {
     font-size: var(--clamp14) !important;
     margin-right:3px;
 }
+
+.width-100 {
+    width:100px;
+}

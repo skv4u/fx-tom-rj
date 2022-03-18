@@ -69,7 +69,7 @@
                                         </td>
                                         <td *ngIf="!_podService.podcastFilterList.iscategory">{{list.category}}</td>
                                         <td *ngIf="!_podService.podcastFilterList.isupdatedate">
-                                            <p class="mb-0">{{list.upload_date}}</p>
+                                            <p class="mb-0 width-100">{{list.upload_date}}</p>
                                             <!-- <span class="small">{{list.UpdateTime}}</span> -->
 
                                         </td>
@@ -112,7 +112,7 @@
                                             <li class="modify">{{list.approvals}}</li>
                                         </td>
                                         <td *ngIf="!_podService.podcastFilterList.isbroadcast">
-                                            <p class="mb-0">{{list.broadcast_date}}</p>
+                                            <p class="mb-0 width-100">{{list.broadcast_date}}</p>
                                             <!-- <span class="small">{{list.BroadcastTime}}</span> -->
                                         </td>
                                         <td *ngIf="!_podService.podcastFilterList.iscommits">{{list.comment_count}}</td>
