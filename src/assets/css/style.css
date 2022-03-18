@@ -474,7 +474,6 @@ textarea.form-control {
 }
 
 .body-main {
-    padding: 0px 15px;
     overflow: auto;
     height: calc(100vh - 132px);
 }
@@ -506,7 +505,7 @@ textarea.form-control {
 
 .sign-main img {
     width: 100%;
-    height: calc(100vh - 121px);
+    height: calc(100vh - 135px);
     object-fit: cover;
     object-position: center;
 }
@@ -903,12 +902,12 @@ td.rjsname p {
 
 .information ul li.rjapproved,
 .information ul li.rjapproved a {
-    color: var(--rjapproved);
+    color: var(--link-color);
 }
 
 .information ul li.modify,
 .information ul li.modify a {
-    color: var(--link-color);
+    color: var(--modify);
 }
 
 .information ul li.broadcast,
@@ -918,7 +917,7 @@ td.rjsname p {
 
 .information ul li.comments,
 .information ul li.comments a {
-    color: var(--live);
+    color: var(--text-color);
 }
 
 .information ul li.live, .information ul li.live a {
@@ -1012,7 +1011,7 @@ ul.dropdown-menu li a {
 }
 
 .dashboard-table {
-    height: calc(100vh - 215px);
+    height: calc(100vh - 245px);
     overflow-y: auto;
 }
 
@@ -1179,7 +1178,7 @@ tr:nth-child(even) {
 }
 
 .dashboard-table ul.dropdown-menu li.rjapproved:before {
-    background: var(--rjapproved);
+    background: var(--link-color);
 }
 .dashboard-table ul.dropdown-menu li.live::before {
     background: var(--live);
@@ -1472,4 +1471,9 @@ td i {
 .dropdown-menu  .fa {
     font-size: var(--clamp14) !important;
     margin-right:3px;
+}
+
+.width-100 {
+    width:100px;
+    text-align: center;
 }

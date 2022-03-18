@@ -9,7 +9,7 @@
 
 <div class="container-fluid" *ngIf="_podService.localStorageData.approval_status == 'Approved'">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 p-0">
 
 
             <div class="body-content">
@@ -18,9 +18,9 @@
                         <li class="pending"><strong>{{_podService.StatisticsList.PendingTotal}} </strong> <a>Pending</a></li>
                         <li class="rejected"><strong>{{_podService.StatisticsList.RejectedTotal}} </strong> <a>Rejected</a></li>
                         <li class="rjapproved"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved</li>
-                        <li class="live"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>
-                        <li class="comments"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li>
                         <li class="modify"><strong>{{_podService.StatisticsList.ModifyTotal}} </strong> Modify</li>
+                        <li class="live"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>                   
+                        <li class="comments"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li>
                     </ul>
                 </div>
                 <div class="row">
@@ -50,7 +50,7 @@
                                                 <!-- <li class="block" (click)="this._podService.searchList('Block');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Block</a></li> -->
                                             </ul>
                                         </th>
-                                        <th *ngIf="!_podService.podcastFilterList.isbroadcast">Broadcast Date</th>
+                                        <th width="150" *ngIf="!_podService.podcastFilterList.isbroadcast">Broadcast Date</th>
                                         <th *ngIf="!_podService.podcastFilterList.iscommits">User Comments</th>
                                         <th *ngIf="!_podService.podcastFilterList.isedit">Edit</th>
                                         <!-- <th *ngIf="!_podService.podcastFilterList.islistdelete">Delete</th> -->
@@ -69,7 +69,7 @@
                                         </td>
                                         <td *ngIf="!_podService.podcastFilterList.iscategory">{{list.category}}</td>
                                         <td *ngIf="!_podService.podcastFilterList.isupdatedate">
-                                            <p class="mb-0">{{list.upload_date}}</p>
+                                            <p class="mb-0 width-100">{{list.upload_date}}</p>
                                             <!-- <span class="small">{{list.UpdateTime}}</span> -->
 
                                         </td>
@@ -112,7 +112,7 @@
                                             <li class="modify">{{list.approvals}}</li>
                                         </td>
                                         <td *ngIf="!_podService.podcastFilterList.isbroadcast">
-                                            <p class="mb-0">{{list.broadcast_date}}</p>
+                                            <p class="mb-0 width-100">{{list.broadcast_date}}</p>
                                             <!-- <span class="small">{{list.BroadcastTime}}</span> -->
                                         </td>
                                         <td *ngIf="!_podService.podcastFilterList.iscommits">{{list.comment_count}}</td>
