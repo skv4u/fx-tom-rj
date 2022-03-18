@@ -30,11 +30,18 @@ export class CommonService {
     }
   }
 
-  customPassword(formControl: FormControl) {
-    let REGEXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&^_-]{6,20}$/;
-
+  customAlphanumaric(formControl: FormControl) {
+    let REGEXP = /^[a-zA-Z0-9 ]*$/;
     return REGEXP.test(formControl.value) ? null : {
-      customPassword: {
+      customAlphanumaric: {
+        valid: false
+      }
+    }
+  }
+
+  customSpaceValidation(formControl: FormControl) {
+    return typeof formControl.value == 'string' && formControl.value.indexOf(" ") == -1 ? null : {
+      customSpaceValidation: {
         valid: false
       }
     }

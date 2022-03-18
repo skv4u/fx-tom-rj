@@ -309,6 +309,12 @@
                             <span *ngIf="registerForm.get('username').hasError('required')">
                                 User Name is required
                             </span>
+                        <span class="error-span" *ngIf="registerForm.get('username').hasError('customSpaceValidation') && (!registerForm.get('username').hasError('required'))">
+                                Space not allowed
+                                </span>
+                        <span class="error-span" *ngIf="registerForm.get('username').hasError('customAlphanumaric') && (!registerForm.get('username').hasError('required') && !registerForm.get('username').hasError('customSpaceValidation'))">
+                                Special character is not allowed
+                                </span>
                         </span>
                     </div>
                 </div>
@@ -344,13 +350,13 @@
                             <span *ngIf="registerForm.get('phone').hasError('required')">
                                 Phone Number is required
                             </span>
-                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('minlength')">
+                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('minlength')&& (!registerForm.get('phone').hasError('required'))">
                                 Minimum length 10 Characters
                             </span>
-                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('maxlength')">
+                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('maxlength')&& (!registerForm.get('phone').hasError('minlength') && !registerForm.get('phone').hasError('required'))">
                                 Maximum length 10 Characters
                             </span>
-                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('customNumber')">
+                        <span class="error-span" *ngIf="registerForm.get('phone').hasError('customNumber') && !registerForm.get('phone').hasError('required') && !registerForm.get('phone').hasError('minlength') && (!registerForm.get('phone').hasError('maxlength'))">
                                 Numbers Only
                             </span>
                         </span>
@@ -366,9 +372,12 @@
                             <span *ngIf="registerForm.get('email').hasError('required')">
                                 Email is required
                             </span>
-                        <span class="error-span" *ngIf="registerForm.get('email').hasError('customEmail')">
+                        <span class="error-span" *ngIf="registerForm.get('email').hasError('customEmail') && (!registerForm.get('email').hasError('required'))">
                                 Invalid Email
                             </span>
+                        <span class="error-span" *ngIf="registerForm.get('email').hasError('customSpaceValidation') && (!registerForm.get('email').hasError('required') && !registerForm.get('email').hasError('customEmail'))">
+                                Space not allowed
+                                </span>
                         </span>
                     </div>
                 </div>
