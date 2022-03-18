@@ -1012,7 +1012,7 @@ ul.dropdown-menu li a {
 }
 
 .dashboard-table {
-    height: calc(100vh - 215px);
+    height: calc(100vh - 245px);
     overflow-y: auto;
 }
 
@@ -1476,4 +1476,5 @@ td i {
 
 .width-100 {
     width:100px;
+    text-align: center;
 }
