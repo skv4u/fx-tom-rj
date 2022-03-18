@@ -444,18 +444,18 @@
             </div>
             <div class="row" *ngIf="isdisplayinformationOpen">
                 <div class="col-md-3">
-                    <div class="profile-pic drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName == ''">
+                    <div class="drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName == ''">
                         <!-- <a>Upload Profile Picture</a> -->
                         <span class="drop-zone__prompt">
                             <p>Upload Profile Picture</p>
                         </span>
                         <input type="file" name="myFile" class="drop-zone__input" style="display: block;cursor: pointer;" (change)="uploadFile($event.target.files)" accept="image/">
                     </div>
-                    <div class="profile-pic drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName">
-                        <img [src]="pictureFileName" [alt]="pictureFileName" style="margin-left: 32px;">
-                        <button (click)="removeFile()" style="right: -15px;
+                    <div class="drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName">
+                        <img [src]="pictureFileName" [alt]="pictureFileName" style="position: absolute;">
+                        <button (click)="removeFile()" style="right: -150px;
                         cursor: pointer;
-                        top: -155px;
+                        top: -95px;
                         background: none;
                         border: none;
                         color: #f00;
@@ -500,7 +500,7 @@
                         <div class="col-md-6 col-12 mb-4">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="floatingInput" placeholder="Telegran" formControlName="telegram">
-                                <label for="floatingInput">Telegran</label>
+                                <label for="floatingInput">Telegram</label>
                             </div>
                         </div>
                         <div class="col-md-6 col-12 mb-4">
