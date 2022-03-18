@@ -211,7 +211,7 @@ a {
     --approved: #56c757;
     --light-gray: #999798;
     --drap-bg: #d8d8d8;
-    --modify: #ffa600;
+    --modify: #9c18a8;
     --rjapproved: #ffa600;
     --broadcast: #1aa70a;
     --live: #14ac02;
@@ -903,12 +903,12 @@ td.rjsname p {
 
 .information ul li.rjapproved,
 .information ul li.rjapproved a {
-    color: var(--rjapproved);
+    color: var(--link-color);
 }
 
 .information ul li.modify,
 .information ul li.modify a {
-    color: var(--link-color);
+    color: var(--modify);
 }
 
 .information ul li.broadcast,
@@ -918,7 +918,7 @@ td.rjsname p {
 
 .information ul li.comments,
 .information ul li.comments a {
-    color: var(--live);
+    color: var(--text-color);
 }
 
 .information ul li.live, .information ul li.live a {
@@ -1179,7 +1179,7 @@ tr:nth-child(even) {
 }
 
 .dashboard-table ul.dropdown-menu li.rjapproved:before {
-    background: var(--rjapproved);
+    background: var(--link-color);
 }
 .dashboard-table ul.dropdown-menu li.live::before {
     background: var(--live);
