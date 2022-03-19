@@ -223,10 +223,11 @@ export class RjRegisterComponent implements OnInit {
     }
   }
   emailSend(data) {
+    // info@tomtompodcast.com,pchaitanya25596@gmail.com
     let req = {
-      "to": "info@tomtompodcast.com,admin@tomtompodcast.com",
+      "to": "admin@tomtompodcast.com",
       "to_name": data.username,
-      "cc": "pchaitanya25596@gmail.com",
+      "cc": "",
       "bcc": "",
       "subject":  data.fullname + " - New RJ Registered",
       "content": this.emailtemplate(data)

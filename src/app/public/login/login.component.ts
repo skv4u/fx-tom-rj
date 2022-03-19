@@ -17,16 +17,16 @@ export class LoginComponent implements OnInit {
   isloginFormValid: boolean = true;
   isProcessing: boolean = false;
   constructor(
-    public fb: FormBuilder, public _webService: WebService, 
-    public _localStorage: LocalstorageService, 
+    public fb: FormBuilder, public _webService: WebService,
+    public _localStorage: LocalstorageService,
     public router: Router,
     public toaster: ToastService,
     public _podCastService: PorcastService) { }
   ngOnInit() {
-    if(this._localStorage.getUserData()){
-    this.router.navigate(['/','dashboard'])
-    return
-  }
+    if (this._localStorage.getUserData()) {
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -44,13 +44,13 @@ export class LoginComponent implements OnInit {
       }
       this._webService.commonMethod('user/login', req, "POST").subscribe(
         data => {
-          if(data.Status == 'Success' && data.Response){
-          this._localStorage.setUserData(data.Response);
-         this._podCastService.localStorageData = data.Response;
-         console.log(this._podCastService.localStorageData,"this._podCastService.localStorageData");
-          this.router.navigate(['/', 'dashboard'])
-          }else {
-           this.toaster.error(data.Response);
+          if (data.Status == 'Success' && data.Response) {
+            this._localStorage.setUserData(data.Response);
+            this._podCastService.localStorageData = data.Response;
+            console.log(this._podCastService.localStorageData, "this._podCastService.localStorageData");
+            this.router.navigate(['/', 'dashboard'])
+          } else {
+            this.toaster.error(data.Response);
           }
           this.isProcessing = false;
           //console.log(data, "datadatadatadata");

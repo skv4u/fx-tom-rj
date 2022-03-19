@@ -20,7 +20,8 @@ userName: string = this._podService.localStorageData.fullname;
   }
   LogOut(){
     this._podService.resetAllValues();
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem('user_data');
     this.router.navigate(['/', 'login'])
   }
 

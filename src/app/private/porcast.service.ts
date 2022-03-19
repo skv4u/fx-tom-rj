@@ -27,7 +27,9 @@ export class PorcastService {
     LiveTotal: 0,
     CommentTotal: 0,
     ModifyTotal: 0,
-    UnreadNotificationCount: "0"
+    UnreadNotificationCount: 0,
+    BroadcastTotal: 0,
+    PodcastTotal: 0
   };
   localStorageData: any = {}
 
