@@ -389,6 +389,7 @@ textarea.form-control {
 .header {
     background: var(--header-bg) repeat;
     padding: 15px 0px;
+    min-height:95px;
 }
 
 .logo img {
@@ -1470,10 +1471,33 @@ td i {
 
 .dropdown-menu  .fa {
     font-size: var(--clamp14) !important;
-    margin-right:3px;
+    margin-right: 3px;
+    margin-top: 5px;
 }
 
 .width-100 {
     width:100px;
     text-align: center;
+}
+
+body{
+    overflow: hidden;
+}
+
+.img-upload{
+    right: -12px;
+    cursor: pointer;
+    top: -10px;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    position: absolute;
+    background: #cd0800;
+    border-radius: 50px;
+    font-size: 12px;
+    width: 30px;
+    height: 30px;
+}
+.img-upload .fas {
+    line-height: 2em;
 }

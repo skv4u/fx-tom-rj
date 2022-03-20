@@ -217,14 +217,7 @@
                     </div>
                     <div class="profile-pic drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName">
                         <img [src]="pictureFileName" [alt]="pictureFileName" style="position: absolute;">
-                        <button (click)="removeFile()" style="right: -15px;
-                        cursor: pointer;
-                        top: -95px;
-                        background: none;
-                        border: none;
-                        color: #f00;
-                        font-size: 20px;
-                        position: relative;"><i class="fas fa-trash-alt"></i></button>
+                        <button (click)="removeFile()" class="img-upload"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </div>
                 <div class="col-md-9">
