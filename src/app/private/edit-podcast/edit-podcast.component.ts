@@ -109,10 +109,11 @@ export class EditPodcastComponent implements OnInit {
   }
 
   uploadaudio(element) {
+    debugger
     const file = element[0];
     if (file == undefined) return;
     console.log(file.type, "element");
-     if(file.type.indexOf('audio') == -1){
+     if(!(file.type.indexOf('audio') != -1 || file.type.indexOf('video') != -1)){
        this.toaster.error("Invalid audio file");
        return
     }
