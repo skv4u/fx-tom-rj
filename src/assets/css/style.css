@@ -400,7 +400,7 @@ textarea.form-control {
     padding: 10px 15px 0px;
     background: var(--header-bg2) repeat;
     width: 100%;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .main-title {
@@ -607,7 +607,7 @@ textarea.form-control {
 .settings-main .s_inner {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .settings-main .s_inner .dropdown-toggle::after {
@@ -920,9 +920,10 @@ td.rjsname p {
     color: var(--text-color);
 }
 
-.information ul li.live, .information ul li.live a {
+.information ul li.live,
+.information ul li.live a {
     color: var(--live);
-  }
+}
 
 .information h4 {
     color: var(--tickets-color);
@@ -951,9 +952,7 @@ ul.dropdown-menu li a {
 .s-box ul.dropdown-menu li a {
     color: var(--text-color);
     align-items: center;
-    
-  }
-
+}
 
 .btn-close {
     background: var(--text-color);
@@ -1180,9 +1179,11 @@ tr:nth-child(even) {
 .dashboard-table ul.dropdown-menu li.rjapproved:before {
     background: var(--link-color);
 }
+
 .dashboard-table ul.dropdown-menu li.live::before {
     background: var(--live);
-  }
+}
+
 .dashboard-table span.small {
     color: var(--link-color);
     font-size: var(--clamp14);
@@ -1468,12 +1469,12 @@ td i {
     cursor: pointer;
 }
 
-.dropdown-menu  .fa {
+.dropdown-menu .fa {
     font-size: var(--clamp14) !important;
-    margin-right:3px;
+    margin-right: 3px;
 }
 
 .width-100 {
-    width:100px;
+    width: 100px;
     text-align: center;
 }
