@@ -1232,7 +1232,7 @@ tr:nth-child(even) {
 }
 
 .drop-zone p {
-    color: var(--white-color);
+    color: var(--text-color);
 }
 
 .drop-zone--over {
