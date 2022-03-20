@@ -238,7 +238,7 @@
 
 .error-span {
     color: #f00;
-    font-size:11px !important;
+    font-size: 11px !important;
 }
 
 .background-grey {
@@ -295,4 +295,9 @@
     &.active {
         color: #00bcfe;
     }
+}
+
+.comment_img {
+    height: 50px;
+    width: 50px;
 }

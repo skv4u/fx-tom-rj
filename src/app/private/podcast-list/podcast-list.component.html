@@ -121,7 +121,7 @@
                                         <td *ngIf="!_podService.podcastFilterList.iscommits">
                                             <span *ngIf="list.comment_count == '0'">None</span>
 
-                                            <span *ngIf="list.comment_count != '0'" style="cursor: pointer;">{{list.comment_count}}</span>
+                                            <span *ngIf="list.comment_count != '0'" style="cursor: pointer;" routerLink="/rj-comments"><a class="podcast">{{list.comment_count}}</a></span>
 
                                         </td>
                                         <td *ngIf="!_podService.podcastFilterList.isedit && list.approvals == 'Modify'"><a class="podcast" (click)="editpopup(list)"><i class="fas fa-pen"

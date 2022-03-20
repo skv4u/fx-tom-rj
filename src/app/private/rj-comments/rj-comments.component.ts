@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PorcastService } from '../porcast.service';
 
 @Component({
   selector: 'app-rj-comments',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RjCommentsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _podService: PorcastService ) { }
 
   ngOnInit() {
+    this._podService.isListPage = false;
+    this._podService.AllfilterValues.issettingOpen=false
   }
 
 }
