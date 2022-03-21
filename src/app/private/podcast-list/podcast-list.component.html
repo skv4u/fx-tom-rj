@@ -119,7 +119,7 @@
                                         </td>
                                         <!-- <td>{{list.comment_count}}</td> -->
                                         <td *ngIf="!_podService.podcastFilterList.iscommits">
-                                            <span *ngIf="list.comment_count == '0'">{{list.comment_count}}</span>
+                                            <span *ngIf="list.comment_count == '0'"></span>
 
                                             <span *ngIf="list.comment_count != '0'" style="cursor: pointer;" routerLink="/rj-comments"><a class="podcast">{{list.comment_count}}</a></span>
 
