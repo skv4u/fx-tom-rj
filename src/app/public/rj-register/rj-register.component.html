@@ -46,8 +46,8 @@
             <div class="row" *ngIf="isPersonalInformationOpen">
                 <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="fullname" placeholder="Full Name" formControlName="fullname">
-                        <label for="fullname">Full Name *</label>
+                        <input type="text" class="form-control" id="fullname" placeholder="RJ Name" formControlName="fullname">
+                        <label for="fullname">RJ Name *</label>
                     </div>
                     <div class="required-error">
                         <span class="error-span" *ngIf="registerForm.get('fullname').errors && (registerForm.get('fullname').touched || registerForm.get('fullname').dirty) || !isregisterFormValid">
@@ -60,7 +60,7 @@
                 <div class="col-md-4 col-12 mb-4">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="username" placeholder="User Name *" formControlName="username">
-                        <label for="username">User Name *</label>
+                        <label for="username">Login ID *</label>
                     </div>
                     <div class="required-error">
                         <span class="error-span" *ngIf="registerForm.get('username').errors && (registerForm.get('username').touched || registerForm.get('username').dirty) || !isregisterFormValid">
