@@ -14,7 +14,6 @@ import { PorcastService } from 'src/app/private/porcast.service';
 })
 export class ForgotPasswordComponent implements OnInit {
   mobileNumber: number;
-  isProgessing: boolean = false;
   isMobileNumberValid: boolean = true;
   MobileNumberForm: FormGroup;
   InputList: any = {
@@ -33,9 +32,9 @@ export class ForgotPasswordComponent implements OnInit {
     })
   }
   getOTP() {
-    this.isProgessing = true;
+    this._podCastService.loader = true;
     if (!this.MobileNumberForm.valid) {
-      this.isProgessing = false;
+      this._podCastService.loader = false;
       this.isMobileNumberValid = false;
       return
     }
@@ -45,7 +44,7 @@ export class ForgotPasswordComponent implements OnInit {
     this._webService.commonMethod('sms/otp', req, "POST").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response) {
-          this.isProgessing = false;
+          this._podCastService.loader = false;
         }
       }
     )
@@ -64,7 +63,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.toaster.error("Invalid OTP");
       return
     }
-    this.isProgessing = true;
+    this._podCastService.loader = true;
 
     let req = {
       "mobile": this.MobileNumberForm.value.mobile,
@@ -78,7 +77,7 @@ export class ForgotPasswordComponent implements OnInit {
         } else if (data.Status == 'Success' && !data.Response) {
           this.toaster.error("Invalid OTP")
         }
-        this.isProgessing = false;
+        this._podCastService.loader = false;
       }
     )
   }

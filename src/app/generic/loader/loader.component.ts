@@ -1,4 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
+import { PorcastService } from 'src/app/private/porcast.service';
 
 @Component({
   selector: 'app-loader',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input} from '@angular/core';
 export class LoaderComponent implements OnInit {
 
   @Input('msg') msg?:string = 'Loading...';
-  constructor() { }
+  constructor(public _podService: PorcastService) { }
 
   ngOnInit() {
   }

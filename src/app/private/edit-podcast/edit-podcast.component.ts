@@ -1,3 +1,4 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,7 +19,7 @@ export class EditPodcastComponent implements OnInit {
   audioFileName: string = '';
   pictureFileName: string = '';
   noteDescription: string = '';
-  isProcessing: boolean = false;
+  // _podService.loader: boolean = false;
   constructor(
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) { }
 
@@ -46,7 +47,7 @@ export class EditPodcastComponent implements OnInit {
     this.pictureFileName = this._podService.podcastListData.imagepath;
     this.podcastForm = this.fb.group({
       name: [this._podService.podcastListData.name, [Validators.required]],
-      author_name: [this._podService.podcastListData.author_name, [Validators.required]],
+      author_name: '',
       language: [this._podService.podcastListData.language, [Validators.required]],
       category: [this._podService.podcastListData.category.split(","), [Validators.required]],
       description: [this._podService.podcastListData.description, [Validators.required]],
@@ -62,12 +63,12 @@ export class EditPodcastComponent implements OnInit {
 
   updateProcast() {
     if (!this.podcastForm.valid) {
-      this.isProcessing = false;
+      this._podService.loader = false;
       this.ispodcastFormValid = false;
       return
     }
     if(this.noteDescription == ''){
-      this.isProcessing = false;
+      this._podService.loader = false;
       this.toaster.error("Notes are Required")
       return
     }
@@ -79,7 +80,7 @@ export class EditPodcastComponent implements OnInit {
       this.toaster.error("Podcast image is required")
       return
     }
-    this.isProcessing = true;
+    this._podService.loader = true;
     let req = {
       "id": this._podService.podcastListData.id,
       "user_id": this._podService.localStorageData.id,
@@ -103,75 +104,74 @@ export class EditPodcastComponent implements OnInit {
         } else {
 
         }
-        this.isProcessing = true;
+        this._podService.loader = true;
       }
     )
   }
 
-  uploadaudio(element) {
-    debugger
-    const file = element[0];
-    if (file == undefined) return;
-    console.log(file.type, "element");
-     if(!(file.type.indexOf('audio') != -1 || file.type.indexOf('video') != -1)){
-       this.toaster.error("Invalid audio file");
-       return
-    }
-    let formData = new FormData();
-    formData.append('filename', file, file.name);
-    this.isProcessing = true;
-    this._webService.UploadDocument("s3bucket/upload", formData).
-      subscribe((data: any) => {
-        this.audioFileName = data.Response;
-        this.isProcessing = false;
-      }, err => {
-        // this._toastService.error("Error uploading file.");
-      });
-    //  else {
-    //    this.toaster.error('not a Audio File')
-    //  }
+  // uploadaudio(element) {
+  //   const file = element[0];
+  //   if (file == undefined) return;
+  //   console.log(file.type, "element");
+  //    if(!(file.type.indexOf('audio') != -1 || file.type.indexOf('video') != -1)){
+  //      this.toaster.error("Invalid audio file");
+  //      return
+  //   }
+  //   let formData = new FormData();
+  //   formData.append('filename', file, file.name);
+  //   this._podService.loader = true;
+  //   this._webService.UploadDocument("s3bucket/upload", formData).
+  //     subscribe((data: any) => {
+  //       this.audioFileName = data.Response;
+  //       this._podService.loader = false;
+  //     }, err => {
+  //       // this._toastService.error("Error uploading file.");
+  //     });
+  //   //  else {
+  //   //    this.toaster.error('not a Audio File')
+  //   //  }
 
 
-  }
+  // }
 
 
-  uploadFile(element) {
-    const file = element[0];
-    if (file == undefined) return;
-    console.log(file, "element");
-    if(file.type.indexOf('image') == -1){
-      this.toaster.error("Invalid image");
-      return
-   }
-    let formData = new FormData();
-    formData.append('filename', file, file.name);
-    this.isProcessing = true;
-    this._webService.UploadDocument("s3bucket/upload", formData).
-      subscribe((data: any) => {
-        this.pictureFileName = data.Response;
-        this.isProcessing = false;
-      }, err => {
-         this.toaster.error("Error uploading file.");
-      });
-    //}
-    //  else {
-    //    this.toaster.error('not a Audio File')
-    //  }
+  // uploadFile(element) {
+  //   const file = element[0];
+  //   if (file == undefined) return;
+  //   console.log(file, "element");
+  //   if(file.type.indexOf('image') == -1){
+  //     this.toaster.error("Invalid image");
+  //     return
+  //  }
+  //   let formData = new FormData();
+  //   formData.append('filename', file, file.name);
+  //   this._podService.loader = true;
+  //   this._webService.UploadDocument("s3bucket/upload", formData).
+  //     subscribe((data: any) => {
+  //       this.pictureFileName = data.Response;
+  //       this._podService.loader = false;
+  //     }, err => {
+  //        this.toaster.error("Error uploading file.");
+  //     });
+  //   //}
+  //   //  else {
+  //   //    this.toaster.error('not a Audio File')
+  //   //  }
 
 
-  }
+  // }
 
   removeFile(){
     let req = {
         filename : this.pictureFileName
     }
-    this.isProcessing = true;
+    this._podService.loader = true;
     this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
       subscribe((data: any) => {
-        this.isProcessing = false;
+        this._podService.loader = false;
         this.pictureFileName = '';
       },err => {
-        this.isProcessing = false;
+        this._podService.loader = false;
         this.pictureFileName = '';
       });
 
@@ -182,14 +182,14 @@ export class EditPodcastComponent implements OnInit {
     let req = {
         filename : this.audioFileName
     }
-    this.isProcessing = true;
+    this._podService.loader = true;
     this._webService.commonMethod("s3bucket/remove", this.audioFileName, 'DELETE').
       subscribe((data: any) => {
-        this.isProcessing = false;
+        this._podService.loader = false;
         this.audioFileName = '';
       },err => {
         this.audioFileName = '';
-        this.isProcessing = false;
+        this._podService.loader = false;
       });
 
 
@@ -203,4 +203,64 @@ export class EditPodcastComponent implements OnInit {
     this.router.navigate(['/', 'login']);
   }
 
+  uploadaudio(element) {​​ 
+    const file = element[0];
+  if (file == undefined) return;
+  // console.log(file.type, "element");
+  if(!(file.type.indexOf('audio') != -1 || file.type.indexOf('video') != -1)){​​
+  this.toaster.error("Invalid audio file");
+  return
+  }​​
+  let formData = new FormData();
+  formData.append('filename', file, file.name);
+  this._podService.loader = true;
+  this._podService.loaderMessage = "Uploading...";
+  this._webService.UploadDocument1("s3bucket/upload", formData).
+  subscribe((data: any) => {​​
+  if (data.type === HttpEventType.Response) {​​
+  console.log(data);
+  this.audioFileName = data.body.Response;
+  this._podService.loader = false;
+  this._podService.loaderMessage = "Loading...";
+  }​​
+  if (data.type === HttpEventType.UploadProgress) {​​
+  const percentDone = Math.round(100 * data.loaded / data.total);
+  this._podService.loaderMessage = " Uploading : " + percentDone + "%";
+  }​​
+  }​​, err => {​​ 
+    this._podService.loader = false;
+  this._podService.loaderMessage = "Loading...";
+  this.audioFileName = "";
+  }​​);
+  // subscribe((data: any) => {​​
+  // this.EditData.audiopath = data.Response;
+  // this._podService.loader = false;
+  // }​​, err => {​​
+  // }​​); 
+  }​​ 
+  uploadFile(element) {​​
+  this._podService.loader=true;
+  this._podService.loaderMessage = "Uploading...";
+  const file = element[0];
+  if (file == undefined) return;
+  // console.log(file, "element");
+  let formData = new FormData();
+  formData.append('filename', file, file.name);
+  this._webService.UploadDocument1("s3bucket/upload", formData).
+  subscribe((data: any) => {​​
+  if (data.type === HttpEventType.Response) {​​
+  this.pictureFileName = data.body.Response;
+  this._podService.loader = false;
+  this._podService.loaderMessage = "Loading...";
+  }​​
+  if (data.type === HttpEventType.UploadProgress) {​​
+  const percentDone = Math.round(100 * data.loaded / data.total);
+  this._podService.loaderMessage = " Uploading : " + percentDone + "%";
+  }​​
+  }​​, err => {​​
+  this._podService.loader = false;
+  this.pictureFileName = "";
+  this._podService.loaderMessage = "Loading...";
+  }​​);
+  }
 }

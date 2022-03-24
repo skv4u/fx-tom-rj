@@ -212,7 +212,7 @@ a {
     --light-gray: #999798;
     --drap-bg: #d8d8d8;
     --modify: #ffa600;
-    --rjapproved: #ffa600;
+    --rjapproved: #0e7ea3;
     --broadcast: #1aa70a;
     --live: #14ac02;
     /*-------font-sizes-----*/
@@ -389,7 +389,7 @@ textarea.form-control {
 .header {
     background: var(--header-bg) repeat;
     padding: 15px 0px;
-    min-height:95px;
+    min-height: 95px;
 }
 
 .logo img {
@@ -1481,11 +1481,11 @@ td i {
     text-align: center;
 }
 
-body{
+body {
     overflow: hidden;
 }
 
-.img-upload{
+.img-upload {
     right: -12px;
     cursor: pointer;
     top: -10px;
@@ -1499,6 +1499,7 @@ body{
     width: 30px;
     height: 30px;
 }
+
 .img-upload .fas {
     line-height: 2em;
 }

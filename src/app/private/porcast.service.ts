@@ -18,7 +18,7 @@ export class PorcastService {
   deletedList: any;
   NotificationList: any[] = [];
   isDelete: boolean = false;
-  isProcessing: boolean = false;
+  // isProcessing: boolean = false;
   isListPage: boolean = false;
   StatisticsList: any = {
     PendingTotal: 0,
@@ -29,22 +29,23 @@ export class PorcastService {
     ModifyTotal: 0,
     UnreadNotificationCount: 0,
     BroadcastTotal: 0,
-    PodcastTotal: 0
+    PodcastTotal: 0,
+    SubscribedTotal: 0
   };
   localStorageData: any = {}
 
   filterApplied: boolean = false;
   // Approval_Status: string = this.localStorageData.approval_status;
   podcastFilterList: any = {
-    isTittle: false,
-    iscategory: false,
-    isupdatedate: false,
-    isstatus: false,
-    isbroadcast: false,
-    iscommits: false,
-    isedit: false,
-    islistdelete: false,
-    isnote: false
+    isTittle: true,
+    iscategory: true,
+    isupdatedate: true,
+    isstatus: true,
+    isbroadcast: true,
+    iscommits: true,
+    isedit: true,
+    islistdelete: true,
+    isnote: true
   }
   AllfilterValues: any = {
     issettingOpen: false,
@@ -54,6 +55,8 @@ export class PorcastService {
     isStatusOpen: false
   }
   mobileNumber: number = 0;
+  loader: boolean = false;
+  loaderMessage: string = "Loading...";
   constructor(public _webService: WebService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) {
     // if(this.localStorageData && Object.keys(this.localStorageData).length == 0){
     //   this.localStorageData = this.localStorageData;
@@ -118,7 +121,7 @@ export class PorcastService {
   }
 
   getPodcastList() {
-    this.isProcessing = true;
+    this.loader = true;
     let req = {
       "user_id": this.localStorageData.id,
       "podcast_id": ""
@@ -134,7 +137,7 @@ export class PorcastService {
           this.getStatisticsList();
           // this.viewDetails();
         }
-        this.isProcessing = false;
+        this.loader = false;
       }
     )
   }
@@ -178,10 +181,10 @@ export class PorcastService {
     // this.router.navigate(['/', 'dashboard'])
     return
   }
-    this.isProcessing = true;
+    this.loader = true;
     this._webService.commonMethod('user/view/' + this.localStorageData.id, '', "GET").subscribe(
       data => {
-        this.isProcessing = false;
+        this.loader = false;
         if (data.Status == 'Success' && data.Response) {
           this.localStorageData = data.Response;
           this._localStorage.setUserData(data.Response)

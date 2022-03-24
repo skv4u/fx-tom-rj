@@ -1,6 +1,8 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PorcastService } from 'src/app/private/porcast.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
@@ -20,7 +22,6 @@ export class RjRegisterComponent implements OnInit {
   state: string = '';
   countryList: any[] = [];
   stateList: any[] = [];
-  isProgressing: boolean = false;
   isPersonalInformationOpen: boolean = true;
   isdisplayinformationOpen: boolean = false;
   pictureFileName: string = '';
@@ -28,7 +29,7 @@ export class RjRegisterComponent implements OnInit {
   MAXIMUM_AGE: number = 100;
   ISD: string = '';
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _commonService: CommonService) { }
+    public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _commonService: CommonService, public _podService: PorcastService) { }
 
   ngOnInit() {
     //  console.log(this.date, "date");
@@ -50,7 +51,7 @@ export class RjRegisterComponent implements OnInit {
       address2: '',
       address3: '',
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
+      confirmPassword: '',
       aboutme: '',
       twitter: '',
       facebook: '',
@@ -63,14 +64,25 @@ export class RjRegisterComponent implements OnInit {
   }
 
   register() {
-    //  this.isProgressing = true;
+    //   this._podService.loader = true;
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
-      this.isProgressing = false;
-      this.isPasswordValid = false;
+       this._podService.loader = false;
+      if(this.registerForm.value.confirmPassword == ''){
+        this.toaster.error("Confirm Password is required");
+      }else {
+        this.toaster.error("Confirm Password not matched");
+      }
+      //  this.isPasswordValid = false;
       return
     }
+
+    if(this.registerForm.value.podcaster_type == 'organization' && this.registerForm.value.podcaster_value == ''){
+      this.toaster.error("Organisation working for is required");
+      return
+    }
+
     if (!this.registerForm.valid) {
-      this.isProgressing = false;
+       this._podService.loader = false;
       this.isregisterFormValid = false;
       return
     } else {
@@ -99,10 +111,10 @@ export class RjRegisterComponent implements OnInit {
         "telegram": this.registerForm.value.telegram,
         "linkedin": this.registerForm.value.linkedin
       }
-      this.isProgressing = true;
+       this._podService.loader = true;
       this._webService.commonMethod('user/register', req, "POST").subscribe(
         data => {
-          this.isProgressing = false;
+           this._podService.loader = false;
           if (data.Response.indexOf("Duplicate") != -1) {
             this.toaster.error("'" + this.registerForm.value.username + ' or ' + this.registerForm.value.phone + "' is already Exsits");
             return
@@ -153,56 +165,45 @@ export class RjRegisterComponent implements OnInit {
     return null
   }
 
-  removeSpace(ele) {
-    const charCode = (ele.which) ? ele.which : ele.keyCode;
-    if (charCode == 32) {
-      return true;
-    }
-
-    return true;
-    //   if (ele.which == 32){
-    //     console.log('Space Detected');
-    //     return false;
-    // }
-  }
-  uploadFile(element) {
+ 
+  uploadFile(element) {​​
+    this._podService.loader=true;
+    this._podService.loaderMessage = "Uploading...";
     const file = element[0];
     if (file == undefined) return;
-    console.log(file, "element");
-    if (file.type.indexOf('image') == -1) {
-      this.toaster.error("Invalid image");
-      return
-    }
+    // console.log(file, "element");
     let formData = new FormData();
     formData.append('filename', file, file.name);
-    this.isProgressing = true;
-    this._webService.UploadDocument("s3bucket/upload", formData).
-      subscribe((data: any) => {
-        this.pictureFileName = data.Response;
-        this.isProgressing = false;
-      }, err => {
-        this.toaster.error("Error uploading file.");
-      });
-    //}
-    //  else {
-    //    this.toaster.error('not a Audio File')
-    //  }
-
-
-  }
+    this._webService.UploadDocument1("s3bucket/upload", formData).
+    subscribe((data: any) => {​​
+    if (data.type === HttpEventType.Response) {​​
+    this.pictureFileName = data.body.Response;
+    this._podService.loader = false;
+    this._podService.loaderMessage = "Loading...";
+    }​​
+    if (data.type === HttpEventType.UploadProgress) {​​
+    const percentDone = Math.round(100 * data.loaded / data.total);
+    this._podService.loaderMessage = " Uploading : " + percentDone + "%";
+    }​​
+    }​​, err => {​​
+    this._podService.loader = false;
+    this.pictureFileName = "";
+    this._podService.loaderMessage = "Loading...";
+    }​​);
+    }
 
   removeFile() {
     let req = {
       filename: this.pictureFileName
     }
-    this.isProgressing = true;
+     this._podService.loader = true;
     this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
       subscribe((data: any) => {
-        this.isProgressing = false;
+         this._podService.loader = false;
         this.pictureFileName = '';
       }, err => {
         this.pictureFileName = '';
-        this.isProgressing = false;
+         this._podService.loader = false;
       });
 
 

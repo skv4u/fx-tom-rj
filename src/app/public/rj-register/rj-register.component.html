@@ -1,4 +1,4 @@
-<app-loader *ngIf="isProgressing"></app-loader>
+<!-- <app-loader *ngIf="isProgressing"></app-loader> -->
 <!--Header Start Here-->
 <header class="header">
     <div class="container-fluid">
@@ -299,13 +299,13 @@
                         <input type="password" class="form-control" id="floatingInput" placeholder="Confirm Password" formControlName="confirmPassword">
                         <label for="floatingInput">Confirm Password</label>
                     </div>
-                    <div class="required-error">
+                    <!-- <div class="required-error">
                         <span class="error-span" *ngIf="registerForm.get('confirmPassword').errors && (registerForm.get('confirmPassword').touched || registerForm.get('confirmPassword').dirty) || !isPasswordValid">
                             <span *ngIf="registerForm.get('confirmPassword').hasError('required')">
                                 Confirm Password not matched
                             </span>
                         </span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 

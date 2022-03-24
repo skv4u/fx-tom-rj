@@ -35,10 +35,10 @@ return
     "phone": this._podService.mobileNumber,
     "password": this.resetForm.value.newPassword
     }  
-    this.isProgressing = true;
+     this._podService.loader = true;
   this._webService.commonMethod('user/resetpassword', req, "POST").subscribe(
     data => {
-      this.isProgressing = false;
+       this._podService.loader = false;
       if(data.Status == 'Success' && data.Response){
       this.toaster.success("Password changed successfully");
       this.router.navigate(['/', "/login"])

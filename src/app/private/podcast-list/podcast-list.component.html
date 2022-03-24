@@ -1,4 +1,4 @@
-<app-loader *ngIf="_podService.isProcessing || isProcessing"></app-loader>
+<!-- <app-loader *ngIf="_podService.isProcessing || isProcessing"></app-loader> -->
 <app-header>
 
 </app-header>
@@ -32,16 +32,16 @@
                                 <thead>
                                     <tr>
                                         <th class="pic">Picture</th>
-                                        <th *ngIf="!_podService.podcastFilterList.isTittle">Title</th>
-                                        <th *ngIf="!_podService.podcastFilterList.iscategory">
+                                        <th *ngIf="_podService.podcastFilterList.isTittle">Title</th>
+                                        <th *ngIf="_podService.podcastFilterList.iscategory">
                                             <a id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.iscategoryOpen = !_podService.AllfilterValues.iscategoryOpen" style="cursor: pointer;">Category</a>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.iscategoryOpen ? 'block':'none'}">
                                                 <li *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);_podService.AllfilterValues.iscategoryOpen = false"><a class="dropdown-item">{{a.name}}</a>
                                                 </li>
                                             </ul>
                                         </th>
-                                        <th *ngIf="!_podService.podcastFilterList.isupdatedate">Upload Date</th>
-                                        <th *ngIf="!_podService.podcastFilterList.isstatus">
+                                        <th *ngIf="_podService.podcastFilterList.isupdatedate">Upload Date</th>
+                                        <th *ngIf="_podService.podcastFilterList.isstatus">
                                             <a id="btnGroupDrop6" class="dropdown-toggle curser" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.isStatusOpen = !_podService.AllfilterValues.isStatusOpen">Status</a>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6" [ngStyle]="{'display':_podService.AllfilterValues.isStatusOpen ? 'block':'none'}">
                                                 <li class="pending" (click)="this._podService.searchList('Pending');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Pending</a></li>
@@ -52,11 +52,11 @@
                                                 <!-- <li class="block" (click)="this._podService.searchList('Block');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Block</a></li> -->
                                             </ul>
                                         </th>
-                                        <th width="150" *ngIf="!_podService.podcastFilterList.isbroadcast">Broadcast Date</th>
-                                        <th *ngIf="!_podService.podcastFilterList.iscommits">User Comments</th>
-                                        <th *ngIf="!_podService.podcastFilterList.isedit">Edit</th>
-                                        <!-- <th *ngIf="!_podService.podcastFilterList.islistdelete">Delete</th> -->
-                                        <th *ngIf="!_podService.podcastFilterList.isnote">Latest Notes</th>
+                                        <th width="150" *ngIf="_podService.podcastFilterList.isbroadcast">Broadcast Date</th>
+                                        <th *ngIf="_podService.podcastFilterList.iscommits">User Comments</th>
+                                        <th *ngIf="_podService.podcastFilterList.isedit">Edit</th>
+                                        <!-- <th *ngIf="_podService.podcastFilterList.islistdelete">Delete</th> -->
+                                        <th *ngIf="_podService.podcastFilterList.isnote">Latest Notes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,12 +65,12 @@
                                             <img *ngIf="list.imagepath" [src]="list.imagepath" alt="img" />
                                             <img *ngIf="!list.imagepath" src="./assets/images/login-img.jpg" alt="img" />
                                         </td>
-                                        <td class="rjsname" *ngIf="!_podService.podcastFilterList.isTittle">
+                                        <td class="rjsname" *ngIf="_podService.podcastFilterList.isTittle">
                                             <h5 class="mb-0">{{list.name}}</h5>
                                             <p (click)="gotopodcasters(list)"><a class="podcast">About Podcast</a></p>
                                         </td>
-                                        <td *ngIf="!_podService.podcastFilterList.iscategory">{{list.category}}</td>
-                                        <td *ngIf="!_podService.podcastFilterList.isupdatedate">
+                                        <td *ngIf="_podService.podcastFilterList.iscategory">{{list.category}}</td>
+                                        <td *ngIf="_podService.podcastFilterList.isupdatedate">
                                             <p class="mb-0 width-100">{{list.upload_date}}</p>
                                             <!-- <span class="small">{{list.UpdateTime}}</span> -->
 
@@ -91,44 +91,44 @@
                                     </div>
                                 </div> -->
 
-                                        <td *ngIf="list.approvals == 'Pending' && !_podService.podcastFilterList.isstatus">
+                                        <td *ngIf="list.approvals == 'Pending' && _podService.podcastFilterList.isstatus">
                                             <li class="pending">{{list.approvals}}
                                             </li>
                                         </td>
-                                        <td *ngIf="list.approvals == 'Approved' && !_podService.podcastFilterList.isstatus">
+                                        <td *ngIf="list.approvals == 'Approved' && _podService.podcastFilterList.isstatus">
                                             <li class="rjapproved">{{list.approvals}}</li>
                                         </td>
-                                        <td *ngIf="list.approvals == 'Rejected' && !_podService.podcastFilterList.isstatus">
+                                        <td *ngIf="list.approvals == 'Rejected' && _podService.podcastFilterList.isstatus">
                                             <li class="rejected">{{list.approvals}}</li>
                                         </td>
-                                        <td *ngIf="list.approvals == 'Block' && !_podService.podcastFilterList.isstatus">
+                                        <td *ngIf="list.approvals == 'Block' && _podService.podcastFilterList.isstatus">
                                             <li class="block">{{list.approvals}}</li>
                                         </td>
-                                        <td *ngIf="list.approvals == 'Live' && !_podService.podcastFilterList.isstatus">
+                                        <td *ngIf="list.approvals == 'Live' && _podService.podcastFilterList.isstatus">
                                             <li class="live">{{list.approvals}}</li>
                                         </td>
-                                        <td *ngIf="list.approvals == 'Broadcasting' && !_podService.podcastFilterList.isstatus">
+                                        <td *ngIf="list.approvals == 'Broadcasting' && _podService.podcastFilterList.isstatus">
                                             <li class="broadcast">{{list.approvals}}</li>
                                         </td>
-                                        <td *ngIf="list.approvals == 'Modify' && !_podService.podcastFilterList.isstatus">
+                                        <td *ngIf="list.approvals == 'Modify' && _podService.podcastFilterList.isstatus">
                                             <li class="modify">{{list.approvals}}</li>
                                         </td>
-                                        <td *ngIf="!_podService.podcastFilterList.isbroadcast">
+                                        <td *ngIf="_podService.podcastFilterList.isbroadcast">
                                             <p class="mb-0 width-100">{{list.broadcast_date}}</p>
                                             <!-- <span class="small">{{list.BroadcastTime}}</span> -->
                                         </td>
                                         <!-- <td>{{list.comment_count}}</td> -->
-                                        <td *ngIf="!_podService.podcastFilterList.iscommits">
+                                        <td *ngIf="_podService.podcastFilterList.iscommits">
                                             <span *ngIf="list.comment_count == '0'"></span>
 
                                             <span *ngIf="list.comment_count != '0'" style="cursor: pointer;" routerLink="/rj-comments"><a class="podcast">{{list.comment_count}}</a></span>
 
                                         </td>
-                                        <td *ngIf="!_podService.podcastFilterList.isedit && list.approvals == 'Modify'"><a class="podcast" (click)="editpopup(list)"><i class="fas fa-pen"
+                                        <td *ngIf="_podService.podcastFilterList.isedit && list.approvals == 'Modify'"><a class="podcast" (click)="editpopup(list)"><i class="fas fa-pen"
                                             ></i></a></td>
-                                        <th *ngIf="!_podService.podcastFilterList.isedit && list.approvals != 'Modify'"></th>
-                                        <!-- <td *ngIf="!_podService.podcastFilterList.islistdelete"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt curser"></i></a></td> -->
-                                        <td *ngIf="!_podService.podcastFilterList.isnote">{{list.latest_note}}</td>
+                                        <th *ngIf="_podService.podcastFilterList.isedit && list.approvals != 'Modify'"></th>
+                                        <!-- <td *ngIf="_podService.podcastFilterList.islistdelete"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt curser"></i></a></td> -->
+                                        <td *ngIf="_podService.podcastFilterList.isnote">{{list.latest_note}}</td>
                                     </tr>
 
                                 </tbody>

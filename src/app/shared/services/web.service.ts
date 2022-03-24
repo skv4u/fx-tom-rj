@@ -45,6 +45,17 @@ export class WebService {
     
       }
 
+      UploadDocument1(url: string, data: any) {
+        const headers = new HttpHeaders({
+          'enctype': 'multipart/form-data'
+        });
+        return this.http.post(this.APIUrl.DEV + '/' + url, data, {
+          headers,
+          reportProgress: true,
+          observe: 'events'
+        });
+      }
+
       DeleteDocument(url: string, filename: string, method?: string) {
         method = method ? method : 'POST';
       //  url_type = url_type ? url_type : this.default_url_type;

@@ -48,13 +48,13 @@ export class PodcastListComponent implements OnInit {
 
 
   viewUser(callback) {
-    this.isProgressing = true;
+     this._podService.loader = true;
     let req = {
       "username": this._podService.localStorageData.username
     }
     this._webService.commonMethod('user/view', req, "POST").subscribe(
       data => {
-        this.isProgressing = false;
+         this._podService.loader = false;
         if (data.Status == 'Success' && data.Response) {
           this._localStorage.setUserData(data.Response);
           this._podService.localStorageData = data.Response;

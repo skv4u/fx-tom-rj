@@ -1,3 +1,4 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,7 +20,6 @@ export class EditProfileComponent implements OnInit {
   state: string = '';
   countryList: any[] = [];
   stateList: any[] = [];
-  isProgessing: boolean = false;
   reasonforEdit: string = '';
   pictureFileName: string = '';
   isPersonalInformationOpen: boolean = true;
@@ -76,15 +76,19 @@ export class EditProfileComponent implements OnInit {
       return
     }
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
-      this.isProgessing = false;
+      this._podService.loader = false;
       this.isPasswordValid = false;
       return
     }if(this.reasonforEdit == ''){
       this.toaster.error("Please enter some notes");
       return
     }
+    if(this.registerForm.value.podcaster_type == 'organization' && this.registerForm.value.podcaster_value == ''){
+      this.toaster.error("Organisation working for is required");
+      return
+    }
     if (!this.registerForm.valid) { 
-      this.isProgessing = false;
+      this._podService.loader = false;
       this.isregisterFormValid = false;
       return
     } else {
@@ -140,11 +144,11 @@ export class EditProfileComponent implements OnInit {
           "linkedin": this.registerForm.value.linkedin
         //   }
       }
-      this.isProgessing = true; 
+      this._podService.loader = true; 
       this._webService.commonMethod('user/update', req, "PUT").subscribe(
         data => {
           if(data.Status == 'Success' && data.Response){
-            this.isProgessing = false;
+            this._podService.loader = false;
             this.toaster.success('Updated Successfully');
           //  this._localStorage.setUserData(req);
            // this._podService.localStorageData = req;
@@ -158,13 +162,13 @@ export class EditProfileComponent implements OnInit {
     }
   }
   getCountryList(){
-    this.isProgessing = true;
+    this._podService.loader = true;
     this._webService.commonMethod('country', '', "GET").subscribe(
       data => {
         if(data.Status == 'Success' && data.Response && data.Response.length){
           this.countryList = data.Response;
           this. getStateList();
-          this.isProgessing = false;
+          this._podService.loader = false;
         }
       }
     )
@@ -192,44 +196,45 @@ export class EditProfileComponent implements OnInit {
     return null;
   }
 
-  uploadFile(element) {
-    const file = element[0];
-    if (file == undefined) return;
-    console.log(file, "element");
-    if(file.type.indexOf('image') == -1){
-      this.toaster.error("Invalid image");
-      return
-   }
-    let formData = new FormData();
-    formData.append('filename', file, file.name);
-    this.isProgessing = true;
-    this._webService.UploadDocument("s3bucket/upload", formData).
-      subscribe((data: any) => {
-        this.pictureFileName = data.Response;
-        this.isProgessing = false;
-      }, err => {
-         this.toaster.error("Error uploading file.");
-      });
-    //}
-    //  else {
-    //    this.toaster.error('not a Audio File')
-    //  }
-
-
+ 
+  uploadFile(element) {​​
+  this._podService.loader=true;
+  this._podService.loaderMessage = "Uploading...";
+  const file = element[0];
+  if (file == undefined) return;
+  // console.log(file, "element");
+  let formData = new FormData();
+  formData.append('filename', file, file.name);
+  this._webService.UploadDocument1("s3bucket/upload", formData).
+  subscribe((data: any) => {​​
+  if (data.type === HttpEventType.Response) {​​
+  this.pictureFileName = data.body.Response;
+  this._podService.loader = false;
+  this._podService.loaderMessage = "Loading...";
+  }​​
+  if (data.type === HttpEventType.UploadProgress) {​​
+  const percentDone = Math.round(100 * data.loaded / data.total);
+  this._podService.loaderMessage = " Uploading : " + percentDone + "%";
+  }​​
+  }​​, err => {​​
+  this._podService.loader = false;
+  this.pictureFileName = "";
+  this._podService.loaderMessage = "Loading...";
+  }​​);
   }
 
   removeFile(){
     let req = {
         filename : this.pictureFileName
     }
-    this.isProgessing = true;
+    this._podService.loader = true;
     this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
       subscribe((data: any) => {
-        this.isProgessing = false;
+        this._podService.loader = false;
         this.pictureFileName = '';
       },err => {
         this.pictureFileName = '';
-        this.isProgessing = false;
+        this._podService.loader = false;
       });
 
 
