@@ -39,11 +39,16 @@ export class ForgotPasswordComponent implements OnInit {
       return
     }
     let req = {
-      "mobile": this.MobileNumberForm.value.mobile
+      "mobile": this.MobileNumberForm.value.mobile,
+      "type": 'web'
     }
     this._webService.commonMethod('sms/otp', req, "POST").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response) {
+          this.toaster.success(data.Response);
+          this._podCastService.loader = false;
+        }else{
+          this.toaster.error(data.Response);
           this._podCastService.loader = false;
         }
       }
@@ -67,12 +72,14 @@ export class ForgotPasswordComponent implements OnInit {
 
     let req = {
       "mobile": this.MobileNumberForm.value.mobile,
-      "otp": otp
+      "otp": otp,
+      "type": 'web'
     }
     this._webService.commonMethod('sms/validate', req, "POST").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response) {
           this._podCastService.mobileNumber = this.MobileNumberForm.value.mobile;
+          this.toaster.success('OTP verified successfully');
           this.router.navigate(['/', 'reset-password'])
         } else if (data.Status == 'Success' && !data.Response) {
           this.toaster.error("Invalid OTP")

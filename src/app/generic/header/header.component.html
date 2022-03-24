@@ -204,7 +204,7 @@
                     <a (click)="updateNotification();_podService.AllfilterValues.showBell= !_podService.AllfilterValues.showBell;_podService.AllfilterValues.ShowFilter= false;_podService.AllfilterValues.issettingOpen=false" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-bell curser"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
                     <!--  -->
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3" [ngStyle]="{'display':_podService.AllfilterValues.showBell? 'block':'none'}" style="right: 0;">
+                    <ul class="dropdown-menu" *ngIf="_podService.AllfilterValues.showBell" aria-labelledby="btnGroupDrop3" style="right: 0;display: block">
                         <li *ngFor="let a of _podService.NotificationList">
                             <a class="dropdown-item" (click)="_podService.AllfilterValues.showBell=false;_podService.NotificationsearchList(a.podcast_id)" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
                         </li>
@@ -223,9 +223,9 @@
                 <div class="s-box">
                     <a (click)="_podService.AllfilterValues.issettingOpen=!_podService.AllfilterValues.issettingOpen;_podService.AllfilterValues.showBell= false;_podService.AllfilterValues.ShowFilter= false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="fas fa-cog curser"></i></a>
-                    <ul class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.issettingOpen ? 'block':'none'}">
+                    <ul *ngIf="_podService.AllfilterValues.issettingOpen" class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" style="display: block;">
                         <li (click)="_podService.viewDetails()"><a class="dropdown-item"><i class="fa fa-edit "></i> Edit Profile</a></li>
-                        <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()"><i class="fa fa-sign-out "></i> Log out</a></li>
+                        <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()"><i class="fa fa-sign-out "></i> Logout</a></li>
                     </ul>
                 </div>
             </div>
