@@ -67,7 +67,7 @@
                             <p class="forget"><a routerLink="/forgot-password">Forgot password</a></p>
                         </div>
                         <div>
-                            <a><button class="custome-button" (click)="signin()" [disabled]="isProcessing">Sign In</button></a>
+                            <a><button class="custome-button" (click)="signin()" [disabled]="_podCastService.loader">Sign In</button></a>
                             <!-- <img *ngIf="issignButtonEnable" src="./assets/images/loader.gif" style="width: auto;height: 30px;margin-left: 20px;"> -->
                         </div>
                     </div>
