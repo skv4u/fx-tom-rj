@@ -34,7 +34,7 @@ export class RjRegisterComponent implements OnInit {
   ngOnInit() {
     //  console.log(this.date, "date");
     this.registerForm = this.fb.group({
-      fullname: ['', [Validators.required]],
+      fullname: ['', [Validators.required, Validators.maxLength(50)]],
       username: ['', [Validators.required,
         this._commonService.customAlphanumaric,
         this._commonService.customSpaceValidation]],

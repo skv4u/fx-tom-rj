@@ -1503,3 +1503,7 @@ body {
 .img-upload .fas {
     line-height: 2em;
 }
+
+.form-control:focus {
+    outline: 1px solid #000 !important;
+}

@@ -296,6 +296,9 @@
                             <span *ngIf="registerForm.get('fullname').hasError('required')">
                                 Full Name is required
                             </span>
+                        <span class="error-span" *ngIf="registerForm.get('fullname').hasError('maxlength')">
+                                Maximum length 50 Characters
+                            </span>
                         </span>
                     </div>
                 </div>

@@ -100,7 +100,8 @@ export class PorcastService {
   searchList(data?: any) {
     this.filterApplied = true;
     let tempdata = data ? data : this.serachvalue;
-    let temp = this.RJDasboardList1.filter(x => JSON.stringify(x).toLowerCase().includes(tempdata.toLowerCase()));
+    // let temp = this.RJDasboardList1.filter(x => JSON.stringify(x).toLowerCase().includes(tempdata.toLowerCase()));
+    let temp = this.RJDasboardList1.filter(x => Object.values(x).join("").toLowerCase().includes(tempdata.toLowerCase()));
     this.RJDasboardList = temp;
   }
 

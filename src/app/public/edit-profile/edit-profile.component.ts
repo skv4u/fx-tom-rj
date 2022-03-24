@@ -40,7 +40,7 @@ export class EditProfileComponent implements OnInit {
     this.pictureFileName = this._podService.localStorageData.profile_image;
     this.ISD = this._podService.localStorageData.isd ? this._podService.localStorageData.isd : "+91";
     this.registerForm = this.fb.group({
-      fullname: [this._podService.localStorageData.fullname, [Validators.required]],
+      fullname: [this._podService.localStorageData.fullname, [Validators.required,Validators.maxLength(50)]],
       username: [this._podService.localStorageData.username, [Validators.required,
         this._commonService.customAlphanumaric,
         this._commonService.customSpaceValidation]],
