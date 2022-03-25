@@ -79,10 +79,11 @@ export class EditProfileComponent implements OnInit {
       this._podService.loader = false;
       this.isPasswordValid = false;
       return
-    }if(this.reasonforEdit == ''){
-      this.toaster.error("Please enter some notes");
-      return
     }
+    // if(this.reasonforEdit == ''){
+    //   this.toaster.error("Please enter some notes");
+    //   return
+    // }
     if(this.registerForm.value.podcaster_type == 'organization' && this.registerForm.value.podcaster_value == ''){
       this.toaster.error("Organisation working for is required");
       return

@@ -16,6 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
   mobileNumber: number;
   isMobileNumberValid: boolean = true;
   MobileNumberForm: FormGroup;
+  ismobilenumber: boolean = false;
   InputList: any = {
     input1: '',
     input2: '',
@@ -47,6 +48,7 @@ export class ForgotPasswordComponent implements OnInit {
         if (data.Status == 'Success' && data.Response) {
           this.toaster.success(data.Response);
           this._podCastService.loader = false;
+          this.ismobilenumber = true;
         }else{
           this.toaster.error(data.Response);
           this._podCastService.loader = false;
@@ -80,7 +82,8 @@ export class ForgotPasswordComponent implements OnInit {
         if (data.Status == 'Success' && data.Response) {
           this._podCastService.mobileNumber = this.MobileNumberForm.value.mobile;
           this.toaster.success('OTP verified successfully');
-          this.router.navigate(['/', 'reset-password'])
+          this.ismobilenumber = false;
+          this.router.navigate(['/', 'reset-password']);
         } else if (data.Status == 'Success' && !data.Response) {
           this.toaster.error("Invalid OTP")
         }

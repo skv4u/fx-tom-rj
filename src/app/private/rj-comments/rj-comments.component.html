@@ -49,8 +49,44 @@
 
             </form>
         </div>
-        <div class="row">
-            <!-- <div class="d-flex align-items-center"> -->
+        <div *ngFor="let comment of commentList">
+            <div class="row">
+                <!-- <div class="d-flex align-items-center"> -->
+                <div><i class="fa-solid fa-camera-slash"></i></div>
+                <div class="speak-img" *ngIf="comment.commenter_image">
+                    <img style="height: 150px;width: 150px;" [src]="comment.commenter_image" alt="images" /></div>
+                <div class="delete-comment" *ngIf="comment.commenter_image"><button style="position: relative;
+                top: -160px;
+                color: #ce0400;
+                right: -140px;border: none;background: none;"><i class="far fa-trash-alt"></i></button></div>
+                <p><strong>{{comment.commenter_name}}</strong> {{comment.comment_date_inago}}</p>
+
+                <!-- </div> -->
+                <p>{{comment.comment_description}}</p>
+            </div>
+            <div class="row">
+                <!-- <div class="reply"> -->
+                <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
+                <div class="col-md-1 col-12 mb-4">
+                    <p><i class="far fa-thumbs-up"></i> {{comment.likecount}}</p>
+                </div>
+                <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
+                <div class="col-md-1 col-12 mb-4">
+                    <p><i class="far fa-thumbs-down"></i> {{comment.dislikecount}}</p>
+                </div>
+                <div class="col-md-1 col-12 mb-4">
+                    <p><i class="far fa-heart"></i> {{comment.heartcount}}</p>
+                </div>
+
+                <div class="col-md-1 col-12 mb-4">
+                    <p>Replay</p>
+                </div>
+                <!-- </div> -->
+
+                <!-- <h4><a href="#">View 18 Replies</a></h4> -->
+            </div>
+        </div>
+        <!-- <div class="row">
             <p><strong>Abeer M</strong> 7 months ago</p>
 
             <div class="speak-img"><img style="height: 150px;width: 150px;" src="https://tttp-s3-storage.s3.amazonaws.com/1647759425_RJ%20Hemanth.jfif" alt="images" /></div>
@@ -58,23 +94,18 @@
                 top: -160px;
                 color: #ce0400;
                 right: -140px;border: none;background: none;"><i class="far fa-trash-alt"></i></button></div>
-            <!-- </div> -->
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
         </div>
         <div class="row">
-            <!-- <div class="reply"> -->
-            <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
             <div class="col-md-1 col-12 mb-4">
                 <p><i class="far fa-thumbs-up"></i> 335</p>
             </div>
-            <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
             <div class="col-md-1 col-12 mb-4">
                 <p><i class="far fa-thumbs-down"></i> Reply</p>
             </div>
             <div class="col-md-1 col-12 mb-4">
                 <p><i class="far fa-heart"></i></p>
             </div>
-            <!-- </div> -->
 
             <h4><a href="#">View 18 Replies</a></h4>
         </div>
@@ -86,57 +117,44 @@
                 color: #ce0400;
                 right: -140px;border: none;background: none;"><i class="far fa-trash-alt"></i></button></div>
             <div class="row">
-                <!-- <div class="reply"> -->
-                <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
                 <div class="col-md-1 col-12 mb-4">
                     <p><i class="far fa-thumbs-up"></i> 335</p>
                 </div>
-                <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
                 <div class="col-md-1 col-12 mb-4">
                     <p><i class="far fa-thumbs-down"></i> Reply</p>
                 </div>
                 <div class="col-md-1 col-12 mb-4">
                     <p><i class="far fa-heart"></i></p>
                 </div>
-                <!-- </div> -->
 
                 <h4><a href="#">View 18 Replies</a></h4>
             </div>
 
-            <!-- <h4><a href="#">View 18 Replies</a></h4> -->
         </div>
         <div class="row">
-            <!-- <div class="d-flex align-items-center"> -->
             <p><strong>Abeer M</strong> 7 months ago</p>
             <div class="speak-img"><img style="height: 150px;width: 150px;" src="https://tttp-s3-storage.s3.amazonaws.com/1647759425_RJ%20Hemanth.jfif" alt="images" /></div>
             <div class="delete-comment"><button style="position: relative;
                     top: -160px;
                     color: #ce0400;
                     right: -140px;border: none;background: none;"><i class="far fa-trash-alt"></i></button></div>
-            <!-- <div class="row">
-                </div> -->
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            <!-- </div> -->
             <div class="row">
-                <!-- <div class="reply"> -->
-                <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
                 <div class="col-md-1 col-12 mb-4">
                     <p><i class="far fa-thumbs-up"></i> 335</p>
                 </div>
-                <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
                 <div class="col-md-1 col-12 mb-4">
                     <p><i class="far fa-thumbs-down"></i> Reply</p>
                 </div>
                 <div class="col-md-1 col-12 mb-4">
                     <p><i class="far fa-heart"></i></p>
                 </div>
-                <!-- </div> -->
 
                 <h4><a href="#">View 18 Replies</a></h4>
             </div>
 
 
-        </div>
+        </div> -->
     </div>
     <!-- </div> -->
     <!-- </div> -->

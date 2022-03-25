@@ -23,28 +23,28 @@ export class ResetPasswordComponent implements OnInit {
       confirmPassword: ['', [Validators.required]]
     })
   }
-resertpassword(){
-  if(this.resetForm.value.newPassword == this.resetForm.value.confirmPassword){
-    this.toaster.error('Invalid password');
-  }
-  if(!this.resetForm.valid){
-this.isresetFormValid = false;
-return
-  }
-  let req = {
-    "phone": this._podService.mobileNumber,
-    "password": this.resetForm.value.newPassword
-    }  
-     this._podService.loader = true;
-  this._webService.commonMethod('user/resetpassword', req, "POST").subscribe(
-    data => {
-       this._podService.loader = false;
-      if(data.Status == 'Success' && data.Response){
-      this.toaster.success("Password changed successfully");
-      this.router.navigate(['/', "/login"])
-    }else{
-      
+  resertpassword() {
+    if (this.resetForm.value.newPassword == this.resetForm.value.confirmPassword) {
+      this.toaster.error('Invalid password');
     }
-    })
-}
+    if (!this.resetForm.valid) {
+      this.isresetFormValid = false;
+      return
+    }
+    let req = {
+      "phone": this._podService.mobileNumber,
+      "password": this.resetForm.value.newPassword
+    }
+    this._podService.loader = true;
+    this._webService.commonMethod('user/resetpassword', req, "POST").subscribe(
+      data => {
+        this._podService.loader = false;
+        if (data.Status == 'Success' && data.Response) {
+          this.toaster.success("Password changed successfully");
+          this.router.navigate(['/', "/login"])
+        } else {
+
+        }
+      })
+  }
 }
