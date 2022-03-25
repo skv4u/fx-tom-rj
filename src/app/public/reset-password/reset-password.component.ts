@@ -24,8 +24,9 @@ export class ResetPasswordComponent implements OnInit {
     })
   }
   resertpassword() {
-    if (this.resetForm.value.newPassword == this.resetForm.value.confirmPassword) {
+    if (this.resetForm.value.newPassword != this.resetForm.value.confirmPassword) {
       this.toaster.error('Invalid password');
+      return
     }
     if (!this.resetForm.valid) {
       this.isresetFormValid = false;
@@ -43,8 +44,10 @@ export class ResetPasswordComponent implements OnInit {
           this.toaster.success("Password changed successfully");
           this.router.navigate(['/', "/login"])
         } else {
-
+          this.toaster.error("Something went wrong");
         }
+      },err =>{
+        this._podService.loader = false;
       })
   }
 }

@@ -113,5 +113,10 @@ export class ForgotPasswordComponent implements OnInit {
     return true;
   }
 
+  reset(){
+    this.ismobilenumber=false;
+    this.MobileNumberForm.get("mobile").setValue('');
+  }
+
 
 }
