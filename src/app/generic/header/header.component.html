@@ -51,8 +51,8 @@
 
 <div class="admin-sec">
     <div class="row admin-top">
-        <div class="col-md-8 px-1 d-flex" *ngIf="!iscreatebuttonVisiable"></div>
-        <div class="col-md-8 px-1 d-flex" *ngIf="iscreatebuttonVisiable">
+        <div class="col-md-8 px-1 d-flex" *ngIf="!_podService.iscreatebuttonVisiable"></div>
+        <div class="col-md-8 px-1 d-flex" *ngIf="_podService.iscreatebuttonVisiable">
 
             <a routerLink="/create-podcast" class="custome-button" style="margin-bottom: 0px;"><i class="fal fa-cloud-upload"></i> Create a
                 podcast</a>

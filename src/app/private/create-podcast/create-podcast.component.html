@@ -2,7 +2,7 @@
 <app-header></app-header>
 <div class="body-main">
     <div class="body-content">
-        <h3><a routerLink="/dashboard"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
+        <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
         <div class="c-podcast">
             <h3>Creat a Podcast</h3>
             <form [formGroup]="podcastForm">

@@ -1,13 +1,15 @@
 <!-- <app-loader *ngIf="_podService.isProcessing || isProcessing"></app-loader> -->
-<app-header>
+<app-header *ngIf="!_podService.iscommentpage">
 
 </app-header>
-<div class="pending_status" *ngIf="_podService.localStorageData.approval_status == 'Pending'">Your approval is pending.</div>
+<div class="pending_status" *ngIf="_podService.localStorageData.approval_status == 'Pending'">Your approval is pending.
+</div>
 
-<div class="pending_status" *ngIf="_podService.localStorageData.approval_status == 'Rejected'">Please Contact Admin</div>
+<div class="pending_status" *ngIf="_podService.localStorageData.approval_status == 'Rejected'">Please Contact Admin
+</div>
 
 
-<div class="container-fluid" *ngIf="_podService.localStorageData.approval_status == 'Approved'">
+<div class="container-fluid" *ngIf="_podService.localStorageData.approval_status == 'Approved' && !_podService.iscommentpage">
     <div class="row">
         <div class="col-12 p-0">
 
@@ -16,10 +18,14 @@
                 <div class="information dasdboard">
                     <ul>
                         <li class="pending"><strong>{{_podService.StatisticsList.PodcastTotal}} </strong> Total</li>
-                        <li class="pending"><strong>{{_podService.StatisticsList.PendingTotal}} </strong> <a>Pending</a></li>
-                        <li class="rejected"><strong>{{_podService.StatisticsList.RejectedTotal}} </strong> <a>Rejected</a></li>
+                        <li class="pending"><strong>{{_podService.StatisticsList.PendingTotal}} </strong> <a>Pending</a>
+                        </li>
+                        <li class="rejected"><strong>{{_podService.StatisticsList.RejectedTotal}} </strong>
+                            <a>Rejected</a>
+                        </li>
                         <li class="modify"><strong>{{_podService.StatisticsList.ModifyTotal}} </strong> Modify</li>
-                        <li class="rjapproved"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved</li>
+                        <li class="rjapproved"><strong>{{_podService.StatisticsList.ApprovedTotal}} </strong> Approved
+                        </li>
                         <li class="live"><strong>{{_podService.StatisticsList.LiveTotal}} </strong> Live</li>
                         <!-- <li class="comments"><strong>{{_podService.StatisticsList.CommentTotal}} </strong> Comments</li> -->
                         <li class="live"><strong>{{_podService.StatisticsList.BroadcastTotal}} </strong> Broadcast</li>
@@ -36,7 +42,8 @@
                                         <th *ngIf="_podService.podcastFilterList.iscategory">
                                             <a id="btnGroupDrop5" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false" (click)="expandCategoryFilter()" style="cursor: pointer;">Category</a>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.iscategoryOpen ? 'block':'none'}">
-                                                <li *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);_podService.AllfilterValues.iscategoryOpen = false"><a class="dropdown-item">{{a.name}}</a>
+                                                <li *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);_podService.AllfilterValues.iscategoryOpen = false">
+                                                    <a class="dropdown-item">{{a.name}}</a>
                                                 </li>
                                             </ul>
                                         </th>
@@ -44,15 +51,26 @@
                                         <th *ngIf="_podService.podcastFilterList.isstatus">
                                             <a id="btnGroupDrop6" class="dropdown-toggle curser outsideclick" data-bs-toggle="dropdown" aria-expanded="false" (click)="expandStatusFilter()">Status</a>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6" [ngStyle]="{'display':_podService.AllfilterValues.isStatusOpen ? 'block':'none'}">
-                                                <li class="pending" (click)="this._podService.searchList('Pending');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Pending</a></li>
-                                                <li class="rjapproved" (click)="this._podService.searchList('Approved');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Approved</a></li>
-                                                <li class="rejected" (click)="this._podService.searchList('Rejected');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Rejected</a></li>
-                                                <li class="modify" (click)="this._podService.searchList('Modify');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Modify</a></li>
-                                                <li class="live" (click)="this._podService.searchList('Live');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Live</a></li>
+                                                <li class="pending" (click)="this._podService.searchList('Pending');_podService.AllfilterValues.isStatusOpen =false;">
+                                                    <a class="dropdown-item">Pending</a>
+                                                </li>
+                                                <li class="rjapproved" (click)="this._podService.searchList('Approved');_podService.AllfilterValues.isStatusOpen =false;">
+                                                    <a class="dropdown-item">Approved</a>
+                                                </li>
+                                                <li class="rejected" (click)="this._podService.searchList('Rejected');_podService.AllfilterValues.isStatusOpen =false;">
+                                                    <a class="dropdown-item">Rejected</a>
+                                                </li>
+                                                <li class="modify" (click)="this._podService.searchList('Modify');_podService.AllfilterValues.isStatusOpen =false;">
+                                                    <a class="dropdown-item">Modify</a>
+                                                </li>
+                                                <li class="live" (click)="this._podService.searchList('Live');_podService.AllfilterValues.isStatusOpen =false;">
+                                                    <a class="dropdown-item">Live</a>
+                                                </li>
                                                 <!-- <li class="block" (click)="this._podService.searchList('Block');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Block</a></li> -->
                                             </ul>
                                         </th>
-                                        <th width="150" *ngIf="_podService.podcastFilterList.isbroadcast">Broadcast Date</th>
+                                        <th width="150" *ngIf="_podService.podcastFilterList.isbroadcast">Broadcast Date
+                                        </th>
                                         <th *ngIf="_podService.podcastFilterList.iscommits">User Comments</th>
                                         <th *ngIf="_podService.podcastFilterList.isedit">Edit</th>
                                         <!-- <th *ngIf="_podService.podcastFilterList.islistdelete">Delete</th> -->
@@ -119,14 +137,20 @@
                                         </td>
                                         <!-- <td>{{list.comment_count}}</td> -->
                                         <td *ngIf="_podService.podcastFilterList.iscommits">
-                                            <span *ngIf="list.comment_count == '0'"></span>
-
-                                            <span *ngIf="list.comment_count != '0'" style="cursor: pointer;" routerLink="/rj-comments"><a class="podcast">{{list.comment_count}}</a></span>
+                                            <!-- <span *ngIf="list.comment_count == '0'"></span> -->
+                                            <span (click)="gotocomment(list)" class="comment-count" *ngIf="list.approvals== 'Live'">
+                                                <i class="far fa-comment-dots"></i>
+                                                <span> {{list.comment_count}}</span>
+                                            </span>
+                                            <!-- <span *ngIf="list.comment_count != '0'" style="cursor: pointer;" (click)="gotocomment(list)"><a
+                                                    class="podcast">{{list.comment_count}}</a></span> -->
 
                                         </td>
-                                        <td *ngIf="_podService.podcastFilterList.isedit && list.approvals == 'Modify'"><a class="podcast" (click)="editpopup(list)"><i class="fas fa-pen"
-                                            ></i></a></td>
-                                        <th *ngIf="_podService.podcastFilterList.isedit && list.approvals != 'Modify'"></th>
+                                        <td *ngIf="_podService.podcastFilterList.isedit && list.approvals == 'Modify'">
+                                            <a class="podcast" (click)="editpopup(list)"><i class="fas fa-pen"></i></a>
+                                        </td>
+                                        <th *ngIf="_podService.podcastFilterList.isedit && list.approvals != 'Modify'">
+                                        </th>
                                         <!-- <td *ngIf="_podService.podcastFilterList.islistdelete"><a data-bs-toggle="modal" (click)="deletepopup(list)" data-bs-target="#myModal3"><i class="fas fa-trash-alt curser"></i></a></td> -->
                                         <td *ngIf="_podService.podcastFilterList.isnote">{{list.latest_note}}</td>
                                     </tr>
@@ -141,3 +165,5 @@
         </div>
     </div>
 </div>
+
+<app-rj-comments *ngIf="_podService.iscommentpage"></app-rj-comments>

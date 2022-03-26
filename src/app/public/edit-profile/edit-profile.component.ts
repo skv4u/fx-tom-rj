@@ -32,6 +32,7 @@ export class EditProfileComponent implements OnInit {
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
     this._podService.isListPage = false;
+    this._podService.iscreatebuttonVisiable=false;
     this._podService.AllfilterValues.issettingOpen=false
    
     console.log(this._podService.localStorageData,"his._podService.localStorageData")

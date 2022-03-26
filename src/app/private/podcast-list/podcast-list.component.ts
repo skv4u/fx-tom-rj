@@ -114,4 +114,9 @@ export class PodcastListComponent implements OnInit {
       this._podService.bindSingleClickEvent(this.renderer);
   }
 
+  gotocomment(list){
+    this._podService.podcastListData = list;
+    this._podService.iscommentpage = true;
+  }
+
 }

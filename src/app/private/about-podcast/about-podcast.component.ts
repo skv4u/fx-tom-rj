@@ -24,6 +24,7 @@ export class AboutPodcastComponent implements OnInit {
       return
     }
     this._podService.isListPage = false;
+    this._podService.iscreatebuttonVisiable=false;
     console.log(this._podService.podcastListData, "+++++++++++")
     this._podService.getNodeList();
   }

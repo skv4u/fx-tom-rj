@@ -35,6 +35,8 @@ export class PorcastService {
   localStorageData: any = {}
 
   filterApplied: boolean = false;
+  showComments: boolean = false;
+  iscreatebuttonVisiable: boolean = true;
   // Approval_Status: string = this.localStorageData.approval_status;
   podcastFilterList: any = {
     isTittle: true,
@@ -58,6 +60,7 @@ export class PorcastService {
   loader: boolean = false;
   loaderMessage: string = "Loading...";
   private cancelClick: Function;
+  iscommentpage: boolean = false;
 
   constructor(public _webService: WebService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) {
     // if(this.localStorageData && Object.keys(this.localStorageData).length == 0){
@@ -172,18 +175,18 @@ export class PorcastService {
       }
     )
   }
-  viewDetails() { 
+  viewDetails() {
     this.resetAllValues();
-    if(this.localStorageData.approval_status == 'Pending'){
-    this.toaster.error('Your approval is pending.')
-    // this.router.navigate(['/', 'dashboard'])
-    return
-  }
-  if (this.localStorageData.approval_status == 'Rejected') {
-    this.toaster.error('Please contact Admin');
-    // this.router.navigate(['/', 'dashboard'])
-    return
-  }
+    if (this.localStorageData.approval_status == 'Pending') {
+      this.toaster.error('Your approval is pending.')
+      // this.router.navigate(['/', 'dashboard'])
+      return
+    }
+    if (this.localStorageData.approval_status == 'Rejected') {
+      this.toaster.error('Please contact Admin');
+      // this.router.navigate(['/', 'dashboard'])
+      return
+    }
     this.loader = true;
     this._webService.commonMethod('user/view/' + this.localStorageData.id, '', "GET").subscribe(
       data => {
@@ -191,7 +194,7 @@ export class PorcastService {
         if (data.Status == 'Success' && data.Response) {
           this.localStorageData = data.Response;
           this._localStorage.setUserData(data.Response)
-          this.router.navigate(['/','edit-profile'])
+          this.router.navigate(['/', 'edit-profile'])
         }
       }
     )
