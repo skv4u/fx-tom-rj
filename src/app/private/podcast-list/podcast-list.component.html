@@ -34,7 +34,7 @@
                                         <th class="pic">Picture</th>
                                         <th *ngIf="_podService.podcastFilterList.isTittle">Title</th>
                                         <th *ngIf="_podService.podcastFilterList.iscategory">
-                                            <a id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.iscategoryOpen = !_podService.AllfilterValues.iscategoryOpen" style="cursor: pointer;">Category</a>
+                                            <a id="btnGroupDrop5" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false" (click)="expandCategoryFilter()" style="cursor: pointer;">Category</a>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.iscategoryOpen ? 'block':'none'}">
                                                 <li *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);_podService.AllfilterValues.iscategoryOpen = false"><a class="dropdown-item">{{a.name}}</a>
                                                 </li>
@@ -42,7 +42,7 @@
                                         </th>
                                         <th *ngIf="_podService.podcastFilterList.isupdatedate">Upload Date</th>
                                         <th *ngIf="_podService.podcastFilterList.isstatus">
-                                            <a id="btnGroupDrop6" class="dropdown-toggle curser" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.isStatusOpen = !_podService.AllfilterValues.isStatusOpen">Status</a>
+                                            <a id="btnGroupDrop6" class="dropdown-toggle curser outsideclick" data-bs-toggle="dropdown" aria-expanded="false" (click)="expandStatusFilter()">Status</a>
                                             <ul class="dropdown-menu" aria-labelledby="btnGroupDrop6" [ngStyle]="{'display':_podService.AllfilterValues.isStatusOpen ? 'block':'none'}">
                                                 <li class="pending" (click)="this._podService.searchList('Pending');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Pending</a></li>
                                                 <li class="rjapproved" (click)="this._podService.searchList('Approved');_podService.AllfilterValues.isStatusOpen =false;"><a class="dropdown-item">Approved</a></li>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -19,7 +19,7 @@ export class PodcastListComponent implements OnInit {
   isDelete: boolean = false;
   isStatusOpen: boolean = false;
   isProgressing: boolean = false;
-  constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) { }
+  constructor(public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService, public renderer: Renderer2) { }
 
   ngOnInit() {
     this._podService.isListPage = true;
@@ -27,7 +27,7 @@ export class PodcastListComponent implements OnInit {
       this.router.navigate(['/', 'login'])
       return
     }
-    console.log(this._podService.localStorageData,"this._podService.localStorageData")
+    console.log(this._podService.localStorageData, "this._podService.localStorageData")
     if (this._podService.localStorageData.approval_status == 'Pending' || this._podService.localStorageData.approval_status == 'Rejected') {
       this.viewUser(() => {
         this.genericCall();
@@ -39,22 +39,22 @@ export class PodcastListComponent implements OnInit {
 
   genericCall() {
     if (this._podService.localStorageData.approval_status == 'Approved') {
-    this._podService.getPodcastList();
-    // this._podService.getStatisticsList();
-    // this._podService.getCategoryList();
-    // this._podService.getLanguageList();
+      this._podService.getPodcastList();
+      // this._podService.getStatisticsList();
+      // this._podService.getCategoryList();
+      // this._podService.getLanguageList();
     }
   }
 
 
   viewUser(callback) {
-     this._podService.loader = true;
+    this._podService.loader = true;
     let req = {
       "username": this._podService.localStorageData.username
     }
     this._webService.commonMethod('user/view', req, "POST").subscribe(
       data => {
-         this._podService.loader = false;
+        this._podService.loader = false;
         if (data.Status == 'Success' && data.Response) {
           this._localStorage.setUserData(data.Response);
           this._podService.localStorageData = data.Response;
@@ -66,7 +66,7 @@ export class PodcastListComponent implements OnInit {
   }
 
 
-  LogOut() { 
+  LogOut() {
     this._podService.RJDasboardList = [];
     this._podService.RJDasboardList1 = [];
     localStorage.removeItem("user_data");
@@ -97,9 +97,21 @@ export class PodcastListComponent implements OnInit {
     this._podService.isDelete = true;
   }
 
-  editpopup(list){
+  editpopup(list) {
     this._podService.podcastListData = list;
     this.router.navigate(['/', 'edit-podcast'])
+  }
+
+  expandCategoryFilter() {
+    this._podService.AllfilterValues.iscategoryOpen = !this._podService.AllfilterValues.iscategoryOpen
+    if (this._podService.AllfilterValues.iscategoryOpen)
+      this._podService.bindSingleClickEvent(this.renderer);
+  }
+
+  expandStatusFilter() {
+    this._podService.AllfilterValues.isStatusOpen = !this._podService.AllfilterValues.isStatusOpen
+    if (this._podService.AllfilterValues.isStatusOpen)
+      this._podService.bindSingleClickEvent(this.renderer);
   }
 
 }

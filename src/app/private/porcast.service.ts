@@ -57,6 +57,8 @@ export class PorcastService {
   mobileNumber: number = 0;
   loader: boolean = false;
   loaderMessage: string = "Loading...";
+  private cancelClick: Function;
+
   constructor(public _webService: WebService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) {
     // if(this.localStorageData && Object.keys(this.localStorageData).length == 0){
     //   this.localStorageData = this.localStorageData;
@@ -206,4 +208,22 @@ export class PorcastService {
       isStatusOpen: false
     }
   }
+
+  handleClick($event: any) {
+    console.log("unbind")
+    let target = $event.target.classList.contains('outsideclick') ||
+      $event.target.parentNode.classList.contains('outsideclick')
+    if (target || target == null) return;
+    this.resetAllValues();
+    this.cancelClick();
+  }
+
+  bindSingleClickEvent(render) {
+    if (this.cancelClick) this.cancelClick();
+    this.cancelClick = render.listen('document', 'click',
+      ($event: any) => this.handleClick($event));
+  }
+
+
+
 }

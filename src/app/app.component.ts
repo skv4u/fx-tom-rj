@@ -10,6 +10,7 @@ import { LocalstorageService } from './shared/services/localstorage.service';
 export class AppComponent {
   title = 'tomtom';
   constructor(public _podService: PorcastService, public _localService: LocalstorageService){
+    this._podService.loader = true;
     this._podService.localStorageData = this._localService.getUserData();
     this._podService.getCategoryList();
     this._podService.getLanguageList();

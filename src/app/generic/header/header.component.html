@@ -154,7 +154,7 @@
                     </a>
                 </div>
                 <div class="s-box" *ngIf="_podService.isListPage" style="position: relative;">
-                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" (click)="_podService.AllfilterValues.ShowFilter= !_podService.AllfilterValues.ShowFilter;_podService.AllfilterValues.showBell= false;_podService.AllfilterValues.issettingOpen=false"><i class="fas fa-sliders-h curser"></i></a>
+                    <a id="btnGroupDrop4" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false" (click)="ExpandFilter()"><i class="fas fa-sliders-h curser"></i></a>
                     <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="_podService.AllfilterValues.ShowFilter" [ngStyle]="{'display':_podService.AllfilterValues.ShowFilter&& _podService.RJDasboardList.length ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
                         <form>
                             <li>
@@ -201,8 +201,7 @@
                     </ul>
                 </div>
                 <div class="s-box" style="position: relative;">
-                    <a (click)="updateNotification();_podService.AllfilterValues.showBell= !_podService.AllfilterValues.showBell;_podService.AllfilterValues.ShowFilter= false;_podService.AllfilterValues.issettingOpen=false" id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false"><i class="fas fa-bell curser"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
+                    <a (click)="ExpandBell()" id="btnGroupDrop3" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell curser"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
                     <!--  -->
                     <ul class="dropdown-menu" *ngIf="_podService.AllfilterValues.showBell" aria-labelledby="btnGroupDrop3" style="right: 0;display: block">
                         <li *ngFor="let a of _podService.NotificationList">
@@ -221,8 +220,7 @@
                     </ul>
                 </div>
                 <div class="s-box">
-                    <a (click)="_podService.AllfilterValues.issettingOpen=!_podService.AllfilterValues.issettingOpen;_podService.AllfilterValues.showBell= false;_podService.AllfilterValues.ShowFilter= false;" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false"><i class="fas fa-cog curser"></i></a>
+                    <a (click)="Expandsetting()" id="btnGroupDrop5" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog curser"></i></a>
                     <ul *ngIf="_podService.AllfilterValues.issettingOpen" class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" style="display: block;">
                         <li (click)="_podService.viewDetails()"><a class="dropdown-item"><i class="fa fa-edit "></i> Edit Profile</a></li>
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()"><i class="fa fa-sign-out "></i> Logout</a></li>
