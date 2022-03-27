@@ -93,7 +93,7 @@
                     </button>
                     <div>
                         <img class="user-image" *ngIf="a.commenter_image" src="{{a.commenter_image}}" alt="images" />
-                        <img class="user-image" *ngIf="!a.commenter_image" src="../assets/images/nopicuser.png" alt="images" />
+                        <img class="user-image" *ngIf="!a.commenter_image" src="./assets/images/nopicuser.png" alt="images" />
                         <span class="commenter-name"><strong>{{a.commenter_name}}</strong></span>
                         <span class="timeago"> {{a.comment_date_inago}}</span>
                         <div class="cdescription" [innerHTML]="a.comment_description"></div>
@@ -146,7 +146,7 @@
                             </button>
                             <div>
                                 <img class="user-image" *ngIf="a.replyer_image" src="{{b.replyer_image}}" alt="images" />
-                                <img class="user-image" *ngIf="!a.replyer_image" src="../assets/images/nopicuser.png" alt="images" />
+                                <img class="user-image" *ngIf="!a.replyer_image" src="./assets/images/nopicuser.png" alt="images" />
                                 <span class="replyer-name"><strong>{{a.replyer_name}}</strong></span>
                                 <span class="timeago"> {{b.reply_date_inago}}</span>
                                 <div class="cdescription" [innerHTML]="b.replyer_description"></div>
@@ -181,7 +181,7 @@
         <div> <img style="height: 35px;width: auto;" *ngIf="a.commenter_image"
             src="{{a.commenter_image}}" alt="images" />
             <img class="no-image"
-            *ngIf="!a.commenter_image" src="../assets/images/nopicuser.png" alt="images" />
+            *ngIf="!a.commenter_image" src="./assets/images/nopicuser.png" alt="images" />
             <span style="position: relative;top: 10px; left: 4px;">
               <strong>{{a.commenter_name}}</strong> 
               {{a.comment_date_inago}}</span>
