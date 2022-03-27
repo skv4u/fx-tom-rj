@@ -23,6 +23,7 @@ export class PodcastListComponent implements OnInit {
 
   ngOnInit() {
     this._podService.isListPage = true;
+    this._podService.iscreatebuttonVisiable = true;
     if (!this._podService.localStorageData) {
       this.router.navigate(['/', 'login'])
       return

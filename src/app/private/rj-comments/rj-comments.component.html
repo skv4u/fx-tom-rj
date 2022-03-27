@@ -1,16 +1,47 @@
 <app-header></app-header>
 <div class="body-main">
     <div class="body-content">
-        <h3><a routerLink="/dashboard" (click)="prodcastService.iscommentpage = false;prodcastService.iscreatebuttonVisiable = true;prodcastService.getPodcastList()"><i
+        <h3><a routerLink="/dashboard" (click)="prodcastService.iscommentpage = false;prodcastService.iscreatebuttonVisiable = true;prodcastService.isListPage=true;prodcastService.getPodcastList()"><i
                     class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
+
         <div class="row">
-            <!-- <div class="col-12"> -->
-            <!-- <div class="col-12"> -->
-            <!-- <div class="rj-coomments"> -->
-            <div class="col-md-1 col-12 mb-4"><img class="comment-img" [src]="prodcastService.podcastListData.imagepath" alt="img" /></div>
+            <div class="col-md-4 col-12 mb-4">
+                <img class="comment-img" [src]="prodcastService.podcastListData.imagepath" alt="img" />
+                <span *ngIf="showplayer">
+                    <audio controls preload="auto">
+                        <source [src]="prodcastService.podcastListData.audiopath" type="audio/mpeg">
+                        <source [src]="prodcastService.podcastListData.audiopath" type="audio/ogg">
+                    </audio>
+                </span>
+
+            </div>
+            <div class="col-md-1 col-12 mb-4">
+                <div class="podcast-commnet-data">
+                    <span>Title</span>
+                    <span>{{prodcastService.podcastListData.name}}</span>
+                </div>
+                <div class="podcast-commnet-data">
+                    <span>RJ Name</span>
+                    <span>{{prodcastService.localStorageData.fullname}}</span>
+
+                </div>
+            </div>
+            <div class="col-md-2 col-12 mb-4">
+                <div class="podcast-commnet-data">
+                    <span>Language</span>
+                    <span>{{prodcastService.podcastListData.language}}</span>
+
+                </div>
+                <div class="podcast-commnet-data">
+                    <span>Category</span>
+                    <span>{{prodcastService.podcastListData.category}}</span>
+                </div>
+            </div>
             <div class="col-md-3 col-12 mb-4">
-                <h4 class="mb-0">{{prodcastService.podcastListData.name}}</h4>
-                <p class="mb-0"><a>About the Podcasters</a></p>
+                <div class="podcast-commnet-data">
+                    <span>Description</span>
+                    <span>{{prodcastService.podcastListData.description}}</span>
+                </div>
             </div>
             <div class="col-md-1 col-12 mb-4">
                 <h4 class="mb-0">{{CommentsList.length}}&nbsp;&nbsp;&nbsp;Comments</h4>
@@ -20,79 +51,174 @@
         <!-- </div> -->
         <!-- </div> -->
         <div class="row">
-            <h4>Comments</h4>
 
-            <!-- <form action="" method="POST" enctype="multipart/form-data"> -->
-
-            <div class="row">
-                <div class="col-md-12" style="position: relative;">
-                    <!-- <div class="form-group"> -->
-
-
-                    <!-- <div class="dropzone-wrapper">
-                                            <div class="preview-zone hidden">
-                                                <div class="box box-solid">
-            
-                                                    <div class="box-body"></div>
-                                                </div>
-                                            </div>
-                                            <div class="dropzone-desc">
-                                                <i class="glyphicon glyphicon-download-alt"></i>
-                                                <p class="mb-1">"Add text OR Drag and drop Image/Audio/Video "</p>
-                                            </div>
-                                            <input type="file" name="img_logo" class="dropzone" >
-                                        </div> -->
-                    <div contenteditable="true" class="comment-text" id="commenttext" (input)="commentText = $event.target.innerHTML">
+            <div class="col-md-12" style="position: relative; text-align: center;">
+                <a style="border-bottom: 1px solid;
+            padding-bottom: 3px;
+            color: #0a58ca; cursor: pointer;" *ngIf="!postCommentVisible" (click)="postCommentVisible=true">
+                    Post your comment
+                </a>
+                <div *ngIf="postCommentVisible" style="height: 180px;">
+                    <div style="
+              text-align: left;           
+              font-size: 12px;
+              color: #979797;
+          ">Add your comment here</div>
+                    <div contenteditable="true" class="comment-text" id="commenttext">
                     </div>
-                    <span class="comment-button pointer" (click)="createCommets()">
-                                           <i class="fas fa-location-arrow " ></i>
-                                       </span>
-                    <!--  -->
+                    <span class="comment-button">
+                        <span style="position: absolute;
+                  right: 60px;
+                  font-size: 12px;
+                  top: 10px;
+                  color: #3058d6;" class="pointer" (click)="postCommentVisible=false">Hide</span>
+                    <span class="pointer" (click)="createCommets()">
+                            <i class="fas fa-location-arrow "></i>
+                        </span>
+                    </span>
+
                 </div>
+
+
             </div>
-            <!-- </div> -->
 
             <!-- </form> -->
         </div>
-        <div class="row" *ngFor="let a of CommentsList;let i=index">
-            <!-- <div class="d-flex align-items-center"> -->
-            <p> <img style="height: 35px;width: 35px;border-radius: 20px;" *ngIf="a.commenter_image" src="{{a.commenter_image}}" alt="images" /><img style="height: 35px;width: 35px;border-radius: 20px;" *ngIf="!a.commenter_image" src="../assets/images/noimage.png"
-                    alt="images" /> &nbsp;&nbsp;<span style="position: relative;top: 10px;"><strong>{{a.commenter_name}}</strong> {{a.comment_date_inago}}</span></p>
+        <div class="row">
 
-            <div class="speak-img">
-                <!-- <img style="height: 150px;width: 150px;" *ngIf="a.commenter_image" src="{{a.commenter_image}}" alt="images" /> -->
-            </div>
-            <!-- <div class="delete-comment" *ngIf="a.commenter_image"><button style="position: relative;
-                            top: -160px;
-                            color: #ce0400;
-                            right: -140px;border: none;background: none;"><i class="far fa-trash-alt"></i></button></div> -->
+            <ul *ngFor="let a of CommentsList;let i=index">
+                <li class="comment-box">
+                    <button class="delete-comment">
+                        <i class="fas fa-trash-alt" title="delete comment" (click)="deleteCommets(a.comment_id)"></i>
+                    </button>
+                    <div>
+                        <img class="user-image" *ngIf="a.commenter_image" src="{{a.commenter_image}}" alt="images" />
+                        <img class="user-image" *ngIf="!a.commenter_image" src="../assets/images/nopicuser.png" alt="images" />
+                        <span class="commenter-name"><strong>{{a.commenter_name}}</strong></span>
+                        <span class="timeago"> {{a.comment_date_inago}}</span>
+                        <div class="cdescription" [innerHTML]="a.comment_description"></div>
+                    </div>
+                    <div class="ldh-button">
+                        <button type="button"><i class="far fa-thumbs-up like"
+                                [class.active]="a.comment_you_liked != '0'"
+                                (click)="LikeandHeart(a.comment_id,'like')"></i>
+                            <span> {{a.likecount}} </span>
+                        </button>
+                        <button type="button"><i class="far fa-thumbs-down dislike"
+                                [class.active]="a.comment_you_disliked != '0'"
+                                (click)="LikeandHeart(a.comment_id,'dislike')"></i>
+                            <span> {{a.dislikecount}} </span>
+                        </button>
+                        <button type="button">
+                            <i class="far fa-heart heart" [class.active]="a.comment_you_hearted != '0'"
+                                (click)="LikeandHeart(a.comment_id,'heart')"></i>
+                            <span> {{a.heartcount}} </span>
+                        </button>
+                        <button type="button" *ngIf="!a.comment_input_visible" (click)="a.comment_input_visible = true">
+                            <a style="border-bottom: 1px solid;
+                      padding-bottom: 3px;
+                      color: #0a58ca; cursor: pointer;"> Add Reply</a>
+                        </button>
+                        <br>
+                        <div *ngIf="a.comment_input_visible" style="position: relative;top: 4px;">
+                            <div class="form-floating" style="width: 500px;display: inline-block;">
+                                <input type="text" class="form-control" id="Reply" placeholder="Reply to this Comment" [(ngModel)]="a.replycomment" (keyup.enter)="replyComment(i,a.comment_id,a.replycomment)">
+                                <label for="Reply">Reply to this Comment</label>
+                            </div>
+                            <!-- <input type="text" class="form-control" id="fullname" placeholder="Reply" [(ngModel)]="a.replycomment" style="border: 1px solid black;"
+                  (keyup.enter)="replyComment(a.comment_id,a.replycomment)"> -->
+                            <button (click)="replyComment(i,a.comment_id,a.replycomment)" class="reply-button">Reply</button>
+                        </div>
+                    </div>
 
-            <span> <i class="fas fa-trash-alt" title="delete comment" (click)="deleteCommets(a.comment_id)" style="position: relative;
-                top: 25px;" ></i > <p style="margin-left: 20px;" [innerHTML]="a.comment_description"></p></span>
-            <!-- <div class="reply"> -->
-            <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
-            <div class="col-md-1 col-12 mb-4">
-                <p><i class="far fa-thumbs-up like" [class.active]="a.comment_you_liked != '0'" style="cursor: pointer;" (click)="LikeandHeart(a.comment_id,'like')"></i> {{a.likecount}}</p>
-            </div>
-            <!-- <div class="col-md-1 col-12 mb-4 d-flex"> -->
-            <div class="col-md-1 col-12 mb-4">
-                <p (click)="replyComment(a.comment_id)" style="cursor: pointer;"><i class="far fa-thumbs-down " (click)="LikeandHeart(a.comment_id,'dislike')"></i> {{a.dislikecount}}</p>
-            </div>
-            <div class="col-md-1 col-12 mb-4">
-                <p><i class="far fa-heart heart" [class.active]="a.comment_you_hearted != '0'" style="cursor: pointer;" (click)="LikeandHeart(a.comment_id,'heart')"></i> {{a.heartcount}}</p>
-            </div>
-            <!-- </div> -->
-            <div class="col-md-12 col-12 mb-12" style="position: relative;">
-                <input type="text" [(ngModel)]="a.replycomment" style="border: 1px solid black;" (keyup.enter)="replyComment(a.comment_id,a.replycomment)">
-                <button (click)="replyComment(i,a.comment_id,a.replycomment)" style="position: absolute;border: rgb(234, 250, 234);margin-left: 11px;">Reply</button>
-            </div>
-            <br>
-            <h4><a *ngIf="a.replylist.length" style="color: #c45cd1;"> {{a.replylist.length}} Replies</a></h4>
-            <div *ngFor="let b of a.replylist">
-                <span> <i class="fas fa-trash-alt" title="delete reply" (click)="deleteReply(b.reply_id)" style="position: relative;top: 25px;" ></i > <p style="margin-left: 20px;" >{{b.replyer_description}}</p></span>
-            </div>
-            <br>
+
+                    <!-- 
+                    Reply start from HERE...
+                -->
+
+                    <h4><a *ngIf="a.replylist.length" style="color: #c45cd1;"> {{a.replylist.length}} Replies</a></h4>
+
+                    <ul *ngIf="a.replylist.length">
+                        <li class="reply-box" *ngFor="let b of a.replylist">
+                            <button class="delete-comment">
+                                <i class="fas fa-trash-alt" title="delete comment"
+                                    (click)="deleteReply(b.reply_id)"></i>
+                            </button>
+                            <div>
+                                <img class="user-image" *ngIf="a.replyer_image" src="{{b.replyer_image}}" alt="images" />
+                                <img class="user-image" *ngIf="!a.replyer_image" src="../assets/images/nopicuser.png" alt="images" />
+                                <span class="replyer-name"><strong>{{a.replyer_name}}</strong></span>
+                                <span class="timeago"> {{b.reply_date_inago}}</span>
+                                <div class="cdescription" [innerHTML]="b.replyer_description"></div>
+                            </div>
+                            <div class="ldh-button">
+                                <button type="button"><i class="far fa-thumbs-up like"
+                                        [class.active]="b.reply_you_liked != '0'"
+                                        (click)="replyldh(b.reply_id,'like')"></i>
+                                    <span> {{b.likecount}} </span>
+                                </button>
+                                <button type="button"><i class="far fa-thumbs-down dislike"
+                                        [class.active]="b.reply_you_disliked != '0'"
+                                        (click)="replyldh(b.reply_id,'dislike')"></i>
+                                    <span> {{b.dislikecount}} </span>
+                                </button>
+                                <button type="button">
+                                    <i class="far fa-heart heart" [class.active]="b.reply_you_hearted != '0'"
+                                        (click)="replyldh(b.reply_id,'heart')"></i>
+                                    <span> {{b.heartcount}} </span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+
+
+
+
+                </li>
+            </ul>
         </div>
+        <!-- <div class="row comment-box" *ngFor="let a of CommentsList;let i=index">
+        <div> <img style="height: 35px;width: auto;" *ngIf="a.commenter_image"
+            src="{{a.commenter_image}}" alt="images" />
+            <img class="no-image"
+            *ngIf="!a.commenter_image" src="../assets/images/nopicuser.png" alt="images" />
+            <span style="position: relative;top: 10px; left: 4px;">
+              <strong>{{a.commenter_name}}</strong> 
+              {{a.comment_date_inago}}</span>
+        </div>
+  
+        <span> <i class="fas fa-trash-alt" title="delete comment" (click)="deleteCommets(a.comment_id)"
+            style="position: absolute;"></i>
+          <p style="    position: relative;left: 19px;" [innerHTML]="a.comment_description"></p>
+        </span>
+      
+        <div class="col-md-1 col-12 mb-4">
+          <p><i class="far fa-thumbs-up like" [class.active]="a.comment_you_liked != '0'" style="cursor: pointer;"
+              (click)="LikeandHeart(a.comment_id,'like')"></i> {{a.likecount}}</p>
+        </div>
+      
+        <div class="col-md-1 col-12 mb-4">
+          <p (click)="replyComment(a.comment_id)" style="cursor: pointer;"><i class="far fa-thumbs-down "
+              (click)="LikeandHeart(a.comment_id,'dislike')"></i> {{a.dislikecount}}</p>
+        </div>
+        <div class="col-md-1 col-12 mb-4">
+          <p><i class="far fa-heart heart" [class.active]="a.comment_you_hearted != '0'" style="cursor: pointer;"
+              (click)="LikeandHeart(a.comment_id,'heart')"></i> {{a.heartcount}}</p>
+        </div>
+      
+        <div class="col-md-12 col-12 mb-12" style="position: relative;">
+          <input type="text" [(ngModel)]="a.replycomment" style="border: 1px solid black;"
+            (keyup.enter)="replyComment(a.comment_id,a.replycomment)">
+          <button (click)="replyComment(i,a.comment_id,a.replycomment)"
+            style="position: absolute;border: rgb(234, 250, 234);margin-left: 11px;">Reply</button>
+        </div>
+        <br>
+        <h4><a *ngIf="a.replylist.length" style="color: #c45cd1;"> {{a.replylist.length}} Replies</a></h4>
+        <div *ngFor="let b of a.replylist">
+          <span> <i class="fas fa-trash-alt" title="delete reply" (click)="deleteReply(b.reply_id)"
+              style="position: absolute;"></i>
+            <p style="    position: relative;left: 19px;">{{b.replyer_description}}</p>
+          </span>
+        </div>
+      </div> -->
     </div>
-    <!-- </div> -->
-    <!-- </div> -->

@@ -153,36 +153,36 @@
                         <i class="fas fa-sync"></i>
                     </a>
                 </div>
-                <div class="s-box" *ngIf="_podService.isListPage" style="position: relative;">
+                <div class="s-box outsideclick" *ngIf="_podService.isListPage" style="position: relative;">
                     <a id="btnGroupDrop4" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false" (click)="ExpandFilter()"><i class="fas fa-sliders-h curser"></i></a>
                     <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4" *ngIf="_podService.AllfilterValues.ShowFilter" [ngStyle]="{'display':_podService.AllfilterValues.ShowFilter&& _podService.RJDasboardList.length ? 'block':'none'}" style="right: 0px;min-width: 11rem;">
                         <form>
-                            <li>
-                                <div class="form-check mb-2">
+                            <li class="outsideclick">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check1" [(ngModel)]="_podService.podcastFilterList.isTittle" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Title</label>
                                 </div>
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check2" [(ngModel)]="_podService.podcastFilterList.iscategory" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Category</label>
                                 </div>
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check3" [(ngModel)]="_podService.podcastFilterList.isupdatedate" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Upload Date</label>
                                 </div>
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check4" [(ngModel)]="_podService.podcastFilterList.isstatus" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Status</label>
                                 </div>
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check5" [(ngModel)]="_podService.podcastFilterList.isbroadcast" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Broadcast Date</label>
                                 </div>
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check6" [(ngModel)]="_podService.podcastFilterList.iscommits" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">User Comments</label>
                                 </div>
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check7" [(ngModel)]="_podService.podcastFilterList.isedit" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Edit</label>
                                 </div>
@@ -190,7 +190,7 @@
                                     <input class="form-check-input" type="checkbox" id="check8" [(ngModel)]="_podService.podcastFilterList.islistdelete" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Delete</label>
                                 </div> -->
-                                <div class="form-check mb-2">
+                                <div class="form-check mb-2 outsideclick">
                                     <input class="form-check-input" type="checkbox" id="check9" [(ngModel)]="_podService.podcastFilterList.isnote" [ngModelOptions]="{standalone: true}">
                                     <label class="form-check-label">Latest Notes
                                     </label>
@@ -219,7 +219,7 @@
                         <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 8</a></li> -->
                     </ul>
                 </div>
-                <div class="s-box">
+                <div class="s-box outsideclick">
                     <a (click)="Expandsetting()" id="btnGroupDrop5" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog curser"></i></a>
                     <ul *ngIf="_podService.AllfilterValues.issettingOpen" class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" style="display: block;">
                         <li (click)="_podService.viewDetails()"><a class="dropdown-item"><i class="fa fa-edit "></i> Edit Profile</a></li>
