@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="body-main">
     <div class="body-content">
-        <h3><a routerLink="/dashboard" (click)="prodcastService.iscommentpage = false;prodcastService.iscreatebuttonVisiable = true;prodcastService.isListPage=true;prodcastService.getPodcastList()"><i
+        <h3><a routerLink="/dashboard" (click)="prodcastService.iscommentpage = false;prodcastService.iscreatebuttonVisiable = true;prodcastService.isListPage=true;prodcastService.getPodcastList()" style="width: 210px;"><i
                     class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
 
         <div class="row">
@@ -88,9 +88,9 @@
 
             <ul *ngFor="let a of CommentsList;let i=index">
                 <li class="comment-box">
-                    <button class="delete-comment">
+                    <!-- <button class="delete-comment">
                         <i class="fas fa-trash-alt" title="delete comment" (click)="deleteCommets(a.comment_id)"></i>
-                    </button>
+                    </button> -->
                     <div>
                         <img class="user-image" *ngIf="a.commenter_image" src="{{a.commenter_image}}" alt="images" />
                         <img class="user-image" *ngIf="!a.commenter_image" src="./assets/images/nopicuser.png" alt="images" />
@@ -140,10 +140,10 @@
 
                     <ul *ngIf="a.replylist.length">
                         <li class="reply-box" *ngFor="let b of a.replylist">
-                            <button class="delete-comment">
+                            <!-- <button class="delete-comment">
                                 <i class="fas fa-trash-alt" title="delete comment"
                                     (click)="deleteReply(b.reply_id)"></i>
-                            </button>
+                            </button> -->
                             <div>
                                 <img class="user-image" *ngIf="a.replyer_image" src="{{b.replyer_image}}" alt="images" />
                                 <img class="user-image" *ngIf="!a.replyer_image" src="./assets/images/nopicuser.png" alt="images" />

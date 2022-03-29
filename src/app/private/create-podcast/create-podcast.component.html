@@ -2,7 +2,7 @@
 <app-header></app-header>
 <div class="body-main">
     <div class="body-content">
-        <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
+        <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true" style="width: 210px;"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
         <div class="c-podcast">
             <h3>Creat a Podcast</h3>
             <form [formGroup]="podcastForm">
@@ -69,6 +69,24 @@
                                         </span>
                                     </span>
                                 </div>
+                            </div>
+                            <div class="col-md-9 mb-4">
+                                <div class="form-floating">
+                                    <select class="form-control" formControlName="show">
+                                        <option value="-1">None - Individual Podcast</option>
+                                        <option *ngFor="let show of _podService.showList"
+                                            [value]="show.shows_id">
+                                            {{show.name}}</option>
+                                    </select>
+                                    <label for="floatingInput">Shows</label>
+                                </div>
+                                <!-- <div class="required-error">
+                                    <span class="error-span" *ngIf="podcastForm.get('show').errors && (podcastForm.get('show').touched || podcastForm.get('show').dirty) || !ispodcastFormValid">
+                                        <span *ngIf="podcastForm.get('show').hasError('required')">
+                                            Show is required
+                                        </span>
+                                    </span>
+                                </div> -->
                             </div>
                             <div class="col-md-3 mb-4 d-flex align-items-center">
                                 <p class="pe-3 mb-0">Age Restriction</p>

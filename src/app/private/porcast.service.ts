@@ -30,7 +30,8 @@ export class PorcastService {
     UnreadNotificationCount: 0,
     BroadcastTotal: 0,
     PodcastTotal: 0,
-    SubscribedTotal: 0
+    SubscribedTotal: 0,
+    rj_rating: 0
   };
   localStorageData: any = {}
 
@@ -61,7 +62,7 @@ export class PorcastService {
   loaderMessage: string = "Loading...";
   private cancelClick: Function;
   iscommentpage: boolean = false;
-
+  showList: any[] = [];
   constructor(public _webService: WebService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) {
     // if(this.localStorageData && Object.keys(this.localStorageData).length == 0){
     //   this.localStorageData = this.localStorageData;
@@ -88,6 +89,18 @@ export class PorcastService {
       }
     )
   }
+
+  getshowList() {
+    this.showList = [];
+    this._webService.commonMethod('user/shows/'+this.localStorageData.id, '', "GET").subscribe(
+      data => {
+        if (data.Status == 'Success' && data.Response && data.Response.length) {
+          this.showList = data.Response;
+        }
+      }
+    )
+  }
+
 
   getNodeList() {
     let req = {

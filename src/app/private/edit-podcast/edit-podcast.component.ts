@@ -55,6 +55,7 @@ export class EditPodcastComponent implements OnInit {
       imagepath: this._podService.podcastListData.imagepath,
       audiopath: this._podService.podcastListData.audiopath,
       approvals: this._podService.podcastListData.approvals,
+      show: this._podService.podcastListData.shows_id,
       // broadcast_date: this._podService.podcastListData.broadcast_date,
       // upload_date: this._podService.podcastListData.upload_date,
       age_restriction: Number(this._podService.podcastListData.age_restriction) ? true : false,
@@ -95,6 +96,7 @@ export class EditPodcastComponent implements OnInit {
       "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
       "created_by": this._podService.localStorageData.username,
       "usertype": "RJ",
+      "shows_id": this.podcastForm.value.show,
       "note_description": this.noteDescription,
       "status": 'Pending'
     }

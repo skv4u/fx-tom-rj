@@ -30,7 +30,8 @@
                                 <div class="subscribe">
                                     <!-- <span>200 Followers</span> -->
                                     <span>{{_podService.StatisticsList.SubscribedTotal}} Subscribers</span>
-                                    <!-- <span>4.5 Rating</span> -->
+                                    <span *ngIf="_podService.StatisticsList.rj_rating">{{_podService.StatisticsList.rj_rating}} Rating</span>
+                                    <span *ngIf="_podService.StatisticsList.rj_rating == ''">0 Rating</span>
                                 </div>
                             </div>
                         </div>
@@ -223,6 +224,7 @@
                     <a (click)="Expandsetting()" id="btnGroupDrop5" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog curser"></i></a>
                     <ul *ngIf="_podService.AllfilterValues.issettingOpen" class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" style="display: block;">
                         <li (click)="_podService.viewDetails()"><a class="dropdown-item"><i class="fa fa-edit "></i> Edit Profile</a></li>
+                        <li><a class="dropdown-item" routerLink="/show-create"><i class="fa fa-plus"></i> Create Shows</a></li>
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()"><i class="fa fa-sign-out "></i> Logout</a></li>
                     </ul>
                 </div>

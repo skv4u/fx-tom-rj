@@ -45,6 +45,7 @@ export class CreatePodcastComponent implements OnInit {
       imagepath: '',
       audiopath: '',
       approvals: '',
+      show: '-1',
       age_restriction: false,
     })
   }
@@ -75,6 +76,7 @@ export class CreatePodcastComponent implements OnInit {
       "audiopath": this.audioFileName,
       "approvals": "Pending",
       "age_restriction": this.podcastForm.value.age_restriction ? 1 : 0,
+      "shows_id": this.podcastForm.value.show,
       "created_by": this._podService.localStorageData.username
     }
     console.log(req)

@@ -449,3 +449,53 @@
     left: 25px;
     width: 96%;
 }
+
+.c-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.c-list li {
+    position: relative;
+    padding: 10px 20px 10px 20px;
+    border: 1px solid #ddd;
+    margin: 20px 20px 0px 20px;
+    width: 200px;
+}
+
+.c-list li img {
+    height: 42px;
+    width: 42px;
+}
+
+.c-list li div.with_image {
+    position: absolute;
+    background: #837b7b;
+    left: 0;
+    top: 0;
+    border-radius: 20px;
+}
+
+.c-list li div.no_image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 20px;
+    img {
+        opacity: 0.35;
+        height: 35px !important;
+        width: 32px !important;
+        margin-top: 2px;
+    }
+}
+
+.c-list li span.ml30 {
+    margin-left: 30px;
+}
+
+.c-list li i {
+    cursor: pointer;
+    position: absolute;
+    /* left: 100px; */
+    right: 5px;
+}

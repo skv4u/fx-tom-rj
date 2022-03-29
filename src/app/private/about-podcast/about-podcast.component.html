@@ -3,7 +3,8 @@
 
 <div class="body-main">
     <div class="body-content">
-        <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
+        <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true" style="width: 210px;"><i
+                    class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
         <div class="c-podcast">
             <h3>About Podcast</h3>
             <div class="row">
@@ -26,6 +27,10 @@
                             <h4>{{_podService.podcastListData.category}}</h4>
                         </div>
                         <div class="col-12 mb-4">
+                            <p class="m-0">Shows</p>
+                            <h4>{{_podService.podcastListData.shows_name}}</h4>
+                        </div>
+                        <div class="col-12 mb-4">
                             <p class="m-0">Discription</p>
                             <h4>{{_podService.podcastListData.description}}</h4>
                         </div>
@@ -45,9 +50,10 @@
                                                     <div class="box box-solid">
 
                                                         <div class="box-body"> <audio controls>
-                                                            <source src="{{_podService.podcastListData.audiopath}}" type="audio/ogg">
+                                                                <source src="{{_podService.podcastListData.audiopath}}"
+                                                                    type="audio/ogg">
 
-                                                        </audio></div>
+                                                            </audio></div>
                                                     </div>
                                                 </div>
                                                 <div *ngIf="_podService.podcastListData.audiopath == ''">
@@ -71,7 +77,9 @@
                         <input type="file" name="myFile" class="drop-zone__input">
                     </div> -->
                     <div class="drop-zone upload-image" *ngIf="!_podService.podcastListData.imagepath">
-                        <span class="drop-zone__prompt"><p>Upload <br/> Podcast picture <br/>Or<br/> Topic picture</p> </span>
+                        <span class="drop-zone__prompt">
+                            <p>Upload <br /> Podcast picture <br />Or<br /> Topic picture</p>
+                        </span>
                         <input type="file" name="myFile" class="drop-zone__input" style="display: block;" (change)="uploadFile($event.target.files)" accept="image/" disabled>
                     </div>
 
@@ -118,7 +126,8 @@
                                     <td>{{note.status}}</td>
                                     <td>{{note.description}}</td>
                                     <td class="text-center">
-                                        <a download="audio.mp3" [href]="note.audio_path" target="_blank"><i class="far fa-file-download"></i></a>
+                                        <a download="audio.mp3" [href]="note.audio_path" target="_blank"><i
+                                                class="far fa-file-download"></i></a>
                                     </td>
                                 </tr>
 
