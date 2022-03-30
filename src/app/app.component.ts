@@ -16,6 +16,5 @@ export class AppComponent {
     this._podService.localStorageData = this._localService.getUserData();
     this._podService.getCategoryList();
     this._podService.getLanguageList();
-    this._podService.getshowList();
   }
 }

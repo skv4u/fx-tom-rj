@@ -41,6 +41,7 @@ export class PodcastListComponent implements OnInit {
   genericCall() {
     if (this._podService.localStorageData.approval_status == 'Approved') {
       this._podService.getPodcastList();
+      this._podService.getshowList();
       // this._podService.getStatisticsList();
       // this._podService.getCategoryList();
       // this._podService.getLanguageList();

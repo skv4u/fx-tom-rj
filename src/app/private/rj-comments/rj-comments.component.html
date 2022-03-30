@@ -1,8 +1,7 @@
 <app-header></app-header>
 <div class="body-main">
     <div class="body-content">
-        <h3><a routerLink="/dashboard" (click)="prodcastService.iscommentpage = false;prodcastService.iscreatebuttonVisiable = true;prodcastService.isListPage=true;prodcastService.getPodcastList()" style="width: 210px;"><i
-                    class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
+        <h3><a routerLink="/dashboard" (click)="prodcastService.iscommentpage = false;prodcastService.iscreatebuttonVisiable = true;prodcastService.isListPage=true;prodcastService.getPodcastList()" style="width: 210px;"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
 
         <div class="row">
             <div class="col-md-4 col-12 mb-4">
@@ -97,7 +96,11 @@
                         <span class="commenter-name"><strong>{{a.commenter_name}}</strong></span>
                         <span class="timeago"> {{a.comment_date_inago}}</span>
                         <div class="cdescription" [innerHTML]="a.comment_description"></div>
+                        <a [href]="a.filepath" target="_blank" *ngIf="a.filepath"><i class="fas fa-paperclip" style="
+                            margin-top: 3px;
+                            "></i> Preview</a>
                     </div>
+
                     <div class="ldh-button">
                         <button type="button"><i class="far fa-thumbs-up like"
                                 [class.active]="a.comment_you_liked != '0'"
