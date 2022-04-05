@@ -500,20 +500,16 @@
     right: 5px;
 }
 
-.list-group{
+.list-group {
     font-size: 13px;
-    li{
+    li {
         cursor: pointer;
-        &:hover,.active{
-            background-color: #F7F8D4
-            ;
+        &:hover,
+        &.active1 {
+            background-color: #F7F8D4;
         }
-        
     }
 }
-
-
-
 
 .bd-callout {
     padding: 0.75rem;
@@ -528,9 +524,11 @@
 .bd-callout-info {
     border-left-color: #5bc0de;
 }
+
 .bd-callout-warning {
     border-left-color: #f0ad4e;
 }
+
 .bd-callout+.bd-callout {
     margin-top: -0.25rem;
 }

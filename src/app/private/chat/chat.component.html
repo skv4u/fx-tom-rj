@@ -1,98 +1,95 @@
 <div class="row">
-  <div class="col-md-3">
-    <div style="margin-top: 5px;">
-      <a href="#" routerlink="/dashboard" style="margin-left: 10px;">
-        <i style="margin-top: 3px;" class="fas fa-angle-left"></i> Back to Dashboard</a></div>
-    <div style="padding: 10px;">
-      <input [(ngModel)]="search" class="chat-input" type="text" placeholder="Search here..">
-      <span *ngIf="search" (click)="search=''" style="float: right; cursor: pointer;margin-top: 15px;"><i
+    <div class="col-md-3">
+        <div style="margin-top: 5px;">
+            <a href="#" routerlink="/dashboard" style="margin-left: 10px;">
+                <i style="margin-top: 3px;" class="fas fa-angle-left"></i> Back to Dashboard</a>
+        </div>
+        <div style="padding: 10px;">
+            <input [(ngModel)]="search" [ngModelOptions]="{standalone: true}" class="chat-input" type="text" placeholder="Search here..">
+            <span *ngIf="search" (click)="search=''" style="float: right; cursor: pointer;margin-top: 15px;"><i
           class="fas fa-times"></i></span>
+        </div>
+        <ul class="list-group" style="height: 90vh; overflow: auto;">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let m of userList" (click)="loadChatforUser(m)" [class.active1]="m.active">
+                <div>
+                    <img [src]="m.profile_image" *ngIf="m.profile_image" style="border-radius: 50%; height: 25px;width: 30px;">
+                    <img src="./assets/images/nopicuser.png" *ngIf="!m.profile_image" style="border-radius: 50%; height: 25px;width: 30px;">
+                    <span class="username" style="margin-left: 5px;">{{m.name}}</span>
+                    <span class="usermobile" style="margin-left: 5px;">{{m.mobile}}</span>
+                </div>
+                <span class="badge bg-danger rounded-pill top-right">{{m.unread_count}}</span>
+                <span class="top-bottom">{{m.created_date}}</span>
+            </li>
+
+        </ul>
     </div>
-    <ul class="list-group" style="height: 90vh; overflow: auto;">
-      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let m of userList"
-        (click)="loadChatforUser(m)">
-        <div>
-          <img [src]="m.profile_image" style="border-radius: 50%; height: 25px;">
-          <span class="username" style="margin-left: 5px;">{{m.mob_name}}</span>
-          <span class="usermobile" style="margin-left: 5px;">{{m.mob_mobile}}</span>
-        </div>
-        <span class="badge bg-danger rounded-pill top-right">{{m.unread_count}}</span>
-        <span class="top-bottom">{{m.last_viewed}}</span>
-      </li>
+    <div class="col-md-9" style="background: #fff; padding: 0px 20px 0px 0px;">
+        <ng-container *ngIf="isUserSelected">
+            <div class="chat-container">
+                <div class="card">
+                    <div class="card-header">
+                        <img [src]="selectedData.profile_image" style="border-radius: 50%;
+                        height: 25px;">
+                        <span class="username" style="margin-left: 5px;">{{selectedData.name}}</span>
+                        <span class="usermobile" style="margin-left: 13px;">{{selectedData.mobile}}</span>
 
-    </ul>
-  </div>
-  <div class="col-md-9" style="background: #fff; padding: 0px 20px 0px 0px;">
-    <ng-container *ngIf="isUserSelected">
-      <div class="chat-container">
-        <div class="card">
-          <div class="card-header">
-            <img src="./assets/images/logo.jpg" style="border-radius: 50%;">
-            <span class="username" style="margin-left: 5px;">{{selectedData.mob_name}}</span>
-            <span class="usermobile" style="margin-left: 13px;">{{selectedData.mob_mobile}}</span>
-
-            <span (click)="isUserSelected=false" style="float: right; cursor: pointer;"><i
+                        <span (click)="isUserSelected=false" style="float: right; cursor: pointer;"><i
                 class="fas fa-times"></i></span>
-          </div>
-          <div class="card-body" style="height: 80vh; overflow: auto;">
-            <div class="" *ngFor="let m of messagelist" [ngClass]="{'my-message':m.user_id,'user-message':!m.user_id}">
-              {{m.message}}
-              <span>{{m.time}}</span>
+                    </div>
+                    <div class="card-body" style="height: 80vh; overflow: auto;">
+                        <div class="" *ngFor="let m of messagelist" [ngClass]="{'my-message':m.sender_id == podcastService.localStorageData.id && m.sender_type != 'Mobuser' ,'user-message':!(m.sender_id == podcastService.localStorageData.id && m.sender_type != 'Mobuser')}">
+                            {{m.message}}
+                            <span>{{m.created_date}}</span>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="my-message">
-              A simple secondary alert—check it out! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates, fuga nesciunt. Beatae illo maxime vero, dolorem laboriosam, sunt dolores tempora alias
-              possimus ad fugit! Nemo praesentium sapiente vero sequi officiis!
+            <div class="chat-input">
+                <div style="width: 100%;">
+                    <a><i class="fas fa-upload"></i></a>
+                    <span>You : </span>
+                    <input class="chat-input" type="text" placeholder="Type your message here" [(ngModel)]="Message" [ngModelOptions]="{standalone: true}" (keyup.enter)="createMessage()">
+                </div>
+
+                <button type="button" class="btn btn-primary" (click)="createMessage()"><i class="far fa-paper-plane"></i></button>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!isUserSelected">
+            <div class="card">
+                <h5 class="card-header"> RJ/User Chat window</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Welcome to Real time chat Experiance</h5>
+
+
+                    <div class="bd-callout bd-callout-info">
+
+                        Please contact Admin, if any one using abuse or vulnerability
+                    </div>
+
+                    <div class="bd-callout bd-callout-warning">
+                        Please contact Admin, if any one is sharing abusive content
+                    </div>
+
+                    <div class="bd-callout bd-callout-danger">
+                        Chat services will motivate to all the APP users
+                    </div>
+
+                    <div class="bd-callout bd-callout-info">
+                        Chat uses data to improve your experience
+                    </div>
+                    <div class="bd-callout bd-callout-warning">
+                        Chat doesn't use your content for advertising
+                    </div>
+
+                    <div class="bd-callout bd-callout-danger">
+                        It's easy to view & control your data
+                    </div>
+
+
+                </div>
             </div>
 
-          </div>
-        </div>
-      </div>
-      <div class="chat-input">
-        <div style="width: 100%;">
-          <a><i class="fas fa-upload"></i></a>
-          <span>You : </span>
-          <input class="chat-input" type="text" placeholder="Type your message here">
-        </div>
-
-        <button type="button" class="btn btn-primary"><i class="far fa-paper-plane"></i></button>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="!isUserSelected">
-      <div class="card">
-        <h5 class="card-header"> RJ/User Chat window</h5>
-        <div class="card-body">
-          <h5 class="card-title">Welcome to Real time chat Experiance</h5>
-
-
-          <div class="bd-callout bd-callout-info">
-
-            Please contact Admin, if any one using abuse or vulnerability
-          </div>
-
-          <div class="bd-callout bd-callout-warning">
-            Please contact Admin, if any one is sharing abusive content
-          </div>
-
-          <div class="bd-callout bd-callout-danger">
-            Chat services will motivate to all the APP users
-          </div>
-
-          <div class="bd-callout bd-callout-info">
-            Chat uses data to improve your experience
-          </div>
-          <div class="bd-callout bd-callout-warning">
-            Chat doesn't use your content for advertising
-          </div>
-
-          <div class="bd-callout bd-callout-danger">
-            It's easy to view & control your data
-          </div>
-
-
-        </div>
-      </div>
-
-    </ng-container>
-  </div>
+        </ng-container>
+    </div>
 </div>

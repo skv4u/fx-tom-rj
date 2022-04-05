@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from 'src/app/shared/services/common.service';
+import { WebService } from 'src/app/shared/services/web.service';
+import { PorcastService } from '../porcast.service';
 
 
 @Component({
@@ -7,244 +10,74 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  isUserSelected:boolean = false;
-  search:string = "";
-  userList:any[]=[
-    {
-      "mob_email":"santosh@gmail.com",
-      "mob_mobile":"9898989766",
-      "mob_name":"Santosh",
-      "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"10",
-      "last_viewed":"3 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"shankar@gmail.com",
-      "mob_mobile":"9898989767",
-      "mob_name":"Shankar",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"2",
-      "last_viewed":"3 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"manish@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Manish",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"4 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"anil@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Anil",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"2 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"santosh@gmail.com",
-      "mob_mobile":"9898989766",
-      "mob_name":"Santosh",
-      "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"10",
-      "last_viewed":"3 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"shankar@gmail.com",
-      "mob_mobile":"9898989767",
-      "mob_name":"Shankar",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"2",
-      "last_viewed":"3 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"manish@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Manish",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"4 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"anil@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Anil",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"2 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"santosh@gmail.com",
-      "mob_mobile":"9898989766",
-      "mob_name":"Santosh",
-      "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"10",
-      "last_viewed":"3 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"shankar@gmail.com",
-      "mob_mobile":"9898989767",
-      "mob_name":"Shankar",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"2",
-      "last_viewed":"3 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"manish@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Manish",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"4 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"anil@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Anil",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"2 min ago",
-      "last_message":""
-    },{
-      "mob_email":"santosh@gmail.com",
-      "mob_mobile":"9898989766",
-      "mob_name":"Santosh",
-      "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"10",
-      "last_viewed":"3 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"shankar@gmail.com",
-      "mob_mobile":"9898989767",
-      "mob_name":"Shankar",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"2",
-      "last_viewed":"3 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"manish@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Manish",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"4 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"anil@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Anil",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"2 min ago",
-      "last_message":""
-    },{
-      "mob_email":"santosh@gmail.com",
-      "mob_mobile":"9898989766",
-      "mob_name":"Santosh",
-      "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"10",
-      "last_viewed":"3 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"shankar@gmail.com",
-      "mob_mobile":"9898989767",
-      "mob_name":"Shankar",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"2",
-      "last_viewed":"3 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"manish@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Manish",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"4 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"anil@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Anil",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"2 min ago",
-      "last_message":""
-    },{
-      "mob_email":"santosh@gmail.com",
-      "mob_mobile":"9898989766",
-      "mob_name":"Santosh",
-      "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"10",
-      "last_viewed":"3 min ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"shankar@gmail.com",
-      "mob_mobile":"9898989767",
-      "mob_name":"Shankar",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"2",
-      "last_viewed":"3 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"manish@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Manish",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"4 day ago",
-      "last_message":""
-    },
-    {
-      "mob_email":"anil@gmail.com",
-      "mob_mobile":"9898989762",
-      "mob_name":"Anil",
-       "profile_image":"./assets/images/logo.jpg",
-      "unread_count":"",
-      "last_viewed":"2 min ago",
-      "last_message":""
-    }
-  ]
-
-  messagelist:any[]=[
-    {"user_id":"", "mob_user_id":"1","message":"This is my dummy text","time":"3 min ago"},
-    {"user_id":"1", "mob_user_id":"","message":"  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero nihil sint quod fugit molestiae non, iste nesciunt quibusdam impedit reiciendis optio culpa hic enim quam, minima facere illo ratione officiis.","time":"3 min ago"},
-    {"user_id":"1", "mob_user_id":"","message":"  Lorem ciunt quibusdam impedit reiciendis optio culpa hic enim quam, minima facere illo ratione officiis.","time":"2 min ago"},
-    
-    {"user_id":"", "mob_user_id":"1","message":"  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero nihil sint quod fugit molestiae non, iste nesciunt quibusdam impedit reiciendis optio culpa hic enim quam, minima facere illo ratione officiis.","time":"3 min ago"},
-    {"user_id":"1", "mob_user_id":"","message":"  Lorem ipsumo ratione officiis.","time":"2 sec ago"},
-    {"user_id":"", "mob_user_id":"1","message":"  Lorem ipsumo ratione officiis.","time":"2 sec ago"},
-    {"user_id":"", "mob_user_id":"1","message":"  Lorem ipsumo ratione officiis.","time":"2 sec ago"},
-    {"user_id":"", "mob_user_id":"1","message":"  Lorem ipsumo ratione officiis.","time":"2 sec ago"},
-    {"user_id":"1", "mob_user_id":"","message":"  Lorem ipsumo ratione officiis. Lorem ipsumo ratione officiis.","time":"2 sec ago"},
-  ]
-  selectedData:any = {};
-  constructor() { }
+  isUserSelected: boolean = false;
+  search: string = "";
+  Message: any = '';
+  userList: any[] = [];
+  messagelist: any[] = [];
+  selectedData: any = {};
+  constructor(public _webService: WebService, public podcastService: PorcastService, public commonService: CommonService) { }
 
   ngOnInit() {
-   
+    this.getUserList();
   }
-  loadChatforUser(elem:any){
+  loadChatforUser(elem: any) {
+    for(let a of this.userList){
+      a.active = false;
+    }
+    elem.active = true;
     this.selectedData = elem;
+    this.selectedData.profile_image = this.selectedData.profile_image || './assets/images/nopicuser.png';
     this.isUserSelected = true;
+    this.getmessageList();
+  }
+
+  createMessage() {
+    if (this.Message.trim().length == 0) {
+      return
+    }
+     this.messagelist.push({
+      "sender_id": this.podcastService.localStorageData.id,
+      "sender_type": "RJ",
+      "name": this.podcastService.localStorageData.fullname,
+      "message": this.Message,
+      "created_date": this.commonService.formatDate(new Date(),'dd-mmm-yy','-',true)
+  })
+
+    let req = {
+      "sender_id": this.podcastService.localStorageData.id,
+      "sender_type": "RJ",
+      "receiver_id": this.selectedData.sender_id,
+      "receiver_type": "Mobuser",
+      "message": this.Message
+    }
+    this._webService.commonMethod('chat/create', req, "POST").subscribe(
+      data => {
+        this.Message = '';
+        this.getmessageList();
+      })
+  }
+
+  getUserList() {
+    let req = {
+      "user_id": this.podcastService.localStorageData.id
+    }
+    this._webService.commonMethod('chat/user/list', req, "POST").subscribe(
+      data => {
+        for (let a of data.Response) {
+          a.active = false;
+        }
+        this.userList = data.Response;
+      })
+  }
+  getmessageList() {
+    let req = {
+      "user_id": this.podcastService.localStorageData.id,
+      "sender_id": this.selectedData.sender_id
+    }
+    this._webService.commonMethod('chat/message/list', req, "POST").subscribe(
+      data => {
+        this.messagelist = data.Response;
+      })
   }
 }
