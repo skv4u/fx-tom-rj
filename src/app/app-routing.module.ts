@@ -15,6 +15,7 @@ import { EditProfileComponent } from './public/edit-profile/edit-profile.compone
 import { DeletePopupComponent } from './private/podcast-list/delete-popup/delete-popup.component';
 import { RjCommentsComponent } from './private/rj-comments/rj-comments.component';
 import { ShowCreateComponent } from './private/show-create/show-create.component';
+import { ChatComponent } from './private/chat/chat.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'delete', component: DeletePopupComponent },
   {path: 'rj-comments', component: RjCommentsComponent },
   {path: 'show-create', component: ShowCreateComponent },
+  {path: 'chat', component: ChatComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 

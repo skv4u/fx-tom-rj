@@ -1,7 +1,5 @@
 <!-- <app-loader *ngIf="_podService.isProcessing || isProcessing"></app-loader> -->
-<app-header *ngIf="!_podService.iscommentpage">
-
-</app-header>
+<app-header *ngIf="!_podService.iscommentpage"></app-header>
 <div class="pending_status" *ngIf="_podService.localStorageData.approval_status == 'Pending'">Your approval is pending.
 </div>
 

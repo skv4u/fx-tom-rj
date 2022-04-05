@@ -14,7 +14,9 @@ export class AppComponent {
     //   this._podService.loader = true;
     // }
     this._podService.localStorageData = this._localService.getUserData();
+    if(this._podService.localStorageData && window.location.hash.indexOf('chat') == -1){
     this._podService.getCategoryList();
     this._podService.getLanguageList();
+    }
   }
 }

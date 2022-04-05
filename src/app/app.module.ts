@@ -24,6 +24,7 @@ import { LoaderComponent } from './generic/loader/loader.component';
 import { DeletePopupComponent } from './private/podcast-list/delete-popup/delete-popup.component';
 import { RjCommentsComponent } from './private/rj-comments/rj-comments.component';
 import { ShowCreateComponent } from './private/show-create/show-create.component';
+import { ChatComponent } from './private/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ShowCreateComponent } from './private/show-create/show-create.component
     LoaderComponent,
     DeletePopupComponent,
     RjCommentsComponent,
-    ShowCreateComponent
+    ShowCreateComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
