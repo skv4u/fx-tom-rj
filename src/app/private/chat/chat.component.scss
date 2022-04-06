@@ -1,27 +1,25 @@
 .chat-container {
-  font-size: 13px;
-
-  .card-header {
-    img {
-      border-radius: 50%;
-      height: 32px;
+    font-size: 13px;
+    .card-header {
+        img {
+            border-radius: 50%;
+            height: 32px;
+        }
+        span.online-status {
+            color: green;
+            /* margin-top: 6px; */
+            position: relative;
+            top: 4px;
+            left: 5px;
+        }
+        span.rjname {
+            position: relative;
+            left: 10px;
+        }
     }
-
-    span.online-status {
-      color: green;
-      /* margin-top: 6px; */
-      position: relative;
-      top: 4px;
-      left: 5px;
-    }
-
-    span.rjname {
-      position: relative;
-      left: 10px;
-    }
-  }
 }
-div.chat-input{
+
+div.chat-input {
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -30,14 +28,14 @@ div.chat-input{
     position: absolute;
     bottom: 0;
     width: 75%;
-   > div{
+    >div {
         width: 100%;
-        span{
+        span {
             position: relative;
-        top: 5px;
-        font-weight: bold;
+            top: 5px;
+            font-weight: bold;
         }
-        a{
+        a {
             position: relative;
             top: 7px;
             /* left: -5px; */
@@ -53,12 +51,14 @@ div.chat-input{
         }
     }
 }
-input.chat-input{
+
+input.chat-input {
     border: none;
     width: 90%;
     padding: 5px;
     border-bottom: 1px solid #000;
 }
+
 .my-message {
     color: #141619;
     background-color: #d3d3d4;
@@ -70,6 +70,7 @@ input.chat-input{
     margin-top: 10px;
     float: right;
 }
+
 .user-message {
     color: #0f5132;
     background-color: #d1e7dd;
@@ -81,28 +82,33 @@ input.chat-input{
     margin-top: 10px;
 }
 
-.top-right{
+.top-right {
     position: absolute;
     right: 5px;
     top: 6px;
 }
-.top-bottom{
+
+.top-bottom {
     position: absolute;
     right: 5px;
     bottom: 3px;
     font-size: 9px;
     color: #9b9b9b;
 }
-.user-message span, .my-message span {
+
+.user-message span.created-date,
+.my-message span.created-date {
     float: right;
     font-size: 10px;
 }
-.username{
+
+.username {
     margin-left: 5px;
     position: relative;
     top: -3px;
 }
-.usermobile{
+
+.usermobile {
     margin-left: 5px;
     font-size: 10px;
     position: absolute;

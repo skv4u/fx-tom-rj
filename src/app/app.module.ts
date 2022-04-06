@@ -25,7 +25,7 @@ import { DeletePopupComponent } from './private/podcast-list/delete-popup/delete
 import { RjCommentsComponent } from './private/rj-comments/rj-comments.component';
 import { ShowCreateComponent } from './private/show-create/show-create.component';
 import { ChatComponent } from './private/chat/chat.component';
-
+import { SearchlistPipe } from './shared/pipes/searchlist.pipe'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +46,8 @@ import { ChatComponent } from './private/chat/chat.component';
     DeletePopupComponent,
     RjCommentsComponent,
     ShowCreateComponent,
-    ChatComponent
+    ChatComponent,
+    SearchlistPipe
   ],
   imports: [
     BrowserModule,
