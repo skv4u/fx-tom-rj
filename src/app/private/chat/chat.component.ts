@@ -1,5 +1,6 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
@@ -18,10 +19,29 @@ export class ChatComponent implements OnInit {
   userList: any[] = [];
   messagelist: any[] = [];
   selectedData: any = {};
-  constructor(public _webService: WebService, public podcastService: PorcastService, public commonService: CommonService, public toaster: ToastService) { }
+
+  refreshObject:any;
+  constructor(public _webService: WebService, public podcastService: PorcastService, public commonService: CommonService, public toaster: ToastService, private route:Router) { }
 
   ngOnInit() {
     this.getUserList();
+    this.startAutoRefresh()
+  }
+  ngOnDestroy(){
+    console.log("timer stopped")
+    clearInterval(this.refreshObject);
+  }
+  startAutoRefresh(){
+    this.refreshObject = setInterval(()=>{
+      this.getUserList();
+      if(this.selectedData.sender_id && this.selectedData.sender_id != ""){
+        this.getmessageList();
+      }
+    },5000);
+  }
+  redirctDashboard(){
+    clearInterval(this.refreshObject);
+    this.route.navigate(['/dashboard']);
   }
   loadChatforUser(elem: any) {
     for (let a of this.userList) {
