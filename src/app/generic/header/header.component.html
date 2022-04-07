@@ -218,9 +218,9 @@
                         <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()"><i class="fa fa-sign-out "></i> Logout</a></li>
                     </ul>
                 </div>
-                <div class="s-box online">
+                <div class="s-box">
                     <a title="Chat Window" routerLink="/chat"> 
-                        <i class="fab fa-rocketchat"></i>
+                        <i class="far fa-comment-dots"></i>
                         <sup *ngIf="_podService.StatisticsList.ChatCountTotal != '0'">{{_podService.StatisticsList.ChatCountTotal}}</sup>
                     </a>
                 </div>
