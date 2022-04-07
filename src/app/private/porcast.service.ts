@@ -31,7 +31,8 @@ export class PorcastService {
     BroadcastTotal: 0,
     PodcastTotal: 0,
     SubscribedTotal: 0,
-    rj_rating: 0
+    rj_rating: 0,
+    ChatCountTotal:0
   };
   localStorageData: any = {}
 

@@ -208,16 +208,6 @@
                         <li *ngFor="let a of _podService.NotificationList">
                             <a class="dropdown-item" (click)="_podService.AllfilterValues.showBell=false;_podService.NotificationsearchList(a.podcast_id)" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
                         </li>
-                        <!-- <li><a class="dropdown-item" (click)="getSelectedList(a)" *ngFor="let a of prodcastService.NotificationList" style="cursor: pointer;" [innerHTML]="a.message" ></a></li> -->
-
-
-                        <!-- <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 2</a></li>
-                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 3</a></li>
-                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 4</a></li>
-                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 5</a></li>
-                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 6</a></li>
-                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 7</a></li>
-                        <li><a class="dropdown-item" (click)="_podService.AllfilterValues.showBell= false">link 8</a></li> -->
                     </ul>
                 </div>
                 <div class="s-box outsideclick">
@@ -229,7 +219,10 @@
                     </ul>
                 </div>
                 <div class="s-box online">
-                    <a title="Chat Window" routerLink="/chat"> <i class="fab fa-rocketchat"></i></a>
+                    <a title="Chat Window" routerLink="/chat"> 
+                        <i class="fab fa-rocketchat"></i>
+                        <sup *ngIf="_podService.StatisticsList.ChatCountTotal != '0'">{{_podService.StatisticsList.ChatCountTotal}}</sup>
+                    </a>
                 </div>
             </div>
         </div>
