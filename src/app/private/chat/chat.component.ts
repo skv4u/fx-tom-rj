@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   userList: any[] = [];
   messagelist: any[] = [];
   selectedData: any = {};
+  readonly TIME:number = 10000;
 
   refreshObject:any;
   constructor(public _webService: WebService, public podcastService: PorcastService, public commonService: CommonService, public toaster: ToastService, private route:Router) { }
@@ -36,8 +37,9 @@ export class ChatComponent implements OnInit {
       this.getUserList();
       if(this.selectedData.sender_id && this.selectedData.sender_id != ""){
         this.getmessageList();
+        // this.updatecounterList()
       }
-    },5000);
+    },this.TIME);
   }
   redirctDashboard(){
     clearInterval(this.refreshObject);
