@@ -46,6 +46,8 @@ export class LoginComponent implements OnInit {
           if (data.Status == 'Success' && data.Response) {
             this._localStorage.setUserData(data.Response);
             this._podCastService.localStorageData = data.Response;
+            this._podCastService.getCategoryList();
+            this._podCastService.getLanguageList();
             console.log(this._podCastService.localStorageData, "this._podCastService.localStorageData");
             this.router.navigate(['/', 'dashboard'])
           } else {
