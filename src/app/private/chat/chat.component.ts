@@ -158,11 +158,12 @@ export class ChatComponent implements OnInit {
   sendAttachment(fileName: string, filetype: string) {
     let tag = '';
     if (filetype.indexOf('audio') != -1) {
-      tag = `<audio controls preload="auto">
-        <source src="${fileName}" type="audio/mpeg">
-        <source src="${fileName}" type="audio/ogg">
-        Your browser does not support the audio element.
-    </audio>`;
+    //   tag = `<audio controls preload="auto">
+    //     <source src="${fileName}" type="audio/mpeg">
+    //     <source src="${fileName}" type="audio/ogg">
+    //     Your browser does not support the audio element.
+    // </audio>`;
+    tag = `<audio src="${fileName}" controls preload="auto" type="audio/mpeg"></audio>`
     }
     else if (filetype.indexOf('image') != -1) {
       tag = `<img src="${fileName}" alt="${fileName}" style="max-height: 100px;max-width: 147px;">`;

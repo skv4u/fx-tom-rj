@@ -49,7 +49,7 @@
             <div class="chat-input">
                 <div style="width: 100%;">
                     <!-- <input type="file" name="myFile" class="drop-zone__input curser" style="display: block;" (change)="uploadFile($event.target.files)" accept="image/"> -->
-                    <a><i class="fas fa-upload" (click)="fileInput.click()"><input hidden type="file" #fileInput (change)="uploadFile($event.target.files)" accept="image/*,audio/*"></i></a>
+                    <a><i class="fas fa-upload" (click)="fileInput.click()"><input hidden type="file" #fileInput (change)="uploadFile($event.target.files);$event.target.value = ''"  accept="image/*,audio/*"></i></a>
                     <span>You : </span>
                     <input class="chat-input" type="text" placeholder="Type your message here" [(ngModel)]="Message" [ngModelOptions]="{standalone: true}" (keyup.enter)="createMessage()">
                 </div>
