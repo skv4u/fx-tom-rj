@@ -43,7 +43,7 @@ export class PorcastService {
   podcastFilterList: any = {
     isTittle: true,
     iscategory: true,
-    isupdatedate: true,
+    isupdatedate: false,
     isstatus: true,
     isbroadcast: true,
     iscommits: true,
