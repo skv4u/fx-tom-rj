@@ -21,6 +21,8 @@ export class ChatComponent implements OnInit {
   selectedData: any = {};
   readonly TIME:number = 10000;
 
+  lastLength:number = 0;
+
   refreshObject:any;
   constructor(public _webService: WebService, public podcastService: PorcastService, public commonService: CommonService, public toaster: ToastService, private route:Router) { }
 
@@ -105,7 +107,11 @@ export class ChatComponent implements OnInit {
     }
     this._webService.commonMethod('chat/message/list', req, "POST").subscribe(
       data => {
+        if(data.Response && this.lastLength == data.Response.length){
+          return;
+        }
         this.messagelist = data.Response;
+        this.lastLength = this.messagelist.length;
         setTimeout( ()=> {
           document.getElementById('scroll').scrollTop = document.getElementById('scroll').scrollHeight;
         },100)
