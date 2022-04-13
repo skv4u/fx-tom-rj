@@ -18,10 +18,10 @@ export class AppComponent {
     if(this._podService.localStorageData){
       this._podService.loader = false;
     }
-    if(this._podService.localStorageData && window.location.hash.indexOf('chat') == -1){
+    // if(this._podService.localStorageData && window.location.hash.indexOf('chat') == -1){
       
     this._podService.getCategoryList();
     this._podService.getLanguageList();
-    }
+    // }
   }
 }
