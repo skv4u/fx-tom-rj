@@ -18,7 +18,7 @@ export class WebService {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
+            'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
         })
         let endPoint = this.APIUrl[url_type] + "/" + url;
         if (method == 'POST')
@@ -40,7 +40,7 @@ export class WebService {
         let headers = {
           headers: new HttpHeaders({
             'enctype': 'multipart/form-data',
-            'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
+            'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
           })
         };
         return this.http.post(this.APIUrl.DEV + '/' + url, data, headers);
@@ -50,7 +50,7 @@ export class WebService {
       UploadDocument1(url: string, data: any) {
         const headers = new HttpHeaders({
           'enctype': 'multipart/form-data',
-          'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
+          'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
         });
         return this.http.post(this.APIUrl.DEV + '/' + url, data, {
           headers,
@@ -65,7 +65,7 @@ export class WebService {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
+          'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
         })
         let endPoint = this.APIUrl["DEV"] + "/" + url;
         if (method == 'POST')

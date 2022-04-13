@@ -7,14 +7,16 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
+let time = 0;
 
-if (!localStorage.getItem('tomtomtoken')) {
+if (!localStorage.getItem('rjttptoken')) {
+  time = 1000;
  let  PROTOCOL: string = window.location.host.includes("localhost") ? 'http:' : window.location.protocol;
   let url = PROTOCOL+'//ec2-35-173-233-212.compute-1.amazonaws.com/api/token/generate';
   fetch(url).then(response => {
     // handle the response
     response.json().then(data => {
-      localStorage.setItem('tomtomtoken', data.Response)
+      localStorage.setItem('rjttptoken', data.Response)
     })
   }).catch(error => {
     // handle the error
@@ -24,4 +26,4 @@ if (!localStorage.getItem('tomtomtoken')) {
 
 setTimeout(()=>{
   platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err));
-},1000);
+},time);
