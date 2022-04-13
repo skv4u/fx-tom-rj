@@ -174,12 +174,13 @@ export class CreatePodcastComponent implements OnInit {
 
   }
 
-  logout() {
-    this._podService.RJDasboardList = [];
-    this._podService.RJDasboardList1 = [];
-    localStorage.clear();
-    this.router.navigate(['/', 'login']);
-  }
+  // logout() {
+  //   debugger
+  //   this._podService.RJDasboardList = [];
+  //   this._podService.RJDasboardList1 = [];
+  //   localStorage.clear();
+  //   this.router.navigate(['/', 'login']);
+  // }
 
   uploadaudio(element) {
     const file = element[0];

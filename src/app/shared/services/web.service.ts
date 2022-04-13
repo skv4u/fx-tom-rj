@@ -17,7 +17,8 @@ export class WebService {
         url_type = url_type ? url_type : 'DEV';
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
         })
         let endPoint = this.APIUrl[url_type] + "/" + url;
         if (method == 'POST')
@@ -38,7 +39,8 @@ export class WebService {
     UploadDocument(url: string, data: any) {
         let headers = {
           headers: new HttpHeaders({
-            'enctype': 'multipart/form-data'
+            'enctype': 'multipart/form-data',
+            'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
           })
         };
         return this.http.post(this.APIUrl.DEV + '/' + url, data, headers);
@@ -47,7 +49,8 @@ export class WebService {
 
       UploadDocument1(url: string, data: any) {
         const headers = new HttpHeaders({
-          'enctype': 'multipart/form-data'
+          'enctype': 'multipart/form-data',
+          'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
         });
         return this.http.post(this.APIUrl.DEV + '/' + url, data, {
           headers,
@@ -62,7 +65,7 @@ export class WebService {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Authorization': 'bearer '
+          'Authorization':'bearer ' + localStorage.getItem('tomtomtoken')
         })
         let endPoint = this.APIUrl["DEV"] + "/" + url;
         if (method == 'POST')

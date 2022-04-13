@@ -241,6 +241,33 @@ export class PorcastService {
       ($event: any) => this.handleClick($event));
   }
 
-
+  LogOut() {
+    this.resetAllValues();
+    // localStorage.clear();
+    this.AllfilterValues = {
+      issettingOpen: false,
+      ShowFilter: false,
+      showBell: false,
+      iscategoryOpen: false,
+      isStatusOpen: false
+    }
+    this.StatisticsList = {
+      PendingTotal: 0,
+      RejectedTotal: 0,
+      ApprovedTotal: 0,
+      LiveTotal: 0,
+      CommentTotal: 0,
+      ModifyTotal: 0,
+      UnreadNotificationCount: 0,
+      BroadcastTotal: 0,
+      PodcastTotal: 0,
+      SubscribedTotal: 0,
+      rj_rating: 0,
+      ChatCountTotal:0
+    }
+    localStorage.removeItem('user_data');
+    //localStorage.removeItem('tomtomtoken');
+    this.router.navigate(['/', 'login'])
+  }
 
 }

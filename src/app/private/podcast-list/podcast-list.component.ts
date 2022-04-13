@@ -68,13 +68,13 @@ export class PodcastListComponent implements OnInit {
   }
 
 
-  LogOut() {
-    this._podService.RJDasboardList = [];
-    this._podService.RJDasboardList1 = [];
-    localStorage.removeItem("user_data");
-    localStorage.clear();
-    this.router.navigate(['/', 'logout'])
-  }
+  // LogOut() {
+  //   this._podService.RJDasboardList = [];
+  //   this._podService.RJDasboardList1 = [];
+  //   localStorage.removeItem("user_data");
+  //   localStorage.clear();
+  //   this.router.navigate(['/', 'logout'])
+  // }
   getlistFilter() {
 
   }

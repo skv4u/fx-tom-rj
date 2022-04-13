@@ -198,13 +198,13 @@ export class EditPodcastComponent implements OnInit {
 
   }
 
-  logout(){
-    this._podService.RJDasboardList = [];
-    this._podService.RJDasboardList1 = [];
-    localStorage.removeItem("user_data");
-    localStorage.clear();
-    this.router.navigate(['/', 'login']);
-  }
+  // logout(){
+  //   this._podService.RJDasboardList = [];
+  //   this._podService.RJDasboardList1 = [];
+  //   localStorage.removeItem("user_data");
+  //   localStorage.clear();
+  //   this.router.navigate(['/', 'login']);
+  // }
 
   uploadaudio(element) {​​ 
     const file = element[0];

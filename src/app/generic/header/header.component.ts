@@ -18,12 +18,7 @@ export class HeaderComponent implements OnInit {
   //   if (window.location.hash == '#/dashboard')
   //     this._podService.iscreatebuttonVisiable = true;
   }
-  LogOut() {
-    this._podService.resetAllValues();
-    // localStorage.clear();
-    localStorage.removeItem('user_data');
-    this.router.navigate(['/', 'login'])
-  }
+  
 
   updateNotification() {
     if (this._podService.localStorageData.approval_status == 'Pending' || this._podService.localStorageData.approval_status == 'Rejected') {
