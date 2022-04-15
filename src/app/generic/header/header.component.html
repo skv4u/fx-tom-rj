@@ -202,13 +202,21 @@
                     </ul>
                 </div>
                 <div class="s-box" style="position: relative;">
-                    <a (click)="ExpandBell()" id="btnGroupDrop3" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell curser" title="Notification"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0'">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
+                    <a (click)="ExpandBell()" id="btnGroupDrop3" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell curser" title="Notification"></i><sup *ngIf="_podService.StatisticsList.UnreadNotificationCount != '0' || _podService.StatisticsList.UnreadNotificationCount != 0">{{_podService.StatisticsList.UnreadNotificationCount}}</sup></a>
                     <!--  -->
                     <ul class="dropdown-menu" *ngIf="_podService.AllfilterValues.showBell" aria-labelledby="btnGroupDrop3" style="right: 0;display: block;height: 70vh;
                     overflow: auto;">
-                        <li *ngFor="let a of _podService.NotificationList">
-                            <a class="dropdown-item" (click)="_podService.AllfilterValues.showBell=false;_podService.NotificationsearchList(a.podcast_id)" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
-                        </li>
+                        <div *ngIf="!_podService.NotificationLoader">
+                            <li *ngFor="let a of _podService.NotificationList">
+                                <a class="dropdown-item" (click)="_podService.AllfilterValues.showBell=false;_podService.NotificationsearchList(a.podcast_id)" [innerHtml]="a.message" [ngClass]="{'viewedlist':a.viewed == '1'}"></a>
+                            </li>
+                        </div>
+                        <!-- *ngIf="!_podService.NotificationList.length" -->
+                        <div *ngIf="_podService.NotificationLoader">
+                            <!-- <i class="fa-solid fa-loader">Please Wait...</i> -->
+                            <img src="../assets/images/loader.gif" style="width: auto;height: 50px;margin-left: 50px;margin-top: 120px;">
+                            <p style="text-align: center;">Please Wait...</p>
+                        </div>
                     </ul>
                 </div>
                 <div class="s-box outsideclick">
@@ -222,7 +230,7 @@
                 <div class="s-box" *ngIf="_podService.localStorageData.approval_status == 'Approved'">
                     <a title="Chat Window" routerLink="/chat">
                         <i class="far fa-comments"></i>
-                        <sup *ngIf="_podService.StatisticsList.ChatCountTotal != '0'">{{_podService.StatisticsList.ChatCountTotal}}</sup>
+                        <sup *ngIf="_podService.StatisticsList.ChatCountTotal != '0' || _podService.StatisticsList.ChatCountTotal != 0">{{_podService.StatisticsList.ChatCountTotal}}</sup>
                     </a>
                 </div>
             </div>

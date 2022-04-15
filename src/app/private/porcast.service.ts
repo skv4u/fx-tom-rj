@@ -32,7 +32,7 @@ export class PorcastService {
     PodcastTotal: 0,
     SubscribedTotal: 0,
     rj_rating: 0,
-    ChatCountTotal:0
+    ChatCountTotal: 0
   };
   localStorageData: any = {}
 
@@ -64,6 +64,7 @@ export class PorcastService {
   private cancelClick: Function;
   iscommentpage: boolean = false;
   showList: any[] = [];
+  NotificationLoader: boolean = false;
   constructor(public _webService: WebService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService) {
     // if(this.localStorageData && Object.keys(this.localStorageData).length == 0){
     //   this.localStorageData = this.localStorageData;
@@ -80,9 +81,9 @@ export class PorcastService {
           this.categoryList = data.Response;
         }
       },
-      err =>{
+      err => {
         // console.log(err);
-        if(err.status === 401){
+        if (err.status === 401) {
           localStorage.removeItem('rjttptoken');
           alert("Token expired!, Reloading the page");
           window.location.reload();
@@ -103,7 +104,7 @@ export class PorcastService {
 
   getshowList() {
     this.showList = [];
-    this._webService.commonMethod('user/shows/'+this.localStorageData.id, '', "GET").subscribe(
+    this._webService.commonMethod('user/shows/' + this.localStorageData.id, '', "GET").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.showList = data.Response;
@@ -176,7 +177,20 @@ export class PorcastService {
   }
 
   getStatisticsList() {
-    this.StatisticsList = [];
+    this.StatisticsList = {
+      PendingTotal: 0,
+      RejectedTotal: 0,
+      ApprovedTotal: 0,
+      LiveTotal: 0,
+      CommentTotal: 0,
+      ModifyTotal: 0,
+      UnreadNotificationCount: 0,
+      BroadcastTotal: 0,
+      PodcastTotal: 0,
+      SubscribedTotal: 0,
+      rj_rating: 0,
+      ChatCountTotal: 0
+    }
     let req = {
       "user_id": this.localStorageData.id
     }
@@ -184,7 +198,7 @@ export class PorcastService {
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.StatisticsList = data.Response[0];
-          this.getNotificationLise();
+          // this.getNotificationLise();
         }
       }
     )
@@ -192,6 +206,7 @@ export class PorcastService {
 
   getNotificationLise() {
     this.NotificationList = [];
+    this.NotificationLoader = true;
     let req = {
       "user_id": this.localStorageData.id,
       "usertype": "RJ"
@@ -200,6 +215,7 @@ export class PorcastService {
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.NotificationList = data.Response;
+          this.NotificationLoader = false;
         }
       }
     )
@@ -279,7 +295,7 @@ export class PorcastService {
       PodcastTotal: 0,
       SubscribedTotal: 0,
       rj_rating: 0,
-      ChatCountTotal:0
+      ChatCountTotal: 0
     }
     this.RJDasboardList = [];
     localStorage.removeItem('user_data');

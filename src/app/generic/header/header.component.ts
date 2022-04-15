@@ -15,10 +15,10 @@ export class HeaderComponent implements OnInit {
   constructor(public router: Router, public _localStorage: LocalstorageService, public _podService: PorcastService, public webservice: WebService, public renderer: Renderer2) { }
 
   ngOnInit() {
-  //   if (window.location.hash == '#/dashboard')
-  //     this._podService.iscreatebuttonVisiable = true;
+    //   if (window.location.hash == '#/dashboard')
+    //     this._podService.iscreatebuttonVisiable = true;
   }
-  
+
 
   updateNotification() {
     if (this._podService.localStorageData.approval_status == 'Pending' || this._podService.localStorageData.approval_status == 'Rejected') {
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     }
     this.webservice.commonMethod('user/notification/update', req, 'PUT').subscribe(
       (data) => {
-        this._podService.getStatisticsList();
+       // this._podService.getStatisticsList();
       }
     )
   }
@@ -43,7 +43,9 @@ export class HeaderComponent implements OnInit {
     }
   }
   ExpandBell() {
+    this._podService.getNotificationLise();
     this.updateNotification();
+    this._podService.StatisticsList.UnreadNotificationCount = 0;
     this._podService.AllfilterValues.showBell = !this._podService.AllfilterValues.showBell;
     this._podService.AllfilterValues.ShowFilter = false;
     this._podService.AllfilterValues.issettingOpen = false
