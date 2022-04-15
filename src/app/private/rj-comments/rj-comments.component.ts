@@ -24,6 +24,7 @@ export class RjCommentsComponent implements OnInit {
     this.getCommentList();
   }
   getCommentList() {
+    this.CommentsList = [];
     this.prodcastService.loader = true;
     let req = {
       "podcast_id": this.prodcastService.podcastListData.id,

@@ -131,6 +131,7 @@ export class RjRegisterComponent implements OnInit {
     }
   }
   getCountryList() {
+    this.countryList = [];
     this._webService.commonMethod('country', '', "GET").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {

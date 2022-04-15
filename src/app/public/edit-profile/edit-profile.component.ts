@@ -164,6 +164,7 @@ export class EditProfileComponent implements OnInit {
     }
   }
   getCountryList(){
+    this.countryList = [];
     this._podService.loader = true;
     this._webService.commonMethod('country', '', "GET").subscribe(
       data => {

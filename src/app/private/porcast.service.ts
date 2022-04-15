@@ -73,6 +73,7 @@ export class PorcastService {
     // this.getLanguageList();
   }
   getCategoryList() {
+    this.categoryList = [];
     this._webService.commonMethod('category', '', "GET").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
@@ -90,6 +91,7 @@ export class PorcastService {
     )
   }
   getLanguageList() {
+    this.languageList = [];
     this._webService.commonMethod('language', '', "GET").subscribe(
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
@@ -112,6 +114,7 @@ export class PorcastService {
 
 
   getNodeList() {
+    this.noteList = [];
     let req = {
       "podcast_id": this.podcastListData.id
     }
@@ -149,6 +152,8 @@ export class PorcastService {
   }
 
   getPodcastList() {
+    this.RJDasboardList = [];
+    this.RJDasboardList1 = [];
     this.loader = true;
     let req = {
       "user_id": this.localStorageData.id,
@@ -171,6 +176,7 @@ export class PorcastService {
   }
 
   getStatisticsList() {
+    this.StatisticsList = [];
     let req = {
       "user_id": this.localStorageData.id
     }
@@ -185,6 +191,7 @@ export class PorcastService {
   }
 
   getNotificationLise() {
+    this.NotificationList = [];
     let req = {
       "user_id": this.localStorageData.id,
       "usertype": "RJ"
