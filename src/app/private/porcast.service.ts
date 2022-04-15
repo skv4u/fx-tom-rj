@@ -239,6 +239,7 @@ export class PorcastService {
       iscategoryOpen: false,
       isStatusOpen: false
     }
+    this.NotificationList = [];
   }
 
   handleClick($event: any) {
@@ -280,6 +281,7 @@ export class PorcastService {
       rj_rating: 0,
       ChatCountTotal:0
     }
+    this.RJDasboardList = [];
     localStorage.removeItem('user_data');
     //localStorage.removeItem('tomtomtoken');
     this.router.navigate(['/', 'login'])
