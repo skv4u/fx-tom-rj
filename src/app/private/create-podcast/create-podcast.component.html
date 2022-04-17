@@ -142,7 +142,7 @@
                                                             <p class="mb-1">Or</p>
                                                             <p>Double click here to add form library</p>
                                                         </div>
-                                                        <input type="file" #fileInput (change)="uploadaudio($event.target.files)" name="img_logo" class="dropzone" accept="audio/*,video/*">
+                                                        <input type="file" #fileInput (change)="uploadaudio($event.target.files)" name="img_logo" class="dropzone" accept="audio/mp3">
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +162,7 @@
                         </div> -->
                         <div class="drop-zone upload-image" *ngIf="!pictureFileName">
                             <span class="drop-zone__prompt"><p>Upload <br/> Podcast picture <br/>Or<br/> Topic picture</p> </span>
-                            <input type="file" name="myFile" class="drop-zone__input curser" style="display: block;" (change)="uploadFile($event.target.files)" accept="image/">
+                            <input type="file" name="myFile" class="drop-zone__input curser" style="display: block;" (change)="uploadFile($event.target.files)" accept="image/*">
                         </div>
 
 

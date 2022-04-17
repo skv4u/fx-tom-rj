@@ -19,19 +19,24 @@ export class ShowCreateComponent implements OnInit {
   CategoryList: any = [];
   imageUrl: any = "";
   showConfirmPopup: any = "";
-  Id: any = "";
+  Id: any = 0;
+  caption = {
+    "title":"Add Shows",
+    "button":"Add New Shows"
+  }
   constructor(public router: Router, public webservice: WebService, public prodCastService: PorcastService, public localStorage: LocalstorageService, public toast: ToastService) { }
 
   ngOnInit() {
     this.prodCastService.isListPage = false;
     this.prodCastService.iscreatebuttonVisiable = false;
+    this.prodCastService.getshowList();
   }
   createShows() {
-    if(this.NewShowImage == ''){
+    if (this.NewShowImage == '') {
       this.toast.error('Please provide image');
       return
     }
-    if(this.NewShowName == ''){
+    if (this.NewShowName == '') {
       this.toast.error("Please provide Show Name");
       return
     }
@@ -43,15 +48,23 @@ export class ShowCreateComponent implements OnInit {
     //   "image": this.NewShowImage
     // }
     {
+      "shows_id": this.Id, 
       "user_id": this.prodCastService.localStorageData.id,
       "name": this.NewShowName,
       "image": this.NewShowImage
     }
     this.webservice.commonMethod('/user/shows', req, 'POST').subscribe(
       (data) => {
-        this.toast.success("Show created successfully")
-        this.NewShowName = "";
-        this.NewShowImage = "";
+        if(data.Status == 'Success'){
+        if(this.Id){
+          this.toast.success("Show updated successfully");
+        }else {
+          this.toast.success("Show created successfully");  
+        }
+      }else{
+        this.toast.error(data.Response);
+      }
+        this.ResetShow();
         this.prodCastService.loader = false;
         this.prodCastService.getshowList();
       },
@@ -65,12 +78,13 @@ export class ShowCreateComponent implements OnInit {
     this.prodCastService.loader = true;
     let req = {
       "user_id": this.prodCastService.localStorageData.id,
-      "show_id": id
+      "shows_id": id
     }
     this.webservice.commonMethod('/user/shows', req, 'DELETE').subscribe(
       (data) => {
         if (data.Status == "Success") {
-          this.toast.success("Deleted successfully")
+          this.toast.success("Deleted successfully");
+          this.ResetShow();
           this.prodCastService.loader = false;
           this.showConfirmPopup = false;
           this.prodCastService.getshowList();
@@ -113,6 +127,40 @@ export class ShowCreateComponent implements OnInit {
         this.NewShowImage = "";
         this.prodCastService.loaderMessage = "loading...";
       });
+  }
+  isupdate: boolean = false;
+  editCategory(ele: any) {
+    this.NewShowName = ele.name;
+    this.NewShowImage = ele.image;
+    this.caption = {
+      "title":"Update Shows",
+      "button":"Update Shows"
+    }
+    this.Id = ele.shows_id
+  }
+  ResetShow(){
+    this.NewShowName = '';
+    this.NewShowImage ='';
+    this.caption = {
+      "title":"Add Shows",
+      "button":"Add New Shows"
+    }
+    this.Id = 0;
+  }
+  removeFile(){
+    let req = {
+      filename : this.NewShowImage
+  }
+  this.prodCastService.loader = true;
+  this.webservice.commonMethod("s3bucket/remove", req, 'DELETE').
+    subscribe((data: any) => {
+      this.prodCastService.loader = false;
+      this.NewShowImage = '';
+    },err => {
+      this.prodCastService.loader = false;
+      this.NewShowImage = '';
+    });
+
   }
 }
 
