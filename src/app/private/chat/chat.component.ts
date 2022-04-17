@@ -89,7 +89,7 @@ export class ChatComponent implements OnInit {
   }
 
   getUserList() {
-    this.userList = [];
+    // this.userList = [];
     let req = {
       "user_id": this.podcastService.localStorageData.id
     }
@@ -102,7 +102,7 @@ export class ChatComponent implements OnInit {
       })
   }
   getmessageList() {
-    this.messagelist = [];
+    // this.messagelist = [];
     let req = {
       "user_id": this.podcastService.localStorageData.id,
       "sender_id": this.selectedData.sender_id
