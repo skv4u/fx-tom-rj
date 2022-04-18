@@ -210,10 +210,10 @@ export class EditPodcastComponent implements OnInit {
     const file = element[0];
   if (file == undefined) return;
   // console.log(file.type, "element");
-  if(!(file.type.indexOf('audio') != -1 || file.type.indexOf('video') != -1)){​​
-  this.toaster.error("Invalid audio file");
-  return
-  }​​
+  if (this._webService.validAudioList().indexOf(file.type) == -1) {
+    this.toaster.error("Invalid audio file");
+    return
+  }
   let formData = new FormData();
   formData.append('filename', file, file.name);
   this._podService.loader = true;
@@ -242,10 +242,14 @@ export class EditPodcastComponent implements OnInit {
   // }​​); 
   }​​ 
   uploadFile(element) {​​
-  this._podService.loader=true;
-  this._podService.loaderMessage = "Uploading...";
-  const file = element[0];
-  if (file == undefined) return;
+    const file = element[0];
+    if (file == undefined) return;
+    if (this._webService.validImageList().indexOf(file.type) == -1) {
+      this.toaster.error("Invalid image");
+      return
+    }
+    this._podService.loader = true;
+    this._podService.loaderMessage = "Uploading...";
   // console.log(file, "element");
   let formData = new FormData();
   formData.append('filename', file, file.name);

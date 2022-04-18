@@ -461,7 +461,7 @@
                         <span class="drop-zone__prompt">
                             <p>Upload Profile Picture</p>
                         </span>
-                        <input type="file" name="myFile" class="drop-zone__input" style="display: block;cursor: pointer;" (change)="uploadFile($event.target.files)" accept="Image/*">
+                        <input type="file" name="myFile" class="drop-zone__input" style="display: block;cursor: pointer;" (change)="uploadFile($event.target.files)" accept="image/png,image/jpg,image/jpeg">
                     </div>
                     <div class="drop-zone upload-image" style="max-width: 100%;" *ngIf="pictureFileName">
                         <img [src]="pictureFileName" [alt]="pictureFileName" style="position: absolute;">

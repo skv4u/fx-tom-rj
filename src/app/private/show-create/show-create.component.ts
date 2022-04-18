@@ -104,10 +104,14 @@ export class ShowCreateComponent implements OnInit {
   }
 
   uploadFile(element) {
-    this.prodCastService.loader = true;
-    this.prodCastService.loaderMessage = "Uploading...";
     const file = element[0];
     if (file == undefined) return;
+    if (this.webservice.validImageList().indexOf(file.type) == -1) {
+      this.toast.error("Invalid image");
+      return
+    }
+    this.prodCastService.loader = true;
+    this.prodCastService.loaderMessage = "Uploading...";
     // console.log(file, "element");
     let formData = new FormData();
     formData.append('filename', file, file.name);
