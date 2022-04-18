@@ -39,7 +39,9 @@
                                         <th *ngIf="_podService.podcastFilterList.isTittle">Title</th>
                                         <th *ngIf="_podService.podcastFilterList.iscategory">
                                             <a id="btnGroupDrop5" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false" (click)="expandCategoryFilter()" style="cursor: pointer;">Category</a>
-                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.iscategoryOpen ? 'block':'none'}">
+                                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.iscategoryOpen ? 'block':'none',
+                                        'height':'300px',
+                                    'overflow':'auto'}" >
                                                 <li *ngFor="let a of _podService.categoryList" (click)="_podService.searchList(a.name);_podService.AllfilterValues.iscategoryOpen = false">
                                                     <a class="dropdown-item">{{a.name}}</a>
                                                 </li>

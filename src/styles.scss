@@ -373,9 +373,12 @@
     cursor: pointer;
 }
 
-.podcast-commnet-data {
+.podcast-comment-data {
     font-size: 12px;
     text-transform: capitalize;
+    max-height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
     span:first-child {
         width: 100px;
         color: #979797;
