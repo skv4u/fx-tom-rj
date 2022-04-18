@@ -5,22 +5,21 @@ import { ConfigurationMicroService } from './configuration-micro.service';
     providedIn: 'root'
 })
 export class WebService {
-    APIUrl: any = {};
+    APIUrl: string = "";
     constructor(public http: HttpClient, public configurationService: ConfigurationMicroService) {
         this.APIUrl = this.configurationService.getUrl();
     }
 
 
 
-    commonMethod(url: string, data: any, method?: string, url_type?: string): any {
+    commonMethod(url: string, data: any, method?: string): any {
         method = method ? method : 'POST';
-        url_type = url_type ? url_type : 'DEV';
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
         })
-        let endPoint = this.APIUrl[url_type] + "/" + url;
+        let endPoint = this.APIUrl + "/" + url;
         if (method == 'POST')
             return this.http.post(endPoint, data, { headers });
         else if (method == 'GET')
@@ -43,7 +42,7 @@ export class WebService {
             'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
           })
         };
-        return this.http.post(this.APIUrl.DEV + '/' + url, data, headers);
+        return this.http.post(this.APIUrl + '/' + url, data, headers);
     
       }
 
@@ -52,7 +51,7 @@ export class WebService {
           'enctype': 'multipart/form-data',
           'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
         });
-        return this.http.post(this.APIUrl.DEV + '/' + url, data, {
+        return this.http.post(this.APIUrl + '/' + url, data, {
           headers,
           reportProgress: true,
           observe: 'events'
@@ -67,7 +66,7 @@ export class WebService {
           'Accept': 'application/json',
           'Authorization':'Bearer ' + localStorage.getItem('rjttptoken')
         })
-        let endPoint = this.APIUrl["DEV"] + "/" + url;
+        let endPoint = this.APIUrl + "/" + url;
         if (method == 'POST')
           return this.http.post(endPoint, '"' + filename + '"', { headers: headers });
       }
