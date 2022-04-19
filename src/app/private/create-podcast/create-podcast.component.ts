@@ -185,9 +185,10 @@ export class CreatePodcastComponent implements OnInit {
   uploadaudio(element) {
     const file = element[0];
     if (file == undefined) return;
-    // console.log(file.type, "element");
+    console.log(file.type, "element");
     if (this._webService.validAudioList().indexOf(file.type) == -1) {
       this.toaster.error("Invalid audio file");
+      this.audioFileName = "";
       return
     }
     let formData = new FormData();
