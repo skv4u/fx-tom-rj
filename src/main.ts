@@ -12,7 +12,7 @@ let time = 0;
 if (!localStorage.getItem('rjttptoken')) {
   time = 1000;
  let  PROTOCOL: string = window.location.host.includes("localhost") ? 'http:' : window.location.protocol;
-  let url = PROTOCOL+'//ec2-35-173-233-212.compute-1.amazonaws.com/api/token/generate';
+  let url = window.location.origin+'/api/token/generate';
   fetch(url).then(response => {
     // handle the response
     response.json().then(data => {
