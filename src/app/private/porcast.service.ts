@@ -168,9 +168,9 @@ export class PorcastService {
           });
           this.RJDasboardList = data.Response;
           this.RJDasboardList1 = data.Response;
-          this.getStatisticsList();
           // this.viewDetails();
         }
+        this.getStatisticsList();
         this.loader = false;
       }
     )

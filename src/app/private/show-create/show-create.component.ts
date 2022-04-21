@@ -140,7 +140,8 @@ export class ShowCreateComponent implements OnInit {
       "title":"Update Shows",
       "button":"Update Shows"
     }
-    this.Id = ele.shows_id
+    this.Id = ele.shows_id;
+    window.scrollTo(0, 0)
   }
   ResetShow(){
     this.NewShowName = '';
