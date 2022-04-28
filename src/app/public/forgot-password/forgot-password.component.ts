@@ -76,7 +76,7 @@ export class ForgotPasswordComponent implements OnInit {
     this._podCastService.loader = true;
 
     let req = {
-      "mobile": this.MobileNumberForm.value.mobile,
+      "mobile": this.MobileNumberForm.value.ISD + this.MobileNumberForm.value.mobile,
       "otp": otp,
       "type": 'web'
     }

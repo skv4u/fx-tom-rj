@@ -72,16 +72,18 @@ export class WebService {
   }
 
 
-  validImageList(): string[] {
+  validImageList():string[] {
     return [
       'image/png',
       'image/jpeg',
       'image/jpg'
     ]
   }
-  validAudioList(): string[] {
+  validAudioList():string[] {
     return [
-      'audio/mp3'
+      'audio/mp3',
+      'audio/mpeg',
+      'audio/x-mpeg-3'
     ]
   }
 }
