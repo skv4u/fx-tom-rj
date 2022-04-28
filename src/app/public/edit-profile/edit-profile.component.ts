@@ -155,7 +155,7 @@ export class EditProfileComponent implements OnInit {
           //  this._localStorage.setUserData(req);
            // this._podService.localStorageData = req;
           // this._podService.viewDetails();
-            this.router.navigate(['/', 'dashboard'])
+           // this.router.navigate(['/', 'dashboard'])
             }else {
              this.toaster.error(data.Response);
             }
@@ -184,7 +184,7 @@ export class EditProfileComponent implements OnInit {
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.stateList = data.Response;
-          this.state = this.stateList[0].name;
+          this.state = this.state ? this.state : this.stateList[0].name;
         }
       }
     )
