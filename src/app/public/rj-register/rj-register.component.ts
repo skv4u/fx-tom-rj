@@ -77,7 +77,7 @@ export class RjRegisterComponent implements OnInit {
     }
 
     if(this.registerForm.value.podcaster_type == 'organization' && this.registerForm.value.podcaster_value == ''){
-      this.toaster.error("Organisation working for is required");
+      this.toaster.error("Organization working for is required");
       return
     }
 

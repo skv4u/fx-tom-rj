@@ -25,12 +25,15 @@ export class ForgotPasswordComponent implements OnInit {
     input5: '',
     input6: ''
   } //= new Array(6).fill('');
+  countryList: any[] = [];
   constructor(public _webService: WebService, public fb: FormBuilder, public _commonService: CommonService, public router: Router, public toaster: ToastService, public _podCastService: PorcastService) { }
 
   ngOnInit() {
     this.MobileNumberForm = this.fb.group({
       mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), this._commonService.customNumber]],
+      ISD: '+91'
     })
+    this.getCountryList();
   }
   getOTP() {
     this._podCastService.loader = true;
@@ -40,7 +43,7 @@ export class ForgotPasswordComponent implements OnInit {
       return
     }
     let req = {
-      "mobile": this.MobileNumberForm.value.mobile,
+      "mobile": this.MobileNumberForm.value.ISD + this.MobileNumberForm.value.mobile,
       "type": 'web'
     }
     this._webService.commonMethod('sms/otp', req, "POST").subscribe(
@@ -73,7 +76,7 @@ export class ForgotPasswordComponent implements OnInit {
     this._podCastService.loader = true;
 
     let req = {
-      "mobile": this.MobileNumberForm.value.mobile,
+      "mobile": this.MobileNumberForm.value.ISD + this.MobileNumberForm.value.mobile,
       "otp": otp,
       "type": 'web'
     }
@@ -118,6 +121,17 @@ export class ForgotPasswordComponent implements OnInit {
     this.InputList = {};
     this.MobileNumberForm.get("mobile").setValue('');
   }
-
+  getCountryList(){
+    this.countryList = [];
+    this._podCastService.loader = true;
+    this._webService.commonMethod('country', '', "GET").subscribe(
+      data => {
+        if(data.Status == 'Success' && data.Response && data.Response.length){
+          this.countryList = data.Response;
+          this._podCastService.loader = false;
+        }
+      }
+    )
+  }
 
 }

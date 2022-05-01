@@ -25,7 +25,8 @@ export class AboutPodcastComponent implements OnInit {
     }
     this._podService.isListPage = false;
     this._podService.iscreatebuttonVisiable=false;
-    console.log(this._podService.podcastListData, "+++++++++++")
+    this._podService.podcastListData.age_restriction = this._podService.podcastListData.age_restriction == '0' ? false : true
+    console.log(this._podService.podcastListData, "+++++++++++");
     this._podService.getNodeList();
   }
 

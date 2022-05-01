@@ -86,7 +86,7 @@ export class EditProfileComponent implements OnInit {
     //   return
     // }
     if(this.registerForm.value.podcaster_type == 'organization' && this.registerForm.value.podcaster_value == ''){
-      this.toaster.error("Organisation working for is required");
+      this.toaster.error("Organization working for is required");
       return
     }
     if (!this.registerForm.valid) { 
@@ -155,7 +155,7 @@ export class EditProfileComponent implements OnInit {
           //  this._localStorage.setUserData(req);
            // this._podService.localStorageData = req;
           // this._podService.viewDetails();
-            this.router.navigate(['/', 'dashboard'])
+           // this.router.navigate(['/', 'dashboard'])
             }else {
              this.toaster.error(data.Response);
             }
@@ -184,7 +184,7 @@ export class EditProfileComponent implements OnInit {
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.stateList = data.Response;
-          this.state = this.stateList[0].name;
+          this.state = this.state ? this.state : this.stateList[0].name;
         }
       }
     )
