@@ -136,6 +136,17 @@ export class PorcastService {
     this.RJDasboardList = temp;
   }
 
+  searchList1(data?: any) {
+    this.filterApplied = true;
+    let tempdata = data ? data : this.serachvalue;
+    // let temp = this.RJDasboardList1.filter(x => JSON.stringify(x).toLowerCase().includes(tempdata.toLowerCase()));
+    let temp = this.RJDasboardList1.filter(x => {
+      let arr = [x.name,x.category,x.upload_date,x.broadcast_date,x.shows_name,x.approvals,x.latest_note];
+      return arr.join("").toLowerCase().includes(tempdata.toLowerCase())
+    }
+    );
+    this.RJDasboardList = temp;
+  }
   NotificationsearchList(data) {
     this.filterApplied = true;
     let tempdata = data ? data : this.serachvalue;
