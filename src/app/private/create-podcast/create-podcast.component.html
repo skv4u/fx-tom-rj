@@ -1,28 +1,31 @@
 <!-- <app-loader *ngIf="_podService.loader"></app-loader> -->
 <app-header></app-header>
 <div class="body-main">
-    <div class="body-content">
-        <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true" style="width: 210px;"><i class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
-        <div class="c-podcast">
-            <h3>Create a Podcast</h3>
-            <form [formGroup]="podcastForm">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-9 mb-4">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="Podcast Name" formControlName="name">
-                                    <label for="floatingInput">Podcast Name</label>
-                                </div>
-                                <div class="required-error">
-                                    <span class="error-span" *ngIf="podcastForm.get('name').errors && (podcastForm.get('name').touched || podcastForm.get('name').dirty) || !ispodcastFormValid">
-                                        <span *ngIf="podcastForm.get('name').hasError('required')">
-                                            Podcast is required
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- <div class="col-md-9 mb-4">
+  <div class="body-content">
+    <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true" style="width: 210px;"><i
+          class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
+    <div class="c-podcast">
+      <h3>Create a Podcast</h3>
+      <form [formGroup]="podcastForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-9 mb-4">
+                <div class="form-floating">
+                  <input type="text" class="form-control" id="floatingInput" placeholder="Podcast Name"
+                    formControlName="name">
+                  <label for="floatingInput">Podcast Name</label>
+                </div>
+                <div class="required-error">
+                  <span class="error-span"
+                    *ngIf="podcastForm.get('name').errors && (podcastForm.get('name').touched || podcastForm.get('name').dirty) || !ispodcastFormValid">
+                    <span *ngIf="podcastForm.get('name').hasError('required')">
+                      Podcast is required
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="col-md-9 mb-4">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="floatingInput" placeholder="Author Name" formControlName="author_name">
                                     <label for="floatingInput">Author Name</label>
@@ -35,158 +38,167 @@
                                     </span>
                                 </div>
                             </div> -->
-                            <div class="col-md-9 mb-4">
-                                <div class="form-floating">
-                                    <select class="form-control" formControlName="language">
-                                        <option *ngFor="let language of _podService.languageList"
-                                            [value]="language.name">
-                                            {{language.name}}</option>
-                                    </select>
-                                    <label for="floatingInput">Language</label>
-                                </div>
-                                <div class="required-error">
-                                    <span class="error-span" *ngIf="podcastForm.get('language').errors && (podcastForm.get('language').touched || podcastForm.get('language').dirty) || !ispodcastFormValid">
-                                        <span *ngIf="podcastForm.get('language').hasError('required')">
-                                            Language is required
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-9 mb-4">
-                                <div class="form-floating">
-                                    <select class="form-control" formControlName="category" multiple style="height: 100% !important;background: none;">
-                                        <option *ngFor="let category of _podService.categoryList"
-                                            [value]="category.name">
-                                            {{category.name}}</option>
-                                    </select>
-                                    <label>Category</label>
-                                    <span style="font-size: 10px;">Use Ctrl or Shift key for multiple selection</span>
-                                </div>
-                                <div class="required-error">
-                                    <span class="error-span" *ngIf="podcastForm.get('category').errors && (podcastForm.get('category').touched || podcastForm.get('category').dirty) || !ispodcastFormValid">
-                                        <span *ngIf="podcastForm.get('category').hasError('required')">
-                                            Category is required
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-9 mb-4">
-                                <div class="form-floating">
-                                    <select class="form-control" formControlName="show">
-                                        <option value="-1">None - Individual Podcast</option>
-                                        <option *ngFor="let show of _podService.showList"
-                                            [value]="show.shows_id">
-                                            {{show.name}}</option>
-                                    </select>
-                                    <label for="floatingInput">Shows</label>
-                                </div>
-                                <!-- <div class="required-error">
+              <div class="col-md-9 mb-4">
+                <div class="form-floating">
+                  <select class="form-control" formControlName="language">
+                    <option *ngFor="let language of _podService.languageList" [value]="language.name">
+                      {{language.name}}</option>
+                  </select>
+                  <label for="floatingInput">Language</label>
+                </div>
+                <div class="required-error">
+                  <span class="error-span"
+                    *ngIf="podcastForm.get('language').errors && (podcastForm.get('language').touched || podcastForm.get('language').dirty) || !ispodcastFormValid">
+                    <span *ngIf="podcastForm.get('language').hasError('required')">
+                      Language is required
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-9 mb-4">
+                <div class="form-floating">
+                  <select class="form-control" formControlName="category" multiple
+                    style="height: 100% !important;background: none;">
+                    <option *ngFor="let category of _podService.categoryList" [value]="category.name">
+                      {{category.name}}</option>
+                  </select>
+                  <label>Category</label>
+                  <span style="font-size: 10px;">Use Ctrl or Shift key for multiple selection</span>
+                </div>
+                <div class="required-error">
+                  <span class="error-span"
+                    *ngIf="podcastForm.get('category').errors && (podcastForm.get('category').touched || podcastForm.get('category').dirty) || !ispodcastFormValid">
+                    <span *ngIf="podcastForm.get('category').hasError('required')">
+                      Category is required
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-9 mb-4">
+                <div class="form-floating">
+                  <select class="form-control" formControlName="show">
+                    <option value="-1">None - Individual Podcast</option>
+                    <option *ngFor="let show of _podService.showList" [value]="show.shows_id">
+                      {{show.name}}</option>
+                  </select>
+                  <label for="floatingInput">Shows</label>
+                </div>
+                <!-- <div class="required-error">
                                     <span class="error-span" *ngIf="podcastForm.get('show').errors && (podcastForm.get('show').touched || podcastForm.get('show').dirty) || !ispodcastFormValid">
                                         <span *ngIf="podcastForm.get('show').hasError('required')">
                                             Show is required
                                         </span>
                                     </span>
                                 </div> -->
-                            </div>
-                            <div class="col-md-3 mb-4 d-flex align-items-center">
-                                <p class="pe-3 mb-0">Age Restriction</p>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input curser" type="checkbox" id="flexSwitchCheckDefault" formControlName="age_restriction">
-                                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+              </div>
+              <div class="col-md-3 mb-4 d-flex align-items-center">
+                <p class="pe-3 mb-0">Age Restriction</p>
+                <div class="form-check form-switch">
+                  <input class="form-check-input curser" type="checkbox" id="flexSwitchCheckDefault"
+                    formControlName="age_restriction">
+                  <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                </div>
+              </div>
+              <div class="col-md-12 mb-4">
+                <textarea class="form-control" placeholder="Describe you Podcast in few lines."
+                  formControlName="description"></textarea>
+                <div class="required-error">
+                  <span class="error-span"
+                    *ngIf="podcastForm.get('description').errors && (podcastForm.get('description').touched || podcastForm.get('description').dirty) || !ispodcastFormValid">
+                    <span *ngIf="podcastForm.get('description').hasError('required')">
+                      Description is required
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <section>
+              <form action="" method="POST" enctype="multipart/form-data">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+
+
+                        <div class="dropzone-wrapper">
+                          <div class="preview-zone" *ngIf="audioFileName != ''">
+                            <div class="box box-solid"  style="text-align: right;">
+                                <button (click)="removeAudio()" style="background: none; border: none; color: #f00;"><i class="fas fa-trash-alt"></i></button>
+                                <div class="box-body" style="text-align: center;">
+                                  <audio controls preload="auto">
+                                    <source [src]="audioFileName" type="audio/mpeg">
+                                    <source [src]="audioFileName" type="audio/ogg">
+                                    Your browser does not support the audio element.
+                                  </audio>
                                 </div>
+                                <div style="text-align: center;
+                                display: block;
+                                margin-top: 10px;
+                                color: #ff9800;
+                                font-size: 13px;">
+                                  {{getAudioName()}}  
+                              </div>
+                             
                             </div>
-                            <div class="col-md-12 mb-4">
-                                <textarea class="form-control" placeholder="Describe you Podcast in few lines." formControlName="description"></textarea>
-                                <div class="required-error">
-                                    <span class="error-span" *ngIf="podcastForm.get('description').errors && (podcastForm.get('description').touched || podcastForm.get('description').dirty) || !ispodcastFormValid">
-                                        <span *ngIf="podcastForm.get('description').hasError('required')">
-                                            Description is required
-                                        </span>
-                                    </span>
-                                </div>
+                          </div>
+                          <div *ngIf="audioFileName == ''">
+                            <div class="dropzone-desc">
+                              <i class="glyphicon glyphicon-download-alt"></i>
+                              <p class="mb-1">Drag and Drop Audio file</p>
+                              <p class="mb-1">Or</p>
+                              <p>Double click here to add form library</p>
                             </div>
+                            <input type="file" #fileInput (change)="uploadaudio($event.target.files)" name="img_logo"
+                              class="dropzone" accept="audio/mp3">
+                          </div>
                         </div>
+                      </div>
                     </div>
-                    <div class="col-md-6">
-                        <section>
-                            <form action="" method="POST" enctype="multipart/form-data">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-
-
-                                                <div class="dropzone-wrapper">
-                                                    <div class="preview-zone" *ngIf="audioFileName != ''">
-                                                        <div class="box box-solid">
-
-                                                            <button (click)="removeAudio()" style="right: -230px;
-                                                            position: relative;
-                                                            top: 10px;
-                                                            background: none;
-                                                            border: none;
-                                                            color: #f00;"><i class="fas fa-trash-alt"></i></button>
-                                                            <div class="box-body">
-                                                                <audio controls preload="auto">
-                                                                    <source [src]="audioFileName" type="audio/mpeg">
-                                                                    <source [src]="audioFileName" type="audio/ogg">
-                                                                    Your browser does not support the audio element.
-                                                                </audio>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div *ngIf="audioFileName == ''">
-                                                        <div class="dropzone-desc">
-                                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                                            <p class="mb-1">Drag and Drop Audio file</p>
-                                                            <p class="mb-1">Or</p>
-                                                            <p>Double click here to add form library</p>
-                                                        </div>
-                                                        <input type="file" #fileInput (change)="uploadaudio($event.target.files)" name="img_logo" class="dropzone" accept="audio/mp3">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </section>
+                  </div>
+                </div>
+              </form>
+            </section>
 
 
 
-                        <!-- <div class="drop-zone">
+            <!-- <div class="drop-zone">
                             <span class="drop-zone__prompt">
                                 <p>Upload <br /> Podcast picture <br />Or<br /> Topic picture</p>
                             </span>
                             <input type="file" style="opacity: 0;height: 100%;width: 100%;position: absolute;border: 1px solid;left: 0px;top: 0px;z-index: 1;" (change)="uploadFile($event.target.files)" name="myFile" class="drop-zone__input" accept="image/*">
                         </div> -->
-                        <div class="drop-zone upload-image" *ngIf="!pictureFileName">
-                            <span class="drop-zone__prompt"><p>Upload <br/> Podcast picture <br/>Or<br/> Topic picture</p> </span>
-                            <input type="file" name="myFile" class="drop-zone__input curser" style="display: block;" (change)="uploadFile($event.target.files)" accept="image/png,image/jpg,image/jpeg">
-                        </div>
+            <div class="drop-zone upload-image" *ngIf="!pictureFileName">
+              <span class="drop-zone__prompt">
+                <p>Upload <br /> Podcast picture <br />Or<br /> Topic picture</p>
+              </span>
+              <input type="file" name="myFile" class="drop-zone__input curser" style="display: block;"
+                (change)="uploadFile($event.target.files)" accept="image/png,image/jpg,image/jpeg">
+            </div>
 
 
 
-                        <div class="drop-zone upload-image" *ngIf="pictureFileName">
-                            <img [src]="pictureFileName" [alt]="pictureFileName">
-                            <button (click)="removeFile()" style="right: -11px;
+            <div class="drop-zone upload-image" *ngIf="pictureFileName">
+              <img [src]="pictureFileName" [alt]="pictureFileName">
+              <button (click)="removeFile()" style="right: -11px;
                             cursor: pointer;
                             top: -11px;
                             position: absolute;
                             background: none;
                             border: none;
                             color: #f00;"><i class="fas fa-trash-alt"></i></button>
-                        </div>
+            </div>
 
 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <button class="custome-button" (click)="createProcast()">Create</button>
-                    </div>
-                </div>
-            </form>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-12">
+            <button class="custome-button" (click)="createProcast()">Create</button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </div>

@@ -270,4 +270,11 @@ export class EditPodcastComponent implements OnInit {
   this._podService.loaderMessage = "Loading...";
   }​​);
   }
+  getAudioName(){
+    if(this.audioFileName){
+      let str = this.audioFileName.substring(this.audioFileName.lastIndexOf("/")+1);
+      return str.substring(str.indexOf("_")+1);
+    }
+    return '';
+  }
 }
