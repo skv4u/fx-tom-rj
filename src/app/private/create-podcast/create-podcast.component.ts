@@ -2,10 +2,14 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxImageCompressService } from 'ngx-image-compress';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
 import { PorcastService } from '../porcast.service';
+
+
 
 @Component({
   selector: 'app-create-podcast',
@@ -20,7 +24,7 @@ export class CreatePodcastComponent implements OnInit {
   pictureFileName: string = '';
   issettingOpen: boolean = false;
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router) { }
+    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router, public imageCompress: NgxImageCompressService) { }
 
   ngOnInit() {
     this._podService.isListPage = false;
@@ -167,7 +171,7 @@ export class CreatePodcastComponent implements OnInit {
     // this._webService.commonMethod("s3bucket/remove", this.audioFileName, 'DELETE').
     //   subscribe((data: any) => {
     //     this._podService.loader = false;
-        
+
     //   }, err => {
     //     this._podService.loader = false;
     //     this.audioFileName = '';
@@ -220,9 +224,11 @@ export class CreatePodcastComponent implements OnInit {
     // }​​, err => {​​
     // }​​); 
   }
-  uploadFile(element) {
-    // this._podService.loader = true;
-    const file = element[0];
+
+  selectFile(event: any) {
+    let fileName: any;
+    let file = event.target.files[0];
+    // const file = element[0];
     if (file == undefined) return;
     if (this._webService.validImageList().indexOf(file.type) == -1) {
       this.toaster.error("Invalid image");
@@ -230,9 +236,45 @@ export class CreatePodcastComponent implements OnInit {
     }
     this._podService.loader = true;
     this._podService.loaderMessage = "Uploading...";
-    // console.log(file, "element");
+    if ((file.size / 1024) < 50) {
+      this.uploadFile(file, file.name, true);
+      return;
+    }
+    fileName = file['name'];
+   
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.compressFile(event.target.result, fileName)
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+  compressFile(image, filename) {
+    let orientation = -1;
+    this.imageCompress
+      .compressFile(image, orientation, 40, 15)
+      .then(result => {
+        this.uploadFile(result, filename, false);
+      });
+  }
+  uploadFile(base64, fileName, direct) {
     let formData = new FormData();
-    formData.append('filename', file, file.name);
+    if (direct) {
+      formData.append('filename', base64, fileName);
+      this.uploadFormData(formData);
+      return;
+    }
+    fetch(base64)
+      .then(res => res.blob())
+      .then((blob: any) => {
+        let file1 = new File([blob], fileName);
+        formData.append("filename", file1);
+        this.uploadFormData(formData);
+      });
+    // });
+  }
+  uploadFormData(formData) {
     this._webService.UploadDocument1("s3bucket/upload", formData).
       subscribe((data: any) => {
         if (data.type === HttpEventType.Response) {
@@ -250,19 +292,20 @@ export class CreatePodcastComponent implements OnInit {
         this._podService.loaderMessage = "Loading...";
       });
   }
-  getAudioName(){
-    if(this.audioFileName){
-      let str = this.audioFileName.substring(this.audioFileName.lastIndexOf("/")+1);
-      return str.substring(str.indexOf("_")+1);
+
+  getAudioName() {
+    if (this.audioFileName) {
+      let str = this.audioFileName.substring(this.audioFileName.lastIndexOf("/") + 1);
+      return str.substring(str.indexOf("_") + 1);
     }
     return '';
   }
-  IsImageGallaryVisible:boolean = false;
-  openExistingImageList(){
+  IsImageGallaryVisible: boolean = false;
+  openExistingImageList() {
     this.IsImageGallaryVisible = true;
   }
 
-  fromChild(elem){   
+  fromChild(elem) {
     this.pictureFileName = elem;
     this.IsImageGallaryVisible = false;
   }

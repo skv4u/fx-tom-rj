@@ -27,6 +27,7 @@ import { ShowCreateComponent } from './private/show-create/show-create.component
 import { ChatComponent } from './private/chat/chat.component';
 import { SearchlistPipe } from './shared/pipes/searchlist.pipe';
 import { ImageGalleryComponent } from './generic/image-gallery/image-gallery.component'; 
+import { NgxImageCompressService } from 'ngx-image-compress';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,7 @@ import { ImageGalleryComponent } from './generic/image-gallery/image-gallery.com
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [WebService],
+  providers: [WebService,NgxImageCompressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

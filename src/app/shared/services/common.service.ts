@@ -96,5 +96,6 @@ export class CommonService {
   padValue(value): number {
     return (Number(value) < 10) ? "0" + value : value;
   }
+  
 
 }
