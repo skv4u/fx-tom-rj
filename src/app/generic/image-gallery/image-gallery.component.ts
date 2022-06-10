@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PorcastService } from 'src/app/private/porcast.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { PorcastService } from 'src/app/private/porcast.service';
   styleUrls: ['./image-gallery.component.scss']
 })
 export class ImageGalleryComponent implements OnInit {
-
+  @Output() back = new EventEmitter();
   constructor(public ps:PorcastService) { }
 
   ngOnInit() {
@@ -19,5 +19,12 @@ export class ImageGalleryComponent implements OnInit {
     }
     return '';
   }
-
+selectedpic(image){
+  //this.ps.IsImageGallaryVisible = false;
+if(image == 'close'){
+  this.back.emit({'type': "close", 'value': ''});
+}else{
+  this.back.emit({'type': "image", 'value': image});
+}
+}
 }

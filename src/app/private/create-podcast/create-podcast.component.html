@@ -208,4 +208,4 @@
     </div>
   </div>
 </div>
-<app-image-gallery *ngIf="IsImageGallaryVisible"></app-image-gallery>
+<app-image-gallery *ngIf="IsImageGallaryVisible" (back)="fromChild($event)"></app-image-gallery>

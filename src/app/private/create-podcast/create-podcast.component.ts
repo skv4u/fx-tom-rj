@@ -259,4 +259,11 @@ export class CreatePodcastComponent implements OnInit {
   openExistingImageList(){
     this.IsImageGallaryVisible = true;
   }
+
+  fromChild(elem){
+    if(elem.type !== 'close'){
+    this.pictureFileName = elem.value;
+  }
+  this.IsImageGallaryVisible = false;
+  }
 }

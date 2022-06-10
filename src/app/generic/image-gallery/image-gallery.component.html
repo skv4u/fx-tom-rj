@@ -1,6 +1,8 @@
 <div class="popup-box">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="selectedpic('close')">X</button>
+  <!-- <button >X</button> -->
     <ul>
-      <li *ngFor="let m of ps.podcastImageList">
+      <li *ngFor="let m of ps.podcastImageList" (click)="selectedpic(m)">
         <img [src]="m" alt="no-image" />
         <span>{{ getImageName(m) }}</span>
       </li>
