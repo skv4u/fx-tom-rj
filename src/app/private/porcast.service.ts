@@ -8,6 +8,7 @@ import { WebService } from '../shared/services/web.service';
   providedIn: 'root'
 })
 export class PorcastService {
+  podcastImageList:any[]=[];
   podcastListData: any;
   serachvalue: string = '';
   categoryList: any[] = [];
@@ -179,12 +180,19 @@ export class PorcastService {
           });
           this.RJDasboardList = data.Response;
           this.RJDasboardList1 = data.Response;
+          this.getPodcastImageList(data.Response);
           // this.viewDetails();
         }
         this.getStatisticsList();
         this.loader = false;
       }
     )
+  }
+
+  getPodcastImageList(podcastlist:any){
+    this.podcastImageList = podcastlist.map(v => v.imagepath);
+    this.podcastImageList = Array.from(new Set(this.podcastImageList));
+    console.log(this.podcastImageList);
   }
 
   getStatisticsList() {

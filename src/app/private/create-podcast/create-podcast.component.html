@@ -124,23 +124,24 @@
 
                         <div class="dropzone-wrapper">
                           <div class="preview-zone" *ngIf="audioFileName != ''">
-                            <div class="box box-solid"  style="text-align: right;">
-                                <button (click)="removeAudio()" style="background: none; border: none; color: #f00;"><i class="fas fa-trash-alt"></i></button>
-                                <div class="box-body" style="text-align: center;">
-                                  <audio controls preload="auto">
-                                    <source [src]="audioFileName" type="audio/mpeg">
-                                    <source [src]="audioFileName" type="audio/ogg">
-                                    Your browser does not support the audio element.
-                                  </audio>
-                                </div>
-                                <div style="text-align: center;
+                            <div class="box box-solid" style="text-align: right;">
+                              <button (click)="removeAudio()" style="background: none; border: none; color: #f00;"><i
+                                  class="fas fa-trash-alt"></i></button>
+                              <div class="box-body" style="text-align: center;">
+                                <audio controls preload="auto">
+                                  <source [src]="audioFileName" type="audio/mpeg">
+                                  <source [src]="audioFileName" type="audio/ogg">
+                                  Your browser does not support the audio element.
+                                </audio>
+                              </div>
+                              <div style="text-align: center;
                                 display: block;
                                 margin-top: 10px;
                                 color: #ff9800;
                                 font-size: 13px;">
-                                  {{getAudioName()}}  
+                                {{getAudioName()}}
                               </div>
-                             
+
                             </div>
                           </div>
                           <div *ngIf="audioFileName == ''">
@@ -190,6 +191,11 @@
                             color: #f00;"><i class="fas fa-trash-alt"></i></button>
             </div>
 
+            <div style="text-align: center; padding-top: 20px; color: #436bcc;">
+              <a style="cursor: pointer; border-bottom: 1px solid #436bcc; padding: 5px;"
+                (click)="openExistingImageList()">Select Image from gallery</a>
+            </div>
+
 
           </div>
         </div>
@@ -202,3 +208,4 @@
     </div>
   </div>
 </div>
+<app-image-gallery *ngIf="IsImageGallaryVisible"></app-image-gallery>

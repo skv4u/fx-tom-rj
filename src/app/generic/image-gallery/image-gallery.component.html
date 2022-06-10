@@ -1,0 +1,8 @@
+<div class="popup-box">
+    <ul>
+      <li *ngFor="let m of ps.podcastImageList">
+        <img [src]="m" alt="no-image" />
+        <span>{{ getImageName(m) }}</span>
+      </li>
+    </ul>
+</div>

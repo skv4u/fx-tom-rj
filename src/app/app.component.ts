@@ -13,15 +13,20 @@ export class AppComponent {
     // if (document.location.hash == "#/dashboard") {
     //   this._podService.loader = true;
     // }
-    
+
     this._podService.localStorageData = this._localService.getUserData();
-    if(this._podService.localStorageData){
+    if (this._podService.localStorageData) {
       this._podService.loader = false;
     }
     // if(this._podService.localStorageData && window.location.hash.indexOf('chat') == -1){
-      
-    this._podService.getCategoryList();
-    this._podService.getLanguageList();
+    if (this._podService.localStorageData) {
+      this._podService.getCategoryList();
+      this._podService.getLanguageList();
+      this._podService.getshowList();
+      if (window.location.hash == '#/create-podcast')
+        this._podService.getPodcastList();
+    }
+
     // }
   }
 }

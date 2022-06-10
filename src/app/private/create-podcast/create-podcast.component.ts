@@ -255,4 +255,8 @@ export class CreatePodcastComponent implements OnInit {
     }
     return '';
   }
+  IsImageGallaryVisible:boolean = false;
+  openExistingImageList(){
+    this.IsImageGallaryVisible = true;
+  }
 }

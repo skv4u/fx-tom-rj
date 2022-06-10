@@ -266,7 +266,35 @@
     background-color: #fff;
     border-radius: 4px;
     z-index: 10;
-    padding: 20px;
+    /* padding: 20px; */
+    overflow: hidden;
+    box-shadow: 0px 5px 15px #959595;
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        li{
+            border: 1px solid #e6e6e6;
+            margin: 5px;
+            height: 110px;
+            /* overflow: hidden; */
+            padding: 5px;
+            width: 137px;
+            img{
+                height: 100%;
+                width: 100%;
+            }
+            span{
+                white-space: pre;
+                display: block;
+                width: 126px;
+                overflow: hidden;
+                padding-top: 5px;
+                font-size: 11px;
+            }
+        }
+    }
 }
 
 .viewedlist {
