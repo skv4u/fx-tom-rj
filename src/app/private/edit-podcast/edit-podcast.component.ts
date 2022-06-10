@@ -26,6 +26,11 @@ export class EditPodcastComponent implements OnInit {
   ngOnInit() {
     this._podService.isListPage = false;
     this._podService.iscreatebuttonVisiable=false;
+    debugger
+    if(!this._podService.podcastListData){
+      this.router.navigate(['/', 'dashboard'])
+      return
+    }
     if(this._podService.localStorageData.approval_status == 'Pending'){
       this.toaster.error('Your approval is pending.')
       this.router.navigate(['/', 'dashboard'])
