@@ -1,10 +1,12 @@
 <div class="popup-box">
-  <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="selectedpic('close')">X</button>
-  <!-- <button >X</button> -->
+  <button class="close" type="button" (click)="closePopup()">Close</button>
+ 
     <ul>
-      <li *ngFor="let m of ps.podcastImageList" (click)="selectedpic(m)">
+      <li *ngFor="let m of ps.podcastImageList" (click)="selectedpic(m)" [class.active]="m == selectedImage">
         <img [src]="m" alt="no-image" />
         <span>{{ getImageName(m) }}</span>
       </li>
     </ul>
+
+    <button class="close" type="button" (click)="closePopup()">Close</button>
 </div>

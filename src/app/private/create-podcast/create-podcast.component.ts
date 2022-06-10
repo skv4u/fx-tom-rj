@@ -141,35 +141,37 @@ export class CreatePodcastComponent implements OnInit {
   // }
 
   removeFile() {
-    let req = {
-      filename: this.pictureFileName
-    }
-    this._podService.loader = true;
-    this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
-      subscribe((data: any) => {
-        this._podService.loader = false;
-        this.pictureFileName = '';
-      }, err => {
-        this.pictureFileName = '';
-        this._podService.loader = false;
-      });
+    this.pictureFileName = "";
+    // let req = {
+    //   filename: this.pictureFileName
+    // }
+    // this._podService.loader = true;
+    // this._webService.commonMethod("s3bucket/remove", req, 'DELETE').
+    //   subscribe((data: any) => {
+    //     this._podService.loader = false;
+    //     this.pictureFileName = '';
+    //   }, err => {
+    //     this.pictureFileName = '';
+    //     this._podService.loader = false;
+    //   });
 
 
   }
 
   removeAudio() {
-    let req = {
-      filename: this.audioFileName
-    }
-    this._podService.loader = true;
-    this._webService.commonMethod("s3bucket/remove", this.audioFileName, 'DELETE').
-      subscribe((data: any) => {
-        this._podService.loader = false;
-        this.audioFileName = '';
-      }, err => {
-        this._podService.loader = false;
-        this.audioFileName = '';
-      });
+    this.audioFileName = "";
+    // let req = {
+    //   filename: this.audioFileName
+    // }
+    // this._podService.loader = true;
+    // this._webService.commonMethod("s3bucket/remove", this.audioFileName, 'DELETE').
+    //   subscribe((data: any) => {
+    //     this._podService.loader = false;
+        
+    //   }, err => {
+    //     this._podService.loader = false;
+    //     this.audioFileName = '';
+    //   });
 
 
   }
@@ -260,10 +262,8 @@ export class CreatePodcastComponent implements OnInit {
     this.IsImageGallaryVisible = true;
   }
 
-  fromChild(elem){
-    if(elem.type !== 'close'){
-    this.pictureFileName = elem.value;
-  }
-  this.IsImageGallaryVisible = false;
+  fromChild(elem){   
+    this.pictureFileName = elem;
+    this.IsImageGallaryVisible = false;
   }
 }
