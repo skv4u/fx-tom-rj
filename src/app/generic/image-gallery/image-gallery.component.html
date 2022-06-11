@@ -1,5 +1,7 @@
 <div class="popup-box">
-  <button class="close" type="button" (click)="closePopup()">Close</button>
+  <button class="close" type="button" (click)="closePopup()">
+    <i class="fas fa-times-circle"></i>
+  </button>
  
     <ul>
       <li *ngFor="let m of ps.podcastImageList" (click)="selectedpic(m)" [class.active]="m == selectedImage">
@@ -8,5 +10,5 @@
       </li>
     </ul>
 
-    <button class="close" type="button" (click)="closePopup()">Close</button>
+   
 </div>
