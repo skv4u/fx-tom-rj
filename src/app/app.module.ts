@@ -28,6 +28,7 @@ import { ChatComponent } from './private/chat/chat.component';
 import { SearchlistPipe } from './shared/pipes/searchlist.pipe';
 import { ImageGalleryComponent } from './generic/image-gallery/image-gallery.component'; 
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { FiltergalleryPipe } from './shared/pipes/filtergallery.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { NgxImageCompressService } from 'ngx-image-compress';
     ShowCreateComponent,
     ChatComponent,
     SearchlistPipe,
-    ImageGalleryComponent
+    ImageGalleryComponent,
+    FiltergalleryPipe
   ],
   imports: [
     BrowserModule,

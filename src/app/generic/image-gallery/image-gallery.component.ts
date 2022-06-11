@@ -10,6 +10,7 @@ export class ImageGalleryComponent implements OnInit {
   @Output() back = new EventEmitter();
   constructor(public ps: PorcastService) { }
   selectedImage: string = "";
+  gsearch:string = "";
   ngOnInit() {
   }
   getImageName(img) {
