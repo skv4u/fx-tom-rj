@@ -34,7 +34,8 @@ export class ResetPasswordComponent implements OnInit {
     }
     let req = {
       "phone": this._podService.mobileNumber,
-      "password": this.resetForm.value.newPassword
+      "password": this.resetForm.value.newPassword,
+      "token": this._podService.token
     }
     this._podService.loader = true;
     this._webService.commonMethod('user/resetpassword', req, "POST").subscribe(
