@@ -11,6 +11,7 @@ export class PorcastService {
   podcastImageList:any[]=[];
   podcastListData: any;
   serachvalue: string = '';
+  token: string = '';
   categoryList: any[] = [];
   languageList: any[] = [];
   noteList: any[] = [];

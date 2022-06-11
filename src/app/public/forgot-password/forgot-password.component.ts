@@ -82,12 +82,13 @@ export class ForgotPasswordComponent implements OnInit {
     }
     this._webService.commonMethod('sms/validate', req, "POST").subscribe(
       data => {
-        if (data.Status == 'Success' && data.Response) {
-          this._podCastService.mobileNumber = this.MobileNumberForm.value.mobile;
+        if (data.Status == 'Success' && data.Response.isValid) {
+          this._podCastService.mobileNumber = req.mobile;
+          this._podCastService.token = data.Response.token;
           this.toaster.success('OTP verified successfully');
           this.ismobilenumber = false;
           this.router.navigate(['/', 'reset-password']);
-        } else if (data.Status == 'Success' && !data.Response) {
+        } else if (data.Status == 'Success' && !data.Response.isValid) {
           this.toaster.error("Invalid OTP")
         }
         this._podCastService.loader = false;
