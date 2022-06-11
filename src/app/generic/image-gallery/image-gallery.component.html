@@ -4,7 +4,7 @@
     <ul>
       <li *ngFor="let m of ps.podcastImageList" (click)="selectedpic(m)" [class.active]="m == selectedImage">
         <img [src]="m" alt="no-image" />
-        <span>{{ getImageName(m) }}</span>
+        <span [title]="getImageName(m)">{{ getImageName(m) }}</span>
       </li>
     </ul>
 
