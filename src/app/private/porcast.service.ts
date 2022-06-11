@@ -192,7 +192,7 @@ export class PorcastService {
   getPodcastImageList(podcastlist:any){
     this.podcastImageList = podcastlist.map(v => v.imagepath);
     this.podcastImageList = Array.from(new Set(this.podcastImageList));
-    console.log(this.podcastImageList);
+    // console.log(this.podcastImageList);
   }
 
   getStatisticsList() {
