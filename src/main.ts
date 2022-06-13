@@ -10,7 +10,9 @@ if (environment.production) {
 let url = window.location.origin+'/api/token/';
 if(window.location.host.includes("localhost")){
   // url = "http://ec2-15-207-52-38.ap-south-1.compute.amazonaws.com/api/token/"; // Prod 
-  url = "http://ec2-34-197-255-9.compute-1.amazonaws.com/api/token/"; //QA 
+  // url = "https://rj.tomtompodcast.com/api/token/"; // QA 
+  // url = "https://ec2-34-197-255-9.compute-1.amazonaws.com/api/token/"; //QA 
+  url = "https://qa.tomtompodcast.com/api/token/"; // QA 
 }
 
 let resetToken = function(){
