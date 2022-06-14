@@ -92,6 +92,10 @@ export class CreatePodcastComponent implements OnInit {
 
         }
         this._podService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this._podService.TokenExpied();
+        }
       }
     )
   }

@@ -85,11 +85,11 @@ export class PorcastService {
       },
       err => {
         // console.log(err);
-        if (err.status === 401) {
-          localStorage.removeItem('rjttptoken');
-          // alert("Token expired!, Reloading the page");
-          window.location.reload();
-        }
+        // if (err.status === 401) {
+        //   localStorage.removeItem('rjttptoken');
+        //   // alert("Token expired!, Reloading the page");
+        //   window.location.reload();
+        // }
       }
     )
   }
@@ -110,6 +110,10 @@ export class PorcastService {
       data => {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.showList = data.Response;
+        }
+      }, err => {
+        if (err.status === 401) {
+          this.TokenExpied();
         }
       }
     )
@@ -186,6 +190,10 @@ export class PorcastService {
         }
         this.getStatisticsList();
         this.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.TokenExpied();
+        }
       }
     )
   }
@@ -220,6 +228,10 @@ export class PorcastService {
           this.StatisticsList = data.Response[0];
           // this.getNotificationLise();
         }
+      }, err => {
+        if (err.status === 401) {
+          this.TokenExpied();
+        }
       }
     )
   }
@@ -236,6 +248,10 @@ export class PorcastService {
         if (data.Status == 'Success' && data.Response && data.Response.length) {
           this.NotificationList = data.Response;
           this.NotificationLoader = false;
+        }
+      }, err => {
+        if (err.status === 401) {
+          this.TokenExpied();
         }
       }
     )
@@ -319,8 +335,15 @@ export class PorcastService {
     }
     this.RJDasboardList = [];
     localStorage.removeItem('user_data');
-    //localStorage.removeItem('tomtomtoken');
+    localStorage.removeItem('rjttptoken');
     this.router.navigate(['/', 'login'])
+  }
+
+  TokenExpied(){
+        localStorage.removeItem('rjttptoken');
+        localStorage.removeItem('user_data');
+         alert("Token expired!, Rediecting to login");
+         window.location.reload();
   }
 
 }

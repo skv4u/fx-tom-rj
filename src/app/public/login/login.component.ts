@@ -44,11 +44,13 @@ export class LoginComponent implements OnInit {
       this._webService.commonMethod('user/login', req, "POST").subscribe(
         data => {
           if (data.Status == 'Success' && data.Response) {
-            this._localStorage.setUserData(data.Response);
-            this._podCastService.localStorageData = data.Response;
+            this._localStorage.setUserData(data.Response.userdata);
+           //this._localStorage.setItem('rjttptoken', data.Response.token); 
+           localStorage.setItem('rjttptoken', data.Response.token);
+            this._podCastService.localStorageData = data.Response.userdata;
             this._podCastService.getCategoryList();
             this._podCastService.getLanguageList();
-            console.log(this._podCastService.localStorageData, "this._podCastService.localStorageData");
+            // console.log(this._podCastService.localStorageData, "this._podCastService.localStorageData");
             this.router.navigate(['/', 'dashboard'])
           } else {
             this.toaster.error(data.Response);

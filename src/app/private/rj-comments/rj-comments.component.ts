@@ -39,10 +39,14 @@ export class RjCommentsComponent implements OnInit {
           a.replycomment = "";
         }
         this.showplayer = true;
-      },
-      err => {
-        this.prodcastService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.prodcastService.loader = false;
+          this.prodcastService.TokenExpied();
+        }
       }
+      // ,err => {
+      // }
     )
   }
 
@@ -62,9 +66,11 @@ export class RjCommentsComponent implements OnInit {
         if (data.Status == "Success" && data.Response)
           this.getCommentList();
 
-      },
-      err => {
-        this.prodcastService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.prodcastService.loader = false;
+          this.prodcastService.TokenExpied();
+        }
       }
     )
   }
@@ -89,9 +95,11 @@ export class RjCommentsComponent implements OnInit {
           this.CommentsList = data.Response;
           this.getCommentList();
         }
-      },
-      err => {
-        this.prodcastService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.prodcastService.loader = false;
+          this.prodcastService.TokenExpied();
+        }
       }
     )
   }
@@ -120,9 +128,11 @@ export class RjCommentsComponent implements OnInit {
         document.getElementById('commenttext').innerHTML = "";
         this.getCommentList();
         // this.CommentsList=data.Response;
-      },
-      err => {
-        this.prodcastService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.prodcastService.loader = false;
+          this.prodcastService.TokenExpied();
+        }
       }
     )
   }
@@ -139,9 +149,11 @@ export class RjCommentsComponent implements OnInit {
         this.prodcastService.loader = false;
         if (data.Status == 'Success' && data.Response)
           this.getCommentList();
-      },
-      err => {
-        this.prodcastService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.prodcastService.loader = false;
+          this.prodcastService.TokenExpied();
+        }
       }
     )
   }
@@ -156,9 +168,11 @@ export class RjCommentsComponent implements OnInit {
         this.prodcastService.loader = false;
         if (data.Status == 'Success' && data.Response)
           this.getCommentList();
-      },
-      err => {
-        this.prodcastService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.prodcastService.loader = false;
+          this.prodcastService.TokenExpied();
+        }
       }
     )
   }
@@ -177,9 +191,11 @@ export class RjCommentsComponent implements OnInit {
         this.prodcastService.loader = false;
         if (data.Status == "Success" && data.Response)
           this.getCommentList();
-      },
-      err => {
-        this.prodcastService.loader = false;
+      }, err => {
+        if (err.status === 401) {
+          this.prodcastService.loader = false;
+          this.prodcastService.TokenExpied();
+        }
       }
     )
   }

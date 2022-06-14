@@ -113,6 +113,10 @@ export class EditPodcastComponent implements OnInit {
 
         }
         this._podService.loader = true;
+      }, err => {
+        if (err.status === 401) {
+          this._podService.TokenExpied();
+        }
       }
     )
   }

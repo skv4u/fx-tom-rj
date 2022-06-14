@@ -99,6 +99,10 @@ export class ChatComponent implements OnInit {
           a.active = this.selectedData && this.selectedData.sender_id && a.sender_id == this.selectedData.sender_id;
         }
         this.userList = data.Response;
+      }, err => {
+        if (err.status === 401) {
+          this.podcastService.TokenExpied();
+        }
       })
   }
   getmessageList() {
@@ -117,6 +121,10 @@ export class ChatComponent implements OnInit {
         setTimeout( ()=> {
           document.getElementById('scroll').scrollTop = document.getElementById('scroll').scrollHeight;
         },100)
+      }, err => {
+        if (err.status === 401) {
+          this.podcastService.TokenExpied();
+        }
       })
   }
 
@@ -128,6 +136,10 @@ export class ChatComponent implements OnInit {
     this._webService.commonMethod('chat/user/countupdate', req, "PUT").subscribe(
       data => {
        
+      }, err => {
+        if (err.status === 401) {
+          this.podcastService.TokenExpied();
+        }
       })
   }
 

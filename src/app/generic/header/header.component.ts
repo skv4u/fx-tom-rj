@@ -30,6 +30,10 @@ export class HeaderComponent implements OnInit {
     this.webservice.commonMethod('user/notification/update', req, 'PUT').subscribe(
       (data) => {
        // this._podService.getStatisticsList();
+      }, err => {
+        if (err.status === 401) {
+          this._podService.TokenExpied();
+        }
       }
     )
   }

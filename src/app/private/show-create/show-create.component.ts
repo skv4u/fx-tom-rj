@@ -67,10 +67,11 @@ export class ShowCreateComponent implements OnInit {
         this.ResetShow();
         this.prodCastService.loader = false;
         this.prodCastService.getshowList();
-      },
-      err => {
-        this.prodCastService.loader = false;
-        this.toast.error("Oops, Something went wrong");
+      }, err => {
+        if (err.status === 401) {
+          this.prodCastService.loader = false;
+          this.prodCastService.TokenExpied();
+        }
       }
     )
   }
@@ -93,12 +94,12 @@ export class ShowCreateComponent implements OnInit {
           this.showConfirmPopup = false;
           this.toast.error(data.Response);
         }
-
-      },
-      err => {
-        this.prodCastService.loader = false;
-        this.showConfirmPopup = false;
-        this.toast.error("Oops, Something went wrong");
+}, err => {
+        if (err.status === 401) {
+          this.showConfirmPopup = false;
+          this.prodCastService.loader = false;
+          this.prodCastService.TokenExpied();
+        }
       }
     )
   }
