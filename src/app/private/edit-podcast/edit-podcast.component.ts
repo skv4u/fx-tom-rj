@@ -20,6 +20,7 @@ export class EditPodcastComponent implements OnInit {
   audioFileName: string = '';
   pictureFileName: string = '';
   noteDescription: string = '';
+  isselectAudio: boolean = true;
   // _podService.loader: boolean = false;
   constructor(
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService,public imageCompress: NgxImageCompressService) { }
@@ -335,4 +336,17 @@ export class EditPodcastComponent implements OnInit {
     this.pictureFileName = elem;
     this.IsImageGallaryVisible = false;
   }
+
+  showsimageSelection(){
+    if(this.podcastForm.value.show != -1){
+      for(let image of this._podService.showList){
+        if(this.podcastForm.value.show == image.shows_id){
+          this.pictureFileName = image.image
+        }
+      }
+    }else{
+      this.pictureFileName = '';
+    }
+  }
+
 }

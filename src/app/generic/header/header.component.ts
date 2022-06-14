@@ -11,7 +11,7 @@ import { WebService } from 'src/app/shared/services/web.service';
 })
 export class HeaderComponent implements OnInit {
   // iscreatebuttonVisiable: boolean = false;
-  userName: string = this._podService.localStorageData.fullname;
+  userName: string = this._podService.localStorageData ? this._podService.localStorageData.fullname :  '';
   constructor(public router: Router, public _localStorage: LocalstorageService, public _podService: PorcastService, public webservice: WebService, public renderer: Renderer2) { }
 
   ngOnInit() {

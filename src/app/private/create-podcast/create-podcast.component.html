@@ -4,8 +4,22 @@
   <div class="body-content">
     <h3><a routerLink="/dashboard" (click)="_podService.iscreatebuttonVisiable=true" style="width: 210px;"><i
           class="fas fa-angle-left"></i> Back to Dashboard</a></h3>
-    <div class="c-podcast">
-      <h3>Create a Podcast</h3>
+    <div class="c-podcast" style="position: relative;">
+      <h3 style="display: inline-block;">Create a Podcast</h3>
+      <div style="
+position: absolute;
+right: 8%;
+top: 0px;
+width: 38%;
+"> 
+<!-- <div class="form-check mb-2"> -->
+  <input class="form-check-input" type="checkbox" [(ngModel)]="isselectAudio">
+  <label class="form-check-label" style="width: 90%;font-size: 11px;"> The content of the audio
+    file being uploaded by the you does not belong to any third party individual/organization
+    and is an original content. Also, the once uploaded, the audio podcast belongs to Tomtom
+    Podcast Organization.</label>
+<!-- </div> -->
+</div>
       <form [formGroup]="podcastForm">
         <div class="row">
           <div class="col-md-6">
@@ -76,7 +90,7 @@
               </div>
               <div class="col-md-9 mb-4">
                 <div class="form-floating">
-                  <select class="form-control" formControlName="show">
+                  <select class="form-control" formControlName="show" (change)="showsimageselection()">
                     <option value="-1">None - Individual Podcast</option>
                     <option *ngFor="let show of _podService.showList" [value]="show.shows_id">
                       {{show.name}}</option>
@@ -151,7 +165,7 @@
                               <p class="mb-1">Or</p>
                               <p>Double click here to add form library</p>
                             </div>
-                            <input type="file" #fileInput (change)="uploadaudio($event.target.files)" name="img_logo"
+                            <input type="file" #fileInput (change)="uploadaudio($event.target.files)" name="img_logo"  [disabled]="!isselectAudio"
                               class="dropzone" accept="audio/mp3">
                           </div>
                         </div>
@@ -190,10 +204,10 @@
                             border: none;
                             color: #f00;"><i class="fas fa-trash-alt"></i></button>
             </div>
-            <div style="text-align: center; padding-top: 20px; color: #436bcc;">
+            <!-- <div style="text-align: center; padding-top: 20px; color: #436bcc;">
               <a style="cursor: pointer; border-bottom: 1px solid #436bcc; padding: 5px;"
                 (click)="openExistingImageList()">Choose from Tom Tom Gallery</a>
-            </div>
+            </div> -->
 
 
           </div>

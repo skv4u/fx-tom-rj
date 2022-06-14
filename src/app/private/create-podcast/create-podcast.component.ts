@@ -23,6 +23,7 @@ export class CreatePodcastComponent implements OnInit {
   audioFileName: string = '';
   pictureFileName: string = '';
   issettingOpen: boolean = false;
+  isselectAudio: boolean = false;
   constructor(
     public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router, public imageCompress: NgxImageCompressService) { }
 
@@ -313,4 +314,19 @@ export class CreatePodcastComponent implements OnInit {
     this.pictureFileName = elem;
     this.IsImageGallaryVisible = false;
   }
+
+  showsimageselection(){
+    debugger
+    if(this.podcastForm.value.show != -1){
+    for(let image of this._podService.showList){
+      if(this.podcastForm.value.show == image.shows_id){
+        this.pictureFileName = image.image
+      }
+    }
+    }else{
+      this.pictureFileName = '';
+    }
+  }
+
+
 }
