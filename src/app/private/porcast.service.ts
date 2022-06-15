@@ -84,12 +84,8 @@ export class PorcastService {
         }
       },
       err => {
-        // console.log(err);
-        // if (err.status === 401) {
-        //   localStorage.removeItem('rjttptoken');
-        //   // alert("Token expired!, Reloading the page");
-        //   window.location.reload();
-        // }
+        if(err.status == 401)
+        this.TokenExpied()
       }
     )
   }
@@ -342,7 +338,7 @@ export class PorcastService {
   TokenExpied(){
         localStorage.removeItem('rjttptoken');
         localStorage.removeItem('user_data');
-         alert("Token expired!, Rediecting to login");
+         alert("Session expired!, Rediecting to login");
          window.location.reload();
   }
 
