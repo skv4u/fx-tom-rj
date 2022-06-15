@@ -28,6 +28,13 @@ export class AboutPodcastComponent implements OnInit {
     this._podService.podcastListData.age_restriction = this._podService.podcastListData.age_restriction == '0' ? false : true
     console.log(this._podService.podcastListData, "+++++++++++");
     this._podService.getNodeList();
+  }  
+  getAudioName() {
+    if (this._podService.podcastListData.audiopath) {
+      let str = this._podService.podcastListData.audiopath.substring(this._podService.podcastListData.audiopath.lastIndexOf("/") + 1);
+      return str.substring(str.indexOf("_") + 1);
+    }
+    return '';
   }
 
 }
