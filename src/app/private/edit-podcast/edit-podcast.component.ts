@@ -2,7 +2,7 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxImageCompressService } from 'ngx-image-compress';
+
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
@@ -23,7 +23,8 @@ export class EditPodcastComponent implements OnInit {
   isselectAudio: boolean = true;
   // _podService.loader: boolean = false;
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService,public imageCompress: NgxImageCompressService) { }
+    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public _localStorage: LocalstorageService, public router: Router, public toaster: ToastService
+   ) { }
 
   ngOnInit() {
     this._podService.isListPage = false;
@@ -218,45 +219,43 @@ export class EditPodcastComponent implements OnInit {
   //   this.router.navigate(['/', 'login']);
   // }
 
-  uploadaudio(element) {
+  uploadaudio(element) {​​ 
     const file = element[0];
-    if (file == undefined) return;
-    // console.log(file.type, "element");
-    if (this._webService.validAudioList().indexOf(file.type) == -1) {
-      this.toaster.error("Invalid audio file");
-      return
-    }
-    let formData = new FormData();
-    formData.append('filename', file, file.name);
-    this._podService.loader = true;
-    this._podService.loaderMessage = "Uploading...";
-    this._webService.UploadDocument1("s3bucket/upload", formData).
-      subscribe((data: any) => {
-        if (data.type === HttpEventType.Response) {
-          console.log(data);
-          this.audioFileName = data.body.Response;
-          this._podService.loader = false;
-          this._podService.loaderMessage = "Loading...";
-        }
-        if (data.type === HttpEventType.UploadProgress) {
-          const percentDone = Math.round(100 * data.loaded / data.total);
-          this._podService.loaderMessage = " Uploading : " + percentDone + "%";
-        }
-      }, err => {
-        this._podService.loader = false;
-        this._podService.loaderMessage = "Loading...";
-        this.audioFileName = "";
-      });
-    // subscribe((data: any) => {​​
-    // this.EditData.audiopath = data.Response;
-    // this._podService.loader = false;
-    // }​​, err => {​​
-    // }​​); 
+  if (file == undefined) return;
+  // console.log(file.type, "element");
+  if (this._webService.validAudioList().indexOf(file.type) == -1) {
+    this.toaster.error("Invalid audio file");
+    return
   }
-  selectFile(event: any) {
-    let fileName: any;
-    let file = event.target.files[0];
-    // const file = element[0];
+  let formData = new FormData();
+  formData.append('filename', file, file.name);
+  this._podService.loader = true;
+  this._podService.loaderMessage = "Uploading...";
+  this._webService.UploadDocument1("s3bucket/upload", formData).
+  subscribe((data: any) => {​​
+  if (data.type === HttpEventType.Response) {​​
+  console.log(data);
+  this.audioFileName = data.body.Response;
+  this._podService.loader = false;
+  this._podService.loaderMessage = "Loading...";
+  }​​
+  if (data.type === HttpEventType.UploadProgress) {​​
+  const percentDone = Math.round(100 * data.loaded / data.total);
+  this._podService.loaderMessage = " Uploading : " + percentDone + "%";
+  }​​
+  }​​, err => {​​ 
+    this._podService.loader = false;
+  this._podService.loaderMessage = "Loading...";
+  this.audioFileName = "";
+  }​​);
+  // subscribe((data: any) => {​​
+  // this.EditData.audiopath = data.Response;
+  // this._podService.loader = false;
+  // }​​, err => {​​
+  // }​​); 
+  }​​ 
+  uploadFile(element) {​​
+    const file = element[0];
     if (file == undefined) return;
     if (this._webService.validImageList().indexOf(file.type) == -1) {
       this.toaster.error("Invalid image");
@@ -264,62 +263,27 @@ export class EditPodcastComponent implements OnInit {
     }
     this._podService.loader = true;
     this._podService.loaderMessage = "Uploading...";
-    if ((file.size / 1024) < 50) {
-      this.uploadFile(file, file.name, true);
-      return;
-    }
-    fileName = file['name'];
-   
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.compressFile(event.target.result, fileName)
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  // console.log(file, "element");
+  let formData = new FormData();
+  formData.append('filename', file, file.name);
+  this._webService.UploadDocument1("s3bucket/upload", formData).
+  subscribe((data: any) => {​​
+  if (data.type === HttpEventType.Response) {​​
+  this.pictureFileName = data.body.Response;
+  this._podService.loader = false;
+  this._podService.loaderMessage = "Loading...";
+  }​​
+  if (data.type === HttpEventType.UploadProgress) {​​
+  const percentDone = Math.round(100 * data.loaded / data.total);
+  this._podService.loaderMessage = " Uploading : " + percentDone + "%";
+  }​​
+  }​​, err => {​​
+  this._podService.loader = false;
+  this.pictureFileName = "";
+  this._podService.loaderMessage = "Loading...";
+  }​​);
   }
-  compressFile(image, filename) {
-    let orientation = -1;
-    this.imageCompress
-      .compressFile(image, orientation, 40, 15)
-      .then(result => {
-        this.uploadFile(result, filename, false);
-      });
-  }
-  uploadFile(base64, fileName, direct) {
-    let formData = new FormData();
-    if (direct) {
-      formData.append('filename', base64, fileName);
-      this.uploadFormData(formData);
-      return;
-    }
-    fetch(base64)
-      .then(res => res.blob())
-      .then((blob: any) => {
-        let file1 = new File([blob], fileName);
-        formData.append("filename", file1);
-        this.uploadFormData(formData);
-      });
-    // });
-  }
-  uploadFormData(formData) {
-    this._webService.UploadDocument1("s3bucket/upload", formData).
-      subscribe((data: any) => {
-        if (data.type === HttpEventType.Response) {
-          this.pictureFileName = data.body.Response;
-          this._podService.loader = false;
-          this._podService.loaderMessage = "Loading...";
-        }
-        if (data.type === HttpEventType.UploadProgress) {
-          const percentDone = Math.round(100 * data.loaded / data.total);
-          this._podService.loaderMessage = " Uploading : " + percentDone + "%";
-        }
-      }, err => {
-        this._podService.loader = false;
-        this.pictureFileName = "";
-        this._podService.loaderMessage = "Loading...";
-      });
-  }
+
   getAudioName() {
     if (this.audioFileName) {
       let str = this.audioFileName.substring(this.audioFileName.lastIndexOf("/") + 1);

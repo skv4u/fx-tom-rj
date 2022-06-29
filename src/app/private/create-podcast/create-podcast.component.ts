@@ -2,8 +2,8 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxImageCompressService } from 'ngx-image-compress';
-import { CommonService } from 'src/app/shared/services/common.service';
+// import { NgxImageCompressService } from 'ngx-image-compress';
+// import { CommonService } from 'src/app/shared/services/common.service';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
@@ -25,7 +25,9 @@ export class CreatePodcastComponent implements OnInit {
   issettingOpen: boolean = false;
   isselectAudio: boolean = false;
   constructor(
-    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router, public imageCompress: NgxImageCompressService) { }
+    public fb: FormBuilder, public _webService: WebService, public _podService: PorcastService, public toaster: ToastService, public _localStorage: LocalstorageService, public router: Router
+    // , public imageCompress: NgxImageCompressService
+    ) { }
 
   ngOnInit() {
     this._podService.isListPage = false;
@@ -229,11 +231,9 @@ export class CreatePodcastComponent implements OnInit {
     // }​​, err => {​​
     // }​​); 
   }
-
-  selectFile(event: any) {
-    let fileName: any;
-    let file = event.target.files[0];
-    // const file = element[0];
+  uploadFile(element) {
+    // this._podService.loader = true;
+    const file = element[0];
     if (file == undefined) return;
     if (this._webService.validImageList().indexOf(file.type) == -1) {
       this.toaster.error("Invalid image");
@@ -241,45 +241,9 @@ export class CreatePodcastComponent implements OnInit {
     }
     this._podService.loader = true;
     this._podService.loaderMessage = "Uploading...";
-    if ((file.size / 1024) < 50) {
-      this.uploadFile(file, file.name, true);
-      return;
-    }
-    fileName = file['name'];
-   
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.compressFile(event.target.result, fileName)
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
-  compressFile(image, filename) {
-    let orientation = -1;
-    this.imageCompress
-      .compressFile(image, orientation, 40, 15)
-      .then(result => {
-        this.uploadFile(result, filename, false);
-      });
-  }
-  uploadFile(base64, fileName, direct) {
+    // console.log(file, "element");
     let formData = new FormData();
-    if (direct) {
-      formData.append('filename', base64, fileName);
-      this.uploadFormData(formData);
-      return;
-    }
-    fetch(base64)
-      .then(res => res.blob())
-      .then((blob: any) => {
-        let file1 = new File([blob], fileName);
-        formData.append("filename", file1);
-        this.uploadFormData(formData);
-      });
-    // });
-  }
-  uploadFormData(formData) {
+    formData.append('filename', file, file.name);
     this._webService.UploadDocument1("s3bucket/upload", formData).
       subscribe((data: any) => {
         if (data.type === HttpEventType.Response) {
@@ -316,7 +280,6 @@ export class CreatePodcastComponent implements OnInit {
   }
 
   showsimageselection(){
-    debugger
     if(this.podcastForm.value.show != -1){
     for(let image of this._podService.showList){
       if(this.podcastForm.value.show == image.shows_id){
