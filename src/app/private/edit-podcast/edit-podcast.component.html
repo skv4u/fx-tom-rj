@@ -184,7 +184,7 @@
                 <p>Upload <br /> Podcast picture <br />Or<br /> Topic picture</p>
               </span>
               <input type="file" name="myFile" class="drop-zone__input curser" style="display: block;"
-                (change)="selectFile($event)" accept="image/png,image/jpg,image/jpeg">
+                (change)="uploadFile($event.target.files)" accept="image/png,image/jpg,image/jpeg">
             </div>
 
 
@@ -257,4 +257,4 @@
     </div>
   </div>
 </div>
-<app-image-gallery *ngIf="IsImageGallaryVisible" (back)="fromChild($event)"></app-image-gallery>
+<!-- <app-image-gallery *ngIf="IsImageGallaryVisible" (back)="fromChild($event)"></app-image-gallery> -->
