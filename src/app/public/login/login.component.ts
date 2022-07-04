@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       }
       this._webService.commonMethod('user/login', req, "POST").subscribe(
         data => {
-          if (data.Status == 'Success' && data.Response) {
+          if (data.Status == 'Success' && data.Response && data.Response.userdata && data.Response.token && typeof data.Response != 'string') {
             this._localStorage.setUserData(data.Response.userdata);
            //this._localStorage.setItem('rjttptoken', data.Response.token); 
            localStorage.setItem('rjttptoken', data.Response.token);
