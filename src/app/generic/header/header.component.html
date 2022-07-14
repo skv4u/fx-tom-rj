@@ -35,10 +35,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="top-img">
+                        <div class="top-img outsideclick" (click)="Expandsetting()">
                             <img *ngIf="_podService.localStorageData.profile_image" [src]="_podService.localStorageData.profile_image" alt="img" />
                             <img *ngIf="_podService.localStorageData.profile_image == ''" src="./assets/images/login-img.jpg" alt="img" />
+
+                            <i style="position: relative;top: 17px; color: #0038d5;" class="fas fa-chevron-down"></i>
+
                         </div>
+                        <ul *ngIf="_podService.AllfilterValues.issettingOpen" class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" style="display: block;top: 60px; right: 15px; cursor: pointer;">
+                            <li (click)="_podService.viewDetails()">
+                                <a class="dropdown-item"><i class="fa fa-edit "></i> Edit Profile</a>
+                            </li>
+                            <li *ngIf="_podService.localStorageData.approval_status == 'Approved'">
+                                <a class="dropdown-item" routerLink="/show-create"><i class="fa fa-plus"></i> Create Shows</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" routerLink="/login" (click)="_podService.LogOut()">
+                                <i class="fa fa-sign-out "></i> Logout</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -67,85 +82,7 @@
 
         </div>
 
-        <!-- <div class="col-md-4 settings-main">
-            <div class="s_inner">
-                <div class="s-box" *ngIf="iscreatebuttonVisiable">
-                    <a id="btnGroupDrop4" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-sliders-h"></i></a>
-                    <ul class="dropdown-menu top-filter" aria-labelledby="btnGroupDrop4">
-                        <form>
-                            <li>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check1">
-                                    <label class="form-check-label" for="check1">RJ</label>
-                                </div>
-
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check2">
-                                    <label class="form-check-label">Thumbnails</label>
-                                </div>
-
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check3">
-                                    <label class="form-check-label">Title</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check4">
-                                    <label class="form-check-label">Category</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check5">
-                                    <label class="form-check-label">Upload Date</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check6">
-                                    <label class="form-check-label">Update Date</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check7">
-                                    <label class="form-check-label">Approvals</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check8">
-                                    <label class="form-check-label">Broadcast Date</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check9">
-                                    <label class="form-check-label">Notes</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check10">
-                                    <label class="form-check-label">Edit</label>
-                                </div>
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" id="check11">
-                                    <label class="form-check-label">Delete</label>
-                                </div>
-                                <button class="custome-button my-3">Done</button>
-                            </li>
-                        </form>
-                    </ul>
-                </div>
-                <div class="s-box"><a id="btnGroupDrop3" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><sup>5</sup></a>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop3">
-                        <li><a class="dropdown-item">link 1</a></li>
-                        <li><a class="dropdown-item">link 2</a></li>
-                        <li><a class="dropdown-item">link 3</a></li>
-                        <li><a class="dropdown-item">link 4</a></li>
-                        <li><a class="dropdown-item">link 5</a></li>
-                        <li><a class="dropdown-item">link 6</a></li>
-                        <li><a class="dropdown-item">link 7</a></li>
-                        <li><a class="dropdown-item">link 8</a></li>
-                    </ul>
-                </div>
-                <div class="s-box">
-                    <a (click)="_podService.AllfilterValues.issettingOpen=!_podService.AllfilterValues.issettingOpen" id="btnGroupDrop5" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog"></i></a>
-                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop5" [ngStyle]="{'display':_podService.AllfilterValues.issettingOpen ? 'block':'none'}">
-                        <li><a class="dropdown-item" routerLink="/edit-profile">Edit Profile</a></li>
-                        <li><a class="dropdown-item" routerLink="/login" (click)="LogOut()">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div> -->
+        
 
         <div class="col-md-4 settings-main">
             <div class="s_inner">
@@ -219,14 +156,10 @@
                         </div>
                     </ul>
                 </div>
-                <div class="s-box outsideclick">
+                <!-- <div class="s-box outsideclick">
                     <a (click)="Expandsetting()" id="btnGroupDrop5" class="dropdown-toggle outsideclick" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-cog curser" title="Setting"></i></a>
-                    <ul *ngIf="_podService.AllfilterValues.issettingOpen" class="dropdown-menu setting" aria-labelledby="btnGroupDrop5" style="display: block;">
-                        <li (click)="_podService.viewDetails()"><a class="dropdown-item"><i class="fa fa-edit "></i> Edit Profile</a></li>
-                        <li *ngIf="_podService.localStorageData.approval_status == 'Approved'"><a class="dropdown-item" routerLink="/show-create"><i class="fa fa-plus"></i> Create Shows</a></li>
-                        <li><a class="dropdown-item" routerLink="/login" (click)="_podService.LogOut()"><i class="fa fa-sign-out "></i> Logout</a></li>
-                    </ul>
-                </div>
+                  
+                </div> -->
                 <div class="s-box" *ngIf="_podService.localStorageData.approval_status == 'Approved'">
                     <a title="Chat Window" routerLink="/chat">
                         <i class="far fa-comments"></i>
