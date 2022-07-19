@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
@@ -16,9 +17,13 @@ export class RjCommentsComponent implements OnInit {
   replycomment: string = ""
   showplayer: boolean = false;
   postCommentVisible: boolean = false;
-  constructor(public prodcastService: PorcastService, public webService: WebService, public LocalStorage: LocalstorageService, public toaster: ToastService) { }
+  constructor(public prodcastService: PorcastService, public webService: WebService, public LocalStorage: LocalstorageService, public toaster: ToastService,public router: Router) { }
 
   ngOnInit() {
+    if(!this.LocalStorage.getUserData()){
+      this.router.navigate(['/login']);
+      return;
+    }
     this.prodcastService.isListPage = false;
     this.prodcastService.iscreatebuttonVisiable = false;
     this.getCommentList();

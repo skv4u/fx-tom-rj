@@ -2,6 +2,7 @@ import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { LocalstorageService } from 'src/app/shared/services/localstorage.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { WebService } from 'src/app/shared/services/web.service';
 import { PorcastService } from '../porcast.service';
@@ -24,9 +25,13 @@ export class ChatComponent implements OnInit {
   lastLength:number = 0;
 
   refreshObject:any;
-  constructor(public _webService: WebService, public podcastService: PorcastService, public commonService: CommonService, public toaster: ToastService, private route:Router) { }
+  constructor(public _webService: WebService, public podcastService: PorcastService, public commonService: CommonService, public toaster: ToastService, private router:Router, public LocalStorage:LocalstorageService) { }
 
   ngOnInit() {
+    if(!this.LocalStorage.getUserData()){
+      this.router.navigate(['/login']);
+      return;
+    }
     this.getUserList();
     this.startAutoRefresh()
   }

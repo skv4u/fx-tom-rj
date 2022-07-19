@@ -31,11 +31,15 @@ export class EditProfileComponent implements OnInit {
   constructor(
     public fb: FormBuilder, public _webService: WebService, public router: Router, public toaster: ToastService, public _localStorage: LocalstorageService, public _commonService: CommonService, public _podService: PorcastService) { }
   ngOnInit() {
+    if(!this._localStorage.getUserData()){
+      this.router.navigate(['/login']);
+      return;
+    }
     this._podService.isListPage = false;
     this._podService.iscreatebuttonVisiable = false;
     this._podService.AllfilterValues.issettingOpen = false
 
-    console.log(this._podService.localStorageData, "his._podService.localStorageData")
+    // console.log(this._podService.localStorageData, "his._podService.localStorageData")
     this.country = this._podService.localStorageData.country;
     this.state = this._podService.localStorageData.state;
     this.pictureFileName = this._podService.localStorageData.profile_image;

@@ -27,6 +27,10 @@ export class ShowCreateComponent implements OnInit {
   constructor(public router: Router, public webservice: WebService, public prodCastService: PorcastService, public localStorage: LocalstorageService, public toast: ToastService) { }
 
   ngOnInit() {
+    if(!this.localStorage.getUserData()){
+      this.router.navigate(['/login']);
+      return;
+    }
     this.prodCastService.isListPage = false;
     this.prodCastService.iscreatebuttonVisiable = false;
     this.prodCastService.getshowList();

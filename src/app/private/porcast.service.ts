@@ -288,6 +288,7 @@ export class PorcastService {
       isStatusOpen: false
     }
     this.NotificationList = [];
+   
   }
 
   handleClick($event: any) {
@@ -332,7 +333,8 @@ export class PorcastService {
     this.RJDasboardList = [];
     localStorage.removeItem('user_data');
     localStorage.removeItem('rjttptoken');
-    this.router.navigate(['/', 'login'])
+    this.localStorageData = {};
+    this.router.navigate(['/', 'login']);
   }
 
   TokenExpied(){

@@ -28,7 +28,11 @@ export class PodcastListComponent implements OnInit {
       this.router.navigate(['/', 'login'])
       return
     }
-    console.log(this._podService.localStorageData, "this._podService.localStorageData")
+    if(!this._localStorage.getUserData()){
+      this.router.navigate(['/login']);
+      return;
+    }
+    // console.log(this._podService.localStorageData, "this._podService.localStorageData")
     if (this._podService.localStorageData.approval_status == 'Pending' || this._podService.localStorageData.approval_status == 'Rejected') {
       this.viewUser(() => {
         this.genericCall();
