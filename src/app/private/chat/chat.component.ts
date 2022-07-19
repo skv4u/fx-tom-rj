@@ -50,7 +50,7 @@ export class ChatComponent implements OnInit {
   }
   redirctDashboard(){
     clearInterval(this.refreshObject);
-    this.route.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']);
   }
   loadChatforUser(elem: any) {
     for (let a of this.userList) {
